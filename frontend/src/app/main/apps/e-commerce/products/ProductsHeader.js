@@ -1,16 +1,35 @@
-import Button from '@mui/material/Button';
-import Input from '@mui/material/Input';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { selectProductsSearchText, setProductsSearchText } from '../store/productsSlice';
+import Button from "@mui/material/Button";
+import Input from "@mui/material/Input";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import {
+  selectProducts,
+  selectProductsSearchText,
+  setProductsSearchText,
+} from "../store/productsSlice";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 function ProductsHeader(props) {
   const dispatch = useDispatch();
   const searchText = useSelector(selectProductsSearchText);
+  const products = useSelector(selectProducts);
+  const categories = useState(products.map((product) => product.categories));
+
+  const [data, setData] = useState(products);
+  const [selectedCategory, setSelectedCategory] = useState("all");
+
+  function handleSelectedCategory(event) {
+    setSelectedCategory(event.target.value);
+  }
 
   return (
     <div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 w-full items-center justify-between py-32 px-24 md:px-32">
@@ -25,6 +44,28 @@ function ProductsHeader(props) {
       </Typography>
 
       <div className="flex flex-col w-full sm:w-auto sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center justify-end space-x-8">
+        <div className="flex flex-col sm:flex-row w-full sm:w-auto items-center space-y-16 sm:space-y-0 sm:space-x-16">
+          <FormControl className="flex w-full sm:w-136" variant="outlined">
+            <InputLabel id="category-select-label">Category</InputLabel>
+            <Select
+              labelId="category-select-label"
+              id="category-select"
+              label="Category"
+              value={selectedCategory}
+              onChange={handleSelectedCategory}
+            >
+              <MenuItem value="all">
+                <em> All </em>
+              </MenuItem>
+              {categories.map((category) => (
+                <MenuItem value={category.slug} key={category.id}>
+                  {category.title}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
+
         <Paper
           component={motion.div}
           initial={{ y: -20, opacity: 0 }}
@@ -40,7 +81,7 @@ function ProductsHeader(props) {
             fullWidth
             value={searchText}
             inputProps={{
-              'aria-label': 'Search',
+              "aria-label": "Search",
             }}
             onChange={(ev) => dispatch(setProductsSearchText(ev))}
           />
