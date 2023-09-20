@@ -1,15 +1,15 @@
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import MenuItem from '@mui/material/MenuItem';
-import Popover from '@mui/material/Popover';
-import Typography from '@mui/material/Typography';
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { selectUser } from 'app/store/userSlice';
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuItem from "@mui/material/MenuItem";
+import Popover from "@mui/material/Popover";
+import Typography from "@mui/material/Typography";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import { selectUser } from "app/store/userSlice";
 
 function UserMenu(props) {
   const user = useSelector(selectUser);
@@ -35,14 +35,23 @@ function UserMenu(props) {
           <Typography component="span" className="font-semibold flex">
             {user.data.displayName}
           </Typography>
-          <Typography className="text-11 font-medium capitalize" color="text.secondary">
+          <Typography
+            className="text-11 font-medium capitalize"
+            color="text.secondary"
+          >
             {user.role.toString()}
-            {(!user.role || (Array.isArray(user.role) && user.role.length === 0)) && 'Guest'}
+            {(!user.role ||
+              (Array.isArray(user.role) && user.role.length === 0)) &&
+              "Guest"}
           </Typography>
         </div>
 
         {user.data.photoURL ? (
-          <Avatar className="md:mx-4" alt="user photo" src={user.data.photoURL} />
+          <Avatar
+            className="md:mx-4"
+            alt="user photo"
+            src={user.data.photoURL}
+          />
         ) : (
           <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
         )}
@@ -53,15 +62,15 @@ function UserMenu(props) {
         anchorEl={userMenu}
         onClose={userMenuClose}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'center',
+          vertical: "bottom",
+          horizontal: "center",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
+          vertical: "top",
+          horizontal: "center",
         }}
         classes={{
-          paper: 'py-8',
+          paper: "py-8",
         }}
       >
         {!user.role || user.role.length === 0 ? (
@@ -81,17 +90,49 @@ function UserMenu(props) {
           </>
         ) : (
           <>
-            <MenuItem component={Link} to="/apps/profile" onClick={userMenuClose} role="button">
+            <MenuItem
+              component={Link}
+              to="/apps/profile"
+              onClick={userMenuClose}
+              role="button"
+            >
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-circle</FuseSvgIcon>
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </MenuItem>
-            <MenuItem component={Link} to="/apps/mailbox" onClick={userMenuClose} role="button">
+            <MenuItem
+              component={Link}
+              to="/apps/e-commerce/orders"
+              onClick={userMenuClose}
+              role="button"
+            >
               <ListItemIcon className="min-w-40">
-                <FuseSvgIcon>heroicons-outline:mail-open</FuseSvgIcon>
+                <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="Inbox" />
+              <ListItemText primary="My Orders" />
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/apps/coins"
+              onClick={userMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
+              </ListItemIcon>
+              <ListItemText primary="My Coins" />
+            </MenuItem>
+            <MenuItem
+              component={Link}
+              to="/apps/wishlist"
+              onClick={userMenuClose}
+              role="button"
+            >
+              <ListItemIcon className="min-w-40">
+                <FuseSvgIcon>heroicons-outline:heart</FuseSvgIcon>
+              </ListItemIcon>
+              <ListItemText primary="Wish List" />
             </MenuItem>
             <MenuItem
               component={NavLink}
