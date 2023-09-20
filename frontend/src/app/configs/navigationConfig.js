@@ -51,14 +51,6 @@ const navigationConfig = [
     translate: "APPLICATIONS",
     children: [
       {
-        id: "apps.academy",
-        title: "Academy",
-        type: "item",
-        icon: "heroicons-outline:academic-cap",
-        url: "/apps/academy",
-        translate: "ACADEMY",
-      },
-      {
         id: "apps.ecommerce",
         title: "ECommerce",
         type: "collapse",

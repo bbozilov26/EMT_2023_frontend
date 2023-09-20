@@ -46,9 +46,9 @@ function ToolbarLayout3(props) {
           </Hidden>
 
           <div className="flex flex-1">
-            <Hidden smDown>
-              <NavigationSearch className="mx-16 lg:mx-24" variant="basic" />
-            </Hidden>
+            {/*<Hidden smDown>*/}
+            {/*  <NavigationSearch className="mx-16 lg:mx-24" variant="basic" />*/}
+            {/*</Hidden>*/}
           </div>
 
           <div className="flex items-center px-8 md:px-0 h-full overflow-x-auto">
