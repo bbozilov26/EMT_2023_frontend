@@ -59,21 +59,6 @@ const navigationConfig = [
         end: true,
         translate: "FILE_MANAGER",
       },
-      {
-        id: "apps.help-center",
-        title: "Help Center",
-        type: "collapse",
-        icon: "heroicons-outline:support",
-        url: "/apps/help-center",
-        children: [
-          {
-            id: "apps.help-center.support",
-            title: "Support",
-            type: "item",
-            url: "/apps/help-center/support",
-          },
-        ],
-      },
     ],
   },
   {
@@ -83,13 +68,6 @@ const navigationConfig = [
     type: "group",
     icon: "heroicons-outline:document",
     children: [
-      {
-        id: "pages.activities",
-        title: "Activities",
-        type: "item",
-        icon: "heroicons-outline:menu-alt-2",
-        url: "/pages/activities",
-      },
       {
         id: "pages.authentication",
         title: "Authentication",
@@ -442,57 +420,6 @@ const navigationConfig = [
         ],
       },
       {
-        id: "pages.coming-soon",
-        title: "Coming Soon",
-        type: "collapse",
-        icon: "heroicons-outline:clock",
-        url: "/pages/coming-soon",
-        children: [
-          {
-            id: "pages.coming-soon.classic",
-            title: "Classic",
-            type: "item",
-            url: "/pages/coming-soon/classic",
-          },
-          {
-            id: "pages.coming-soon.modern",
-            title: "Modern",
-            type: "item",
-            url: "/pages/coming-soon/modern",
-          },
-          {
-            id: "pages.coming-soon.modern-reversed",
-            title: "Modern Reversed",
-            type: "item",
-            url: "/pages/coming-soon/modern-reversed",
-          },
-          {
-            id: "pages.coming-soon.split-screen",
-            title: "Split Screen",
-            type: "item",
-            url: "/pages/coming-soon/split-screen",
-          },
-          {
-            id: "pages.coming-soon.split-screen-reversed",
-            title: "Split Screen Reversed",
-            type: "item",
-            url: "/pages/coming-soon/split-screen-reversed",
-          },
-          {
-            id: "pages.coming-soon.full-screen",
-            title: "Full Screen",
-            type: "item",
-            url: "/pages/coming-soon/full-screen",
-          },
-          {
-            id: "pages.coming-soon.full-screen-reversed",
-            title: "Full Screen Reversed",
-            type: "item",
-            url: "/pages/coming-soon/full-screen-reversed",
-          },
-        ],
-      },
-      {
         id: "pages.error",
         title: "Error",
         type: "collapse",
@@ -545,58 +472,6 @@ const navigationConfig = [
         type: "item",
         icon: "heroicons-outline:exclamation",
         url: "/pages/maintenance",
-      },
-      {
-        id: "pages.pricing",
-        title: "Pricing",
-        type: "collapse",
-        icon: "heroicons-outline:cash",
-        children: [
-          {
-            id: "pages.pricing.modern",
-            title: "Modern",
-            type: "item",
-            url: "/pages/pricing/modern",
-          },
-          {
-            id: "pages.pricing.simple",
-            title: "Simple",
-            type: "item",
-            url: "/pages/pricing/simple",
-          },
-          {
-            id: "pages.pricing.single",
-            title: "Single",
-            type: "item",
-            url: "/pages/pricing/single",
-          },
-          {
-            id: "pages.pricing.table",
-            title: "Table",
-            type: "item",
-            url: "/pages/pricing/table",
-          },
-        ],
-      },
-      {
-        id: "pages.search",
-        title: "Search",
-        type: "collapse",
-        icon: "search",
-        children: [
-          {
-            id: "pages.search.classic-search",
-            title: "Classic Search",
-            type: "item",
-            url: "pages/search/classic",
-          },
-          {
-            id: "pages.search.modern-search",
-            title: "Modern Search",
-            type: "item",
-            url: "pages/search/modern",
-          },
-        ],
       },
     ],
   },
