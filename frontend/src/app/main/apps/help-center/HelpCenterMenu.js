@@ -54,7 +54,7 @@ function HelpCenterMenu(props) {
             {/*<ListItemIcon className="min-w-40">*/}
             {/*  <FuseSvgIcon>heroicons-outline:lifebuoy</FuseSvgIcon>*/}
             {/*</ListItemIcon>*/}
-            <ListItemText primary="Help Center Home" />
+            <ListItemText primary="Home" />
           </MenuItem>
 
           <MenuItem
