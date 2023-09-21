@@ -17,20 +17,9 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 
 function ProductsHeader(props) {
-  const dispatch = useDispatch();
-  const searchText = useSelector(selectProductsSearchText);
-  const products = useSelector(selectProducts);
-  const categories = useState(products.map((product) => product.categories));
-
-  const [data, setData] = useState(products);
-  const [selectedCategory, setSelectedCategory] = useState("all");
-
-  function handleSelectedCategory(event) {
-    setSelectedCategory(event.target.value);
-  }
-
   return (
     <div className="flex flex-col sm:flex-row space-y-16 sm:space-y-0 flex-1 w-full items-center justify-between py-32 px-24 md:px-32">
       <Typography
@@ -42,66 +31,6 @@ function ProductsHeader(props) {
       >
         Products
       </Typography>
-
-      <div className="flex flex-col w-full sm:w-auto sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center justify-end space-x-8">
-        <div className="flex flex-col sm:flex-row w-full sm:w-auto items-center space-y-16 sm:space-y-0 sm:space-x-16">
-          <FormControl className="flex w-full sm:w-136" variant="outlined">
-            <InputLabel id="category-select-label">Category</InputLabel>
-            <Select
-              labelId="category-select-label"
-              id="category-select"
-              label="Category"
-              value={selectedCategory}
-              onChange={handleSelectedCategory}
-            >
-              <MenuItem value="all">
-                <em> All </em>
-              </MenuItem>
-              {categories.map((category) => (
-                <MenuItem value={category.slug} key={category.id}>
-                  {category.title}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
-
-        <Paper
-          component={motion.div}
-          initial={{ y: -20, opacity: 0 }}
-          animate={{ y: 0, opacity: 1, transition: { delay: 0.2 } }}
-          className="flex items-center w-full sm:max-w-256 space-x-8 px-16 rounded-full border-1 shadow-0"
-        >
-          <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
-
-          <Input
-            placeholder="Search products"
-            className="flex flex-1"
-            disableUnderline
-            fullWidth
-            value={searchText}
-            inputProps={{
-              "aria-label": "Search",
-            }}
-            onChange={(ev) => dispatch(setProductsSearchText(ev))}
-          />
-        </Paper>
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-        >
-          <Button
-            className=""
-            component={Link}
-            to="/apps/e-commerce/products/new"
-            variant="contained"
-            color="secondary"
-            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
-          >
-            Add
-          </Button>
-        </motion.div>
-      </div>
     </div>
   );
 }

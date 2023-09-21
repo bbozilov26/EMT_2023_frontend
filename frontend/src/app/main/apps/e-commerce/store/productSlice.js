@@ -1,16 +1,19 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import FuseUtils from '@fuse/utils';
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import axios from "axios";
+import FuseUtils from "@fuse/utils";
 
-export const getProduct = createAsyncThunk('eCommerceApp/product/getProduct', async (productId) => {
-  const response = await axios.get(`/api/ecommerce/products/${productId}`);
-  const data = await response.data;
+export const getProduct = createAsyncThunk(
+  "eCommerceApp/product/getProduct",
+  async (productId) => {
+    const response = await axios.get(`/api/ecommerce/products/${productId}`);
+    const data = await response.data;
 
-  return data === undefined ? null : data;
-});
+    return data === undefined ? null : data;
+  }
+);
 
 export const removeProduct = createAsyncThunk(
-  'eCommerceApp/product/removeProduct',
+  "eCommerceApp/product/removeProduct",
   async (val, { dispatch, getState }) => {
     const { id } = getState().eCommerceApp.product;
     await axios.delete(`/api/ecommerce/products/${id}`);
@@ -19,11 +22,14 @@ export const removeProduct = createAsyncThunk(
 );
 
 export const saveProduct = createAsyncThunk(
-  'eCommerceApp/product/saveProduct',
+  "eCommerceApp/product/saveProduct",
   async (productData, { dispatch, getState }) => {
     const { id } = getState().eCommerceApp;
 
-    const response = await axios.put(`/api/ecommerce/products/${id}`, productData);
+    const response = await axios.put(
+      `/api/ecommerce/products/${id}`,
+      productData
+    );
 
     const data = await response.data;
 
@@ -32,7 +38,7 @@ export const saveProduct = createAsyncThunk(
 );
 
 const productSlice = createSlice({
-  name: 'eCommerceApp/product',
+  name: "eCommerceApp/product",
   initialState: null,
   reducers: {
     resetProduct: () => null,
@@ -41,23 +47,12 @@ const productSlice = createSlice({
       prepare: (event) => ({
         payload: {
           id: FuseUtils.generateGUID(),
-          name: '',
-          handle: '',
-          description: '',
+          name: "",
+          description: "",
           categories: [],
-          tags: [],
           images: [],
-          priceTaxExcl: 0,
-          priceTaxIncl: 0,
-          taxRate: 0,
-          comparedPrice: 0,
+          price: 0,
           quantity: 0,
-          sku: '',
-          width: '',
-          height: '',
-          depth: '',
-          weight: '',
-          extraShippingFee: 0,
           active: true,
         },
       }),

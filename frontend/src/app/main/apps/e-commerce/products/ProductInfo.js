@@ -18,7 +18,7 @@ function ProductInfo({ product, className }) {
 
       <Typography className="text-13" color="text.secondary">
         <span>$</span>
-        {product.priceTaxIncl}
+        {product.price}
       </Typography>
     </div>
   );

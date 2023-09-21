@@ -9,6 +9,9 @@ import authRoles from "../auth/authRoles";
 i18next.addResourceBundle("en", "navigation", en);
 i18next.addResourceBundle("tr", "navigation", tr);
 i18next.addResourceBundle("ar", "navigation", ar);
+i18next.addResourceBundle("en", "app", en);
+i18next.addResourceBundle("tr", "app", tr);
+i18next.addResourceBundle("ar", "app", ar);
 
 const navigationConfig = [
   {

@@ -3452,7 +3452,7 @@
                         null
                       ],
                       "priceTaxExcl": 0,
-                      "priceTaxIncl": 0,
+                      "price": 0,
                       "taxRate": 0,
                       "comparedPrice": 0,
                       "quantity": 0,
@@ -3523,7 +3523,7 @@
                       null
                     ],
                     "priceTaxExcl": 0,
-                    "priceTaxIncl": 0,
+                    "price": 0,
                     "taxRate": 0,
                     "comparedPrice": 0,
                     "quantity": 0,
@@ -5933,7 +5933,7 @@
             "featuredImageId": "1",
             "images": [],
             "priceTaxExcl": 9.309,
-            "priceTaxIncl": 10.24,
+            "price": 10.24,
             "taxRate": 10,
             "comparedPrice": 19.9,
             "quantity": 3,
@@ -5982,7 +5982,7 @@
           "priceTaxExcl": {
             "type": "number"
           },
-          "priceTaxIncl": {
+          "price": {
             "type": "number"
           },
           "taxRate": {
@@ -17664,7 +17664,7 @@
               }
             ],
             "priceTaxExcl": 9.309,
-            "priceTaxIncl": 10.24,
+            "price": 10.24,
             "taxRate": 10,
             "comparedPrice": 19.9,
             "quantity": 3,
@@ -17743,7 +17743,7 @@
               }
             ],
             "priceTaxExcl": 22.381,
-            "priceTaxIncl": 24.62,
+            "price": 24.62,
             "taxRate": 10,
             "comparedPrice": 29.9,
             "quantity": 92,
@@ -17822,7 +17822,7 @@
               }
             ],
             "priceTaxExcl": 44.809,
-            "priceTaxIncl": 49.29,
+            "price": 49.29,
             "taxRate": 10,
             "comparedPrice": 59.9,
             "quantity": 60,
@@ -17901,7 +17901,7 @@
               }
             ],
             "priceTaxExcl": 62.827,
-            "priceTaxIncl": 69.11,
+            "price": 69.11,
             "taxRate": 10,
             "comparedPrice": 79.9,
             "quantity": 101,
@@ -17980,7 +17980,7 @@
               }
             ],
             "priceTaxExcl": 9.309,
-            "priceTaxIncl": 10.24,
+            "price": 10.24,
             "taxRate": 10,
             "comparedPrice": 19.9,
             "quantity": 19,
@@ -18059,7 +18059,7 @@
               }
             ],
             "priceTaxExcl": 53.963,
-            "priceTaxIncl": 59.36,
+            "price": 59.36,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 101,
@@ -18138,7 +18138,7 @@
               }
             ],
             "priceTaxExcl": 58.372,
-            "priceTaxIncl": 64.21,
+            "price": 64.21,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 34,
@@ -18217,7 +18217,7 @@
               }
             ],
             "priceTaxExcl": 63.39,
-            "priceTaxIncl": 69.73,
+            "price": 69.73,
             "taxRate": 10,
             "comparedPrice": 79.9,
             "quantity": 4,
@@ -18296,7 +18296,7 @@
               }
             ],
             "priceTaxExcl": 52.154,
-            "priceTaxIncl": 57.37,
+            "price": 57.37,
             "taxRate": 10,
             "comparedPrice": 59.9,
             "quantity": 58,
@@ -18375,7 +18375,7 @@
               }
             ],
             "priceTaxExcl": 62.18,
-            "priceTaxIncl": 68.4,
+            "price": 68.4,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 125,
@@ -18454,7 +18454,7 @@
               }
             ],
             "priceTaxExcl": 9.309,
-            "priceTaxIncl": 10.24,
+            "price": 10.24,
             "taxRate": 10,
             "comparedPrice": 19.9,
             "quantity": 3,
@@ -18533,7 +18533,7 @@
               }
             ],
             "priceTaxExcl": 58.372,
-            "priceTaxIncl": 64.21,
+            "price": 64.21,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 34,
@@ -18612,7 +18612,7 @@
               }
             ],
             "priceTaxExcl": 52.154,
-            "priceTaxIncl": 57.37,
+            "price": 57.37,
             "taxRate": 10,
             "comparedPrice": 59.9,
             "quantity": 58,
@@ -18691,7 +18691,7 @@
               }
             ],
             "priceTaxExcl": 22.381,
-            "priceTaxIncl": 24.62,
+            "price": 24.62,
             "taxRate": 10,
             "comparedPrice": 29.9,
             "quantity": 92,
@@ -18770,7 +18770,7 @@
               }
             ],
             "priceTaxExcl": 9.309,
-            "priceTaxIncl": 10.24,
+            "price": 10.24,
             "taxRate": 10,
             "comparedPrice": 19.9,
             "quantity": 19,
@@ -18849,7 +18849,7 @@
               }
             ],
             "priceTaxExcl": 44.809,
-            "priceTaxIncl": 49.29,
+            "price": 49.29,
             "taxRate": 10,
             "comparedPrice": 59.9,
             "quantity": 60,
@@ -18928,7 +18928,7 @@
               }
             ],
             "priceTaxExcl": 53.963,
-            "priceTaxIncl": 59.36,
+            "price": 59.36,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 101,
@@ -19007,7 +19007,7 @@
               }
             ],
             "priceTaxExcl": 63.39,
-            "priceTaxIncl": 69.73,
+            "price": 69.73,
             "taxRate": 10,
             "comparedPrice": 79.9,
             "quantity": 4,
@@ -19086,7 +19086,7 @@
               }
             ],
             "priceTaxExcl": 62.827,
-            "priceTaxIncl": 69.11,
+            "price": 69.11,
             "taxRate": 10,
             "comparedPrice": 79.9,
             "quantity": 101,
@@ -19165,7 +19165,7 @@
               }
             ],
             "priceTaxExcl": 62.18,
-            "priceTaxIncl": 68.4,
+            "price": 68.4,
             "taxRate": 10,
             "comparedPrice": 69.9,
             "quantity": 125,

@@ -15,13 +15,13 @@ function ProductCard({ product }) {
           <img
             className="w-full h-full object-cover"
             src={_.find(product.images, { id: product.featuredImageId }).url}
-            alt={product.name}
+            alt={product.title}
           />
         ) : (
           <img
             className="w-full h-full object-cover"
             src="assets/images/apps/ecommerce/product-image-placeholder.png"
-            alt={product.name}
+            alt={product.title}
           />
         )}
       </div>
