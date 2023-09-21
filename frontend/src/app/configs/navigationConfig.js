@@ -51,21 +51,6 @@ const navigationConfig = [
     translate: "APPLICATIONS",
     children: [
       {
-        id: "apps.ecommerce",
-        title: "ECommerce",
-        type: "collapse",
-        icon: "heroicons-outline:shopping-cart",
-        translate: "ECOMMERCE",
-        children: [
-          {
-            id: "e-commerce-order-detail",
-            title: "Order Detail",
-            type: "item",
-            url: "apps/e-commerce/orders/1",
-          },
-        ],
-      },
-      {
         id: "apps.file-manager",
         title: "File Manager",
         type: "item",
@@ -81,25 +66,6 @@ const navigationConfig = [
         icon: "heroicons-outline:support",
         url: "/apps/help-center",
         children: [
-          {
-            id: "apps.help-center.home",
-            title: "Home",
-            type: "item",
-            url: "/apps/help-center",
-            end: true,
-          },
-          {
-            id: "apps.help-center.faqs",
-            title: "FAQs",
-            type: "item",
-            url: "/apps/help-center/faqs",
-          },
-          {
-            id: "apps.help-center.guides",
-            title: "Guides",
-            type: "item",
-            url: "/apps/help-center/guides",
-          },
           {
             id: "apps.help-center.support",
             title: "Support",
