@@ -1,7 +1,7 @@
-import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import Box from '@mui/material/Box';
+import Typography from "@mui/material/Typography";
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import Box from "@mui/material/Box";
 
 function Error404Page() {
   return (
@@ -19,7 +19,7 @@ function Error404Page() {
             fill="none"
             preserveAspectRatio="xMidYMax slice"
             xmlns="http://www.w3.org/2000/svg"
-            sx={{ color: 'secondary.main' }}
+            sx={{ color: "secondary.main" }}
           >
             <g clipPath="url(#clip0)">
               <path
@@ -244,8 +244,11 @@ function Error404Page() {
           </Typography>
         </motion.div>
 
-        <Link className="block font-normal mt-48" to="/apps/dashboards/project">
-          Back to Dashboard
+        <Link
+          className="block font-normal mt-48"
+          to="/apps/e-commerce/products"
+        >
+          Back to Home
         </Link>
       </div>
     </div>
