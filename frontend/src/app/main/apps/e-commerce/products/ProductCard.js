@@ -55,87 +55,113 @@ function ProductCard({ product }) {
         }}
       >
         {user.role.toString() === "super admin" ||
-        user.role.toString() === "Admin" ? (
+        user.role.toString() === "admin" ? (
           <>
-            <Button
-              to={`/products/delete/${product.id}`}
-              component={Link}
-              className="px-16 min-w-96"
-              color="warning"
-              variant="contained"
-              sx={{
+            <div
+              style={{
                 display: "flex",
-                alignItems: "center", // Center vertically
-                justifyContent: "center", // Center horizontally
+                alignItems: "center",
+                justifyContent: "flex-start", // Align to the far left
               }}
             >
-              <span style={{ marginRight: "0px" }}>
-                <FuseSvgIcon className="" size={20}>
-                  material-solid:delete_forever
-                </FuseSvgIcon>
-              </span>
-              Remove
-            </Button>
-            <Button
-              to={`/products/${product.id}`}
-              component={Link}
-              className="px-16 min-w-96"
-              color="secondary"
-              variant="contained"
-              sx={{
+              <Button
+                to={`/products/delete/${product.id}`}
+                component={Link}
+                className="px-16 min-w-96"
+                color="warning"
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ marginRight: "0px" }}>
+                  <FuseSvgIcon className="" size={20}>
+                    material-solid:delete_forever
+                  </FuseSvgIcon>
+                </span>
+                Remove
+              </Button>
+            </div>
+            <div
+              style={{
+                flex: 1,
                 display: "flex",
-                alignItems: "center", // Center vertically
-                justifyContent: "center", // Center horizontally
+                alignItems: "center",
+                justifyContent: "flex-end", // Align to the far right
               }}
             >
-              <span style={{ marginRight: "0px" }}>
-                <FuseSvgIcon className="" size={20}>
-                  feather:edit
-                </FuseSvgIcon>
-              </span>
-              Edit
-            </Button>
+              <Button
+                to={`/products/${product.id}`}
+                component={Link}
+                className="px-16 min-w-96"
+                color="secondary"
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ marginRight: "0px" }}>
+                  <FuseSvgIcon className="" size={20}>
+                    feather:edit
+                  </FuseSvgIcon>
+                </span>
+                Edit
+              </Button>
+            </div>
           </>
         ) : (
           <>
-            <Link to={`/products/wishlist/add/${product.id}`}>
-              <div
-                className={`px-16 min-w-24 ${
-                  isRed ? "text-red-500" : "text-secondary"
-                }`} // Change text color
-                onClick={handleClick}
-                style={{
-                  display: "flex",
-                  alignItems: "center", // Center vertically
-                  justifyContent: "center", // Center horizontally
-                }}
-              >
+            <div
+              className={`px-16 min-w-24 ${
+                isRed ? "text-red-500" : "text-secondary"
+              }`} // Change text color
+              onClick={handleClick}
+              style={{
+                display: "flex",
+                alignItems: "center", // Center vertically
+                justifyContent: "center", // Center horizontally
+              }}
+            >
+              <Link to={`/products/wishlist/add/${product.id}`}>
                 {isRed ? (
                   <IoHeart size={25} color="red" />
                 ) : (
                   <IoHeartOutline size={25} />
                 )}
-              </div>
-            </Link>
-            <Button
-              to={`/products/${product.id}`}
-              component={Link}
-              className="px-16 min-w-128"
-              color="secondary"
-              variant="contained"
-              sx={{
+              </Link>
+            </div>
+            <div
+              style={{
+                flex: 1, // Take up remaining space
                 display: "flex",
-                alignItems: "center", // Center vertically
-                justifyContent: "center", // Center horizontally
+                alignItems: "center",
+                justifyContent: "flex-end", // Align to the far right
               }}
             >
-              <span style={{ marginRight: "8px" }}>
-                <FuseSvgIcon className="" size={20}>
-                  heroicons-solid:shopping-cart
-                </FuseSvgIcon>
-              </span>
-              Add to cart
-            </Button>
+              <Button
+                to={`add/${product.id}/${user.id}`}
+                component={Link}
+                className="px-16 min-w-128"
+                color="secondary"
+                variant="contained"
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <span style={{ marginRight: "8px" }}>
+                  <FuseSvgIcon className="" size={20}>
+                    heroicons-solid:shopping-cart
+                  </FuseSvgIcon>
+                </span>
+                Add to cart
+              </Button>
+            </div>
           </>
         )}
       </CardActions>
