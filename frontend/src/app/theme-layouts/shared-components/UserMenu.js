@@ -114,7 +114,7 @@ function UserMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/coins"
+              to="/daily-check-ins"
               onClick={userMenuClose}
               role="button"
             >
@@ -123,17 +123,17 @@ function UserMenu(props) {
               </ListItemIcon>
               <ListItemText primary="My Coins" />
             </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/apps/wishlist"
-              onClick={userMenuClose}
-              role="button"
-            >
-              <ListItemIcon className="min-w-40">
-                <FuseSvgIcon>heroicons-outline:heart</FuseSvgIcon>
-              </ListItemIcon>
-              <ListItemText primary="Wish List" />
-            </MenuItem>
+            {/*<MenuItem*/}
+            {/*  component={Link}*/}
+            {/*  to="/apps/wishlist"*/}
+            {/*  onClick={userMenuClose}*/}
+            {/*  role="button"*/}
+            {/*>*/}
+            {/*  <ListItemIcon className="min-w-40">*/}
+            {/*    <FuseSvgIcon>heroicons-outline:heart</FuseSvgIcon>*/}
+            {/*  </ListItemIcon>*/}
+            {/*  <ListItemText primary="Wish List" />*/}
+            {/*</MenuItem>*/}
             <MenuItem
               component={NavLink}
               to="/sign-out"

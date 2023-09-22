@@ -1,5 +1,6 @@
 import { lazy } from "react";
 import { Navigate } from "react-router-dom";
+import DailyCheckIns from "./daily-check-ins/DailyCheckIns";
 
 const Product = lazy(() => import("./product/Product"));
 const Products = lazy(() => import("./products/Products"));
@@ -30,6 +31,10 @@ const ECommerceAppConfig = {
     {
       path: "",
       element: <Navigate to="products" />,
+    },
+    {
+      path: "/daily-check-ins",
+      element: <DailyCheckIns />,
     },
   ],
 };

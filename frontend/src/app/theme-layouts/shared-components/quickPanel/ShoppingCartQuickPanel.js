@@ -11,7 +11,10 @@ import { selectQuickPanelData } from "./store/dataSlice";
 import reducer from "./store";
 import { selectQuickPanelState, toggleQuickPanel } from "./store/stateSlice";
 import { selectUser } from "app/store/userSlice";
-import { fetchCartItems } from "app/theme-layouts/shared-components/quickPanel/store/shoppingCartSlice";
+import {
+  fetchCartItems,
+  selectCartItems,
+} from "app/theme-layouts/shared-components/quickPanel/store/shoppingCartSlice";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
