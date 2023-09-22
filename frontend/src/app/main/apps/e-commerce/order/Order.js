@@ -1,28 +1,30 @@
-import FusePageCarded from '@fuse/core/FusePageCarded';
-import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import Tab from '@mui/material/Tab';
-import Tabs from '@mui/material/Tabs';
-import Typography from '@mui/material/Typography';
-import withReducer from 'app/store/withReducer';
-import { motion } from 'framer-motion';
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
-import { useDeepCompareEffect } from '@fuse/hooks';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import useThemeMediaQuery from '@fuse/hooks/useThemeMediaQuery';
-import reducer from '../store';
-import { getOrder, resetOrder, selectOrder } from '../store/orderSlice';
-import InvoiceTab from './tabs/InvoiceTab';
-import OrderDetailsTab from './tabs/OrderDetailsTab';
-import ProductsTab from './tabs/ProductsTab';
+import FusePageCarded from "@fuse/core/FusePageCarded";
+import Button from "@mui/material/Button";
+import { useTheme } from "@mui/material/styles";
+import Tab from "@mui/material/Tab";
+import Tabs from "@mui/material/Tabs";
+import Typography from "@mui/material/Typography";
+import withReducer from "app/store/withReducer";
+import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams } from "react-router-dom";
+import { useDeepCompareEffect } from "@fuse/hooks";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
+import reducer from "../store";
+import { getOrder, resetOrder, selectOrder } from "../store/orderSlice";
+import InvoiceTab from "./tabs/InvoiceTab";
+import OrderDetailsTab from "./tabs/OrderDetailsTab";
+import ProductsTab from "./tabs/ProductsTab";
 
 function Order(props) {
   const dispatch = useDispatch();
   const order = useSelector(selectOrder);
   const theme = useTheme();
-  const isMobile = useThemeMediaQuery((_theme) => _theme.breakpoints.down('lg'));
+  const isMobile = useThemeMediaQuery((_theme) =>
+    _theme.breakpoints.down("lg")
+  );
 
   const routeParams = useParams();
   const { orderId } = routeParams;
@@ -62,7 +64,7 @@ function Order(props) {
           className="mt-24"
           component={Link}
           variant="outlined"
-          to="/apps/e-commerce/orders"
+          to="/orders"
           color="inherit"
         >
           Go to Orders Page
@@ -84,13 +86,13 @@ function Order(props) {
                 className="flex items-center sm:mb-12"
                 component={Link}
                 role="button"
-                to="/apps/e-commerce/orders"
+                to="/orders"
                 color="inherit"
               >
                 <FuseSvgIcon size={20}>
-                  {theme.direction === 'ltr'
-                    ? 'heroicons-outline:arrow-sm-left'
-                    : 'heroicons-outline:arrow-sm-right'}
+                  {theme.direction === "ltr"
+                    ? "heroicons-outline:arrow-sm-left"
+                    : "heroicons-outline:arrow-sm-right"}
                 </FuseSvgIcon>
                 <span className="mx-4 font-medium">Orders</span>
               </Typography>
@@ -120,7 +122,7 @@ function Order(props) {
             textColor="secondary"
             variant="scrollable"
             scrollButtons="auto"
-            classes={{ root: 'w-full h-64 border-b-1' }}
+            classes={{ root: "w-full h-64 border-b-1" }}
           >
             <Tab className="h-64" label="Order Details" />
             <Tab className="h-64" label="Products" />
@@ -135,9 +137,9 @@ function Order(props) {
           )}
         </>
       }
-      scroll={isMobile ? 'normal' : 'content'}
+      scroll={isMobile ? "normal" : "content"}
     />
   );
 }
 
-export default withReducer('eCommerceApp', reducer)(Order);
+export default withReducer("eCommerceApp", reducer)(Order);

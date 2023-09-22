@@ -103,7 +103,7 @@ function UserMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/apps/e-commerce/orders"
+              to="/orders"
               onClick={userMenuClose}
               role="button"
             >
@@ -114,7 +114,7 @@ function UserMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/apps/coins"
+              to="/coins"
               onClick={userMenuClose}
               role="button"
             >
