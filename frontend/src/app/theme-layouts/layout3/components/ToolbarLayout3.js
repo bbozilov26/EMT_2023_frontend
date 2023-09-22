@@ -15,12 +15,13 @@ import LanguageSwitcher from "../../shared-components/LanguageSwitcher";
 import NotificationPanelToggleButton from "../../shared-components/notificationPanel/NotificationPanelToggleButton";
 import NavigationSearch from "../../shared-components/NavigationSearch";
 import UserMenu from "../../shared-components/UserMenu";
-import QuickPanelToggleButton from "../../shared-components/quickPanel/QuickPanelToggleButton";
+import ShoppingCartToggleButton from "../../shared-components/quickPanel/ShoppingCartToggleButton";
 import ChatPanelToggleButton from "../../shared-components/chatPanel/ChatPanelToggleButton";
 import Logo from "../../shared-components/Logo";
 import NavbarToggleButton from "../../shared-components/NavbarToggleButton";
 import HelpCenterHome from "../../../main/apps/help-center/home/HelpCenterHome";
 import HelpCenterMenu from "../../../main/apps/help-center/HelpCenterMenu";
+import WishlistToggleButton from "app/theme-layouts/shared-components/quickPanel/WishlistToggleButton";
 
 function ToolbarLayout3(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
@@ -62,9 +63,11 @@ function ToolbarLayout3(props) {
 
             <LanguageSwitcher />
 
-            <QuickPanelToggleButton />
+            <ShoppingCartToggleButton />
 
-            <NotificationPanelToggleButton />
+            {/*<WishlistToggleButton />*/}
+
+            {/*<NotificationPanelToggleButton />*/}
 
             <UserMenu />
           </div>

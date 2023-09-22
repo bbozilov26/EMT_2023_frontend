@@ -1,22 +1,25 @@
-import { ThemeProvider } from '@mui/material/styles';
-import AppBar from '@mui/material/AppBar';
-import Hidden from '@mui/material/Hidden';
-import Toolbar from '@mui/material/Toolbar';
-import clsx from 'clsx';
-import { memo } from 'react';
-import { useSelector } from 'react-redux';
-import { selectFuseCurrentLayoutConfig, selectToolbarTheme } from 'app/store/fuse/settingsSlice';
-import { selectFuseNavbar } from 'app/store/fuse/navbarSlice';
-import AdjustFontSize from '../../shared-components/AdjustFontSize';
-import FullScreenToggle from '../../shared-components/FullScreenToggle';
-import LanguageSwitcher from '../../shared-components/LanguageSwitcher';
-import NotificationPanelToggleButton from '../../shared-components/notificationPanel/NotificationPanelToggleButton';
-import NavigationShortcuts from '../../shared-components/NavigationShortcuts';
-import NavigationSearch from '../../shared-components/NavigationSearch';
-import NavbarToggleButton from '../../shared-components/NavbarToggleButton';
-import UserMenu from '../../shared-components/UserMenu';
-import QuickPanelToggleButton from '../../shared-components/quickPanel/QuickPanelToggleButton';
-import ChatPanelToggleButton from '../../shared-components/chatPanel/ChatPanelToggleButton';
+import { ThemeProvider } from "@mui/material/styles";
+import AppBar from "@mui/material/AppBar";
+import Hidden from "@mui/material/Hidden";
+import Toolbar from "@mui/material/Toolbar";
+import clsx from "clsx";
+import { memo } from "react";
+import { useSelector } from "react-redux";
+import {
+  selectFuseCurrentLayoutConfig,
+  selectToolbarTheme,
+} from "app/store/fuse/settingsSlice";
+import { selectFuseNavbar } from "app/store/fuse/navbarSlice";
+import AdjustFontSize from "../../shared-components/AdjustFontSize";
+import FullScreenToggle from "../../shared-components/FullScreenToggle";
+import LanguageSwitcher from "../../shared-components/LanguageSwitcher";
+import NotificationPanelToggleButton from "../../shared-components/notificationPanel/NotificationPanelToggleButton";
+import NavigationShortcuts from "../../shared-components/NavigationShortcuts";
+import NavigationSearch from "../../shared-components/NavigationSearch";
+import NavbarToggleButton from "../../shared-components/NavbarToggleButton";
+import UserMenu from "../../shared-components/UserMenu";
+import ShoppingCartToggleButton from "../../shared-components/quickPanel/ShoppingCartToggleButton";
+import ChatPanelToggleButton from "../../shared-components/chatPanel/ChatPanelToggleButton";
 
 function ToolbarLayout1(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
@@ -27,11 +30,11 @@ function ToolbarLayout1(props) {
     <ThemeProvider theme={toolbarTheme}>
       <AppBar
         id="fuse-toolbar"
-        className={clsx('flex relative z-20 shadow-md', props.className)}
+        className={clsx("flex relative z-20 shadow-md", props.className)}
         color="default"
         sx={{
           backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
+            theme.palette.mode === "light"
               ? toolbarTheme.palette.background.paper
               : toolbarTheme.palette.background.default,
         }}
@@ -39,15 +42,15 @@ function ToolbarLayout1(props) {
       >
         <Toolbar className="p-0 min-h-48 md:min-h-64">
           <div className="flex flex-1 px-16">
-            {config.navbar.display && config.navbar.position === 'left' && (
+            {config.navbar.display && config.navbar.position === "left" && (
               <>
                 <Hidden lgDown>
-                  {(config.navbar.style === 'style-3' ||
-                    config.navbar.style === 'style-3-dense') && (
+                  {(config.navbar.style === "style-3" ||
+                    config.navbar.style === "style-3-dense") && (
                     <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
                   )}
 
-                  {config.navbar.style === 'style-1' && !navbar.open && (
+                  {config.navbar.style === "style-1" && !navbar.open && (
                     <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
                   )}
                 </Hidden>
@@ -76,17 +79,19 @@ function ToolbarLayout1(props) {
               <ChatPanelToggleButton />
             </Hidden>
 
-            <QuickPanelToggleButton />
+            <ShoppingCartToggleButton />
 
             <NotificationPanelToggleButton />
 
             <UserMenu />
           </div>
 
-          {config.navbar.display && config.navbar.position === 'right' && (
+          {config.navbar.display && config.navbar.position === "right" && (
             <>
               <Hidden lgDown>
-                {!navbar.open && <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />}
+                {!navbar.open && (
+                  <NavbarToggleButton className="w-40 h-40 p-0 mx-0" />
+                )}
               </Hidden>
 
               <Hidden lgUp>

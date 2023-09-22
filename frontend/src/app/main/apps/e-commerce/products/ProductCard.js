@@ -11,6 +11,7 @@ import ProductInfo from "./ProductInfo";
 import { useSelector } from "react-redux";
 import { selectUser } from "app/store/userSlice";
 import React, { useState } from "react";
+import { removeProduct } from "../store/productSlice";
 
 function ProductCard({ product }) {
   const user = useSelector(selectUser);
@@ -65,7 +66,7 @@ function ProductCard({ product }) {
               }}
             >
               <Button
-                to={`/products/delete/${product.id}`}
+                onClick={() => dispatch(removeProduct(product.id))}
                 component={Link}
                 className="px-16 min-w-96"
                 color="warning"
