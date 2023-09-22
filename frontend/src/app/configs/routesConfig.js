@@ -11,6 +11,8 @@ import appsConfigs from "../main/apps/appsConfigs";
 import pagesConfigs from "../main/pages/pagesConfigs";
 import authRoleExamplesConfigs from "../main/auth/authRoleExamplesConfigs";
 import DocumentationConfig from "../main/documentation/DocumentationConfig";
+import ForgotPasswordConfig from "../main/forgot-password/ForgotPasswordConfig";
+import ResetPasswordConfig from "../main/reset-password/ResetPasswordConfig";
 
 const routeConfigs = [
   ...appsConfigs,
@@ -22,6 +24,8 @@ const routeConfigs = [
   SignOutConfig,
   SignInConfig,
   SignUpConfig,
+  ForgotPasswordConfig,
+  ResetPasswordConfig,
 ];
 
 const routes = [
