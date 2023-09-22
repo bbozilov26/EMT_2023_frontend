@@ -3,11 +3,25 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { Heart } from "react-feather";
+import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import ProductInfo from "./ProductInfo";
+import { useSelector } from "react-redux";
+import { selectUser } from "app/store/userSlice";
+import React, { useState } from "react";
 
 function ProductCard({ product }) {
+  const user = useSelector(selectUser);
+
+  const [isRed, setIsRed] = useState(false);
+
+  const handleClick = () => {
+    // Toggle the 'isRed' state when the button is clicked
+    setIsRed(!isRed);
+  };
+
   return (
     <Card className="flex flex-col max-w-xs max-h-full shadow">
       <div className="flex-grow">
@@ -15,13 +29,13 @@ function ProductCard({ product }) {
           <img
             className="w-full h-full object-cover"
             src={_.find(product.images, { id: product.featuredImageId }).url}
-            alt={product.title}
+            alt={product.name}
           />
         ) : (
           <img
             className="w-full h-full object-cover"
             src="assets/images/apps/ecommerce/product-image-placeholder.png"
-            alt={product.title}
+            alt={product.name}
           />
         )}
       </div>
@@ -30,33 +44,100 @@ function ProductCard({ product }) {
         <ProductInfo product={product} className="" />
       </CardContent>
       <CardActions
-        className="items-center justify-end py-8 px-16"
+        className="items-center py-8 px-16"
         sx={{
           backgroundColor: (theme) =>
             theme.palette.mode === "light"
               ? lighten(theme.palette.background.default, 0.4)
               : lighten(theme.palette.background.default, 0.03),
+          display: "flex",
+          justifyContent: "center",
         }}
       >
-        <Button
-          to={`/apps/e-commerce/products/${product.id}`}
-          component={Link}
-          className="px-16 min-w-128"
-          color="secondary"
-          variant="contained"
-          sx={{
-            display: "flex",
-            alignItems: "center", // Center vertically
-            justifyContent: "center", // Center horizontally
-          }}
-        >
-          <span style={{ marginRight: "8px" }}>
-            <FuseSvgIcon className="" size={20}>
-              heroicons-solid:shopping-cart
-            </FuseSvgIcon>
-          </span>
-          Buy
-        </Button>
+        {user.role.toString() === "super admin" ||
+        user.role.toString() === "Admin" ? (
+          <>
+            <Button
+              to={`/apps/e-commerce/products/delete/${product.id}`}
+              component={Link}
+              className="px-16 min-w-96"
+              color="warning"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center", // Center vertically
+                justifyContent: "center", // Center horizontally
+              }}
+            >
+              <span style={{ marginRight: "0px" }}>
+                <FuseSvgIcon className="" size={20}>
+                  material-solid:delete_forever
+                </FuseSvgIcon>
+              </span>
+              Remove
+            </Button>
+            <Button
+              to={`/apps/e-commerce/products/${product.id}`}
+              component={Link}
+              className="px-16 min-w-96"
+              color="secondary"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center", // Center vertically
+                justifyContent: "center", // Center horizontally
+              }}
+            >
+              <span style={{ marginRight: "0px" }}>
+                <FuseSvgIcon className="" size={20}>
+                  feather:edit
+                </FuseSvgIcon>
+              </span>
+              Edit
+            </Button>
+          </>
+        ) : (
+          <>
+            <Link to={`/apps/e-commerce/products/wishlist/add/${product.id}`}>
+              <div
+                className={`px-16 min-w-24 ${
+                  isRed ? "text-red-500" : "text-secondary"
+                }`} // Change text color
+                onClick={handleClick}
+                style={{
+                  display: "flex",
+                  alignItems: "center", // Center vertically
+                  justifyContent: "center", // Center horizontally
+                }}
+              >
+                {isRed ? (
+                  <IoHeart size={25} color="red" />
+                ) : (
+                  <IoHeartOutline size={25} />
+                )}
+              </div>
+            </Link>
+            <Button
+              to={`/apps/e-commerce/products/${product.id}`}
+              component={Link}
+              className="px-16 min-w-128"
+              color="secondary"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center", // Center vertically
+                justifyContent: "center", // Center horizontally
+              }}
+            >
+              <span style={{ marginRight: "8px" }}>
+                <FuseSvgIcon className="" size={20}>
+                  heroicons-solid:shopping-cart
+                </FuseSvgIcon>
+              </span>
+              Add to cart
+            </Button>
+          </>
+        )}
       </CardActions>
     </Card>
   );

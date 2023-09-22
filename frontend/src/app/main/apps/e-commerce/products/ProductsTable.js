@@ -1,13 +1,5 @@
-import FuseScrollbars from "@fuse/core/FuseScrollbars";
 import _ from "@lodash";
-import Checkbox from "@mui/material/Checkbox";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
-import clsx from "clsx";
 import { motion } from "framer-motion";
 import { useEffect, useMemo, useState } from "react";
 
@@ -33,6 +25,7 @@ import Input from "@mui/material/Input";
 import { useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import { selectUser } from "app/store/userSlice";
 
 function ProductsTable(props) {
   const dispatch = useDispatch();

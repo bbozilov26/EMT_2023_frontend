@@ -64,29 +64,6 @@ function ProfileApp() {
               <Typography color="text.secondary">London, UK</Typography>
             </div>
 
-            {/*<div className="hidden lg:flex h-32 mx-32 border-l-2" />*/}
-
-            {/*<div className="flex items-center mt-24 lg:mt-0 space-x-24">*/}
-            {/*  <div className="flex flex-col items-center">*/}
-            {/*    <Typography className="font-bold">200k</Typography>*/}
-            {/*    <Typography*/}
-            {/*      className="text-sm font-medium"*/}
-            {/*      color="text.secondary"*/}
-            {/*    >*/}
-            {/*      FOLLOWERS*/}
-            {/*    </Typography>*/}
-            {/*  </div>*/}
-            {/*  <div className="flex flex-col items-center">*/}
-            {/*    <Typography className="font-bold">1.2k</Typography>*/}
-            {/*    <Typography*/}
-            {/*      className="text-sm font-medium"*/}
-            {/*      color="text.secondary"*/}
-            {/*    >*/}
-            {/*      FOLLOWING*/}
-            {/*    </Typography>*/}
-            {/*  </div>*/}
-            {/*</div>*/}
-
             <div className="flex flex-1 justify-end my-16 lg:my-0">
               <Tabs
                 value={selectedTab}
