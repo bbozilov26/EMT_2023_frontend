@@ -9,8 +9,20 @@ import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import React, { useState } from "react";
 import DailyCheckInInfo from "./DailyCheckInInfo";
+import { claimDailyCheckIn } from "../store/dailyCheckInsSlice";
 
 function DailyCheckInCard(props) {
+  const handleClaimCheckIn = (checkInId) => {
+    // Dispatch the claimDailyCheckIn thunk to claim a check-in
+    dispatch(
+      claimDailyCheckIn({
+        claimed: true,
+        userId: props.user.id,
+        dailyCheckInId: checkInId,
+      })
+    );
+  };
+
   return (
     <Card className="flex flex-col max-w-xs max-h-full shadow">
       <div className="flex-grow">
@@ -42,7 +54,6 @@ function DailyCheckInCard(props) {
           }}
         >
           <Button
-            to={`/claim-daily-check-in`}
             component={Link}
             className="px-16 min-w-128"
             color="secondary"
@@ -53,6 +64,7 @@ function DailyCheckInCard(props) {
               justifyContent: "center",
             }}
             disabled={props.dci.claimed}
+            onClick={handleClaimCheckIn(props.dci.id)}
           >
             Claim
           </Button>

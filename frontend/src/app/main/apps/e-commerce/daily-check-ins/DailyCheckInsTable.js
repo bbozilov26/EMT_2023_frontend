@@ -6,19 +6,25 @@ import withRouter from "@fuse/core/withRouter";
 import FuseLoading from "@fuse/core/FuseLoading";
 import { selectUser } from "app/store/userSlice";
 import DailyCheckInCard from "./DailyCheckInCard";
+import {
+  claimDailyCheckIn,
+  fetchDailyCheckInsByUserId,
+} from "../store/dailyCheckInsSlice";
 
 function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-
-  useEffect(() => {
-    dispatch(fetchDailyCheckIns(user.id));
-  }, [dispatch]);
-
-  const dailyCheckIns = useSelector((state) => state.eCommerce.dailyCheckIns);
+  const dailyCheckIns = useSelector(
+    (state) => state.dailyCheckIns.dailyCheckIns
+  );
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState(dailyCheckIns);
+
+  useEffect(() => {
+    // Fetch daily check-ins when the component mounts
+    dispatch(fetchDailyCheckInsByUserId(user.id));
+  }, [dispatch, user.id]);
 
   const container = {
     show: {
