@@ -138,7 +138,7 @@ function ProductsTable(props) {
   }
 
   function handleClick(item) {
-    props.navigate(`/apps/e-commerce/products/${item.id}/${item.handle}`);
+    props.navigate(`/products/${item.id}/${item.handle}`);
   }
 
   function handleChangePage(event, value) {
@@ -214,7 +214,7 @@ function ProductsTable(props) {
             <Button
               className=""
               component={Link}
-              to="/apps/e-commerce/products/new"
+              to="/products/new"
               variant="contained"
               color="secondary"
               startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
@@ -291,7 +291,7 @@ function ProductsTable(props) {
           <Button
             className=""
             component={Link}
-            to="/apps/e-commerce/products/new"
+            to="/products/new"
             variant="contained"
             color="secondary"
             startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}

@@ -299,10 +299,7 @@ function Error500Page() {
           </Typography>
         </motion.div>
 
-        <Link
-          className="block font-normal mt-48"
-          to="/apps/e-commerce/products"
-        >
+        <Link className="block font-normal mt-48" to="/products">
           Back to Home
         </Link>
       </div>

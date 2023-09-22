@@ -58,7 +58,7 @@ function ProductCard({ product }) {
         user.role.toString() === "Admin" ? (
           <>
             <Button
-              to={`/apps/e-commerce/products/delete/${product.id}`}
+              to={`/products/delete/${product.id}`}
               component={Link}
               className="px-16 min-w-96"
               color="warning"
@@ -77,7 +77,7 @@ function ProductCard({ product }) {
               Remove
             </Button>
             <Button
-              to={`/apps/e-commerce/products/${product.id}`}
+              to={`/products/${product.id}`}
               component={Link}
               className="px-16 min-w-96"
               color="secondary"
@@ -98,7 +98,7 @@ function ProductCard({ product }) {
           </>
         ) : (
           <>
-            <Link to={`/apps/e-commerce/products/wishlist/add/${product.id}`}>
+            <Link to={`/products/wishlist/add/${product.id}`}>
               <div
                 className={`px-16 min-w-24 ${
                   isRed ? "text-red-500" : "text-secondary"
@@ -118,7 +118,7 @@ function ProductCard({ product }) {
               </div>
             </Link>
             <Button
-              to={`/apps/e-commerce/products/${product.id}`}
+              to={`/products/${product.id}`}
               component={Link}
               className="px-16 min-w-128"
               color="secondary"

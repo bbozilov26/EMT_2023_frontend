@@ -19,7 +19,7 @@ const Root = styled("div")(({ theme }) => ({
 function Logo() {
   return (
     <Root className="flex items-center">
-      <Link to="apps/e-commerce/products" className="flex items-center">
+      <Link to="/products" className="flex items-center">
         <img
           className="logo-icon w-64 h-64"
           src="assets/images/logo/logo.svg"

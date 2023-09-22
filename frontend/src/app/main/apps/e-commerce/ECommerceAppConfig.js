@@ -12,23 +12,23 @@ const ECommerceAppConfig = {
   },
   routes: [
     {
-      path: "apps/e-commerce/products",
+      path: "/products",
       element: <Products />,
     },
     {
-      path: "apps/e-commerce/products/:productId/*",
+      path: "/products/:productId/*",
       element: <Product />,
     },
     {
-      path: "apps/e-commerce/orders",
+      path: "/orders",
       element: <Orders />,
     },
     {
-      path: "apps/e-commerce/orders/:orderId",
+      path: "/orders/:orderId",
       element: <Order />,
     },
     {
-      path: "apps/e-commerce",
+      path: "",
       element: <Navigate to="products" />,
     },
   ],
