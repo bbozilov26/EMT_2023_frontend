@@ -8,21 +8,34 @@ import axios from "axios";
 export const getProducts = createAsyncThunk(
   "eCommerceApp/products/getProducts",
   async () => {
-    const response = await axios.get("/products");
-    const data = await response.data;
+    try {
+      const response = await axios.get("/products/all");
+      const data = response.data.map((el) => ({
+        id: el.id,
+        image: el.image,
+        name: el.title,
+        description: el.description,
+        quantity: el.quantity,
+        price: el.price,
+        category: el.category,
+      }));
 
-    return data;
+      return data;
+    } catch (error) {
+      // Handle errors here if needed
+      throw error;
+    }
   }
 );
 
-export const removeProducts = createAsyncThunk(
-  "eCommerceApp/products",
-  async (productIds, { dispatch, getState }) => {
-    await axios.delete("/api/ecommerce/products", { data: productIds });
-
-    return productIds;
-  }
-);
+// export const removeProducts = createAsyncThunk(
+//   "eCommerceApp/products",
+//   async (productIds, { dispatch, getState }) => {
+//     await axios.delete("/api/ecommerce/products", { data: productIds });
+//
+//     return productIds;
+//   }
+// );
 
 const productsAdapter = createEntityAdapter({});
 
@@ -44,8 +57,6 @@ const productsSlice = createSlice({
   },
   extraReducers: {
     [getProducts.fulfilled]: productsAdapter.setAll,
-    [removeProducts.fulfilled]: (state, action) =>
-      productsAdapter.removeMany(state, action.payload),
   },
 });
 

@@ -21,16 +21,33 @@ export const removeProduct = createAsyncThunk(
   }
 );
 
-export const saveProduct = createAsyncThunk(
-  "eCommerceApp/product/saveProduct",
-  async (productData, { dispatch, getState }) => {
-    const { id } = getState().eCommerceApp;
+// Async thunk for creating a new product
+export const createProduct = createAsyncThunk(
+  "eCommerceApp/product/createProduct",
+  async ({ productDTO }) => {
+    try {
+      const response = await axios.post("/products/create", productDTO);
+      const createdProductData = response.data;
+      return createdProductData;
+    } catch (error) {
+      // Handle errors here if needed
+      throw error;
+    }
+  }
+);
 
-    const response = await axios.put(`/products/add/${id}`, productData);
-
-    const data = await response.data;
-
-    return data;
+// Async thunk for updating an existing product
+export const updateProduct = createAsyncThunk(
+  "eCommerceApp/product/updateProduct",
+  async ({ id, productDTO }) => {
+    try {
+      const response = await axios.put(`/products/edit/${id}`, productDTO);
+      const updatedProductData = response.data;
+      return updatedProductData;
+    } catch (error) {
+      // Handle errors here if needed
+      throw error;
+    }
   }
 );
 
@@ -43,7 +60,6 @@ const productSlice = createSlice({
       reducer: (state, action) => action.payload,
       prepare: (event) => ({
         payload: {
-          id: FuseUtils.generateGUID(),
           name: "",
           description: "",
           categories: [],
@@ -57,7 +73,8 @@ const productSlice = createSlice({
   },
   extraReducers: {
     [getProduct.fulfilled]: (state, action) => action.payload,
-    [saveProduct.fulfilled]: (state, action) => action.payload,
+    [createProduct.fulfilled]: (state, action) => action.payload,
+    [updateProduct.fulfilled]: (state, action) => action.payload,
     [removeProduct.fulfilled]: (state, action) => null,
   },
 });

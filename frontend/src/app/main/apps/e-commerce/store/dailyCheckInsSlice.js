@@ -93,6 +93,3 @@ const dailyCheckInsSlice = createSlice({
 });
 
 export default dailyCheckInsSlice.reducer;
-
-// Export async thunks for use in components
-export { fetchAllDailyCheckIns, fetchDailyCheckInsByUserId, claimDailyCheckIn };

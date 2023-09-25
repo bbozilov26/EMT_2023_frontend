@@ -4,10 +4,14 @@ import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import _ from "@lodash";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
-import { removeProduct, saveProduct } from "../store/productSlice";
+import {
+  createProduct,
+  removeProduct,
+  updateProduct,
+} from "../store/productSlice";
 
 function ProductHeader(props) {
   const dispatch = useDispatch();
@@ -21,7 +25,44 @@ function ProductHeader(props) {
   const navigate = useNavigate();
 
   function handleSaveProduct() {
-    dispatch(saveProduct(getValues()));
+    const productId = props.productId;
+
+    const productDTO = {
+      title: getValues("name"),
+      description: getValues("description"),
+      category: getValues("category").id,
+      price: getValues("price"),
+      quantity: getValues("quantity"),
+      image: getValues("images").find(
+        (image) => image.id === getValues("featuredImageId")
+      ),
+    };
+
+    if (productId === "new") {
+      // Create a new product
+      dispatch(createProduct({ productDTO: productDTO }))
+        .unwrap()
+        .then((createdProductData) => {
+          // Handle the newly created product data
+          console.log("Newly created product:", createdProductData);
+        })
+        .catch((error) => {
+          // Handle any errors that occur during product creation
+          console.error("Error creating product:", error);
+        });
+    } else {
+      // Update an existing product
+      dispatch(updateProduct({ id: productId, productDTO: productDTO }))
+        .unwrap()
+        .then((updatedProductData) => {
+          // Handle the updated product data
+          console.log("Updated product:", updatedProductData);
+        })
+        .catch((error) => {
+          // Handle any errors that occur during the update
+          console.error("Error updating product:", error);
+        });
+    }
   }
 
   function handleRemoveProduct() {
@@ -92,19 +133,22 @@ function ProductHeader(props) {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0, transition: { delay: 0.3 } }}
       >
-        <Button
-          className="whitespace-nowrap mx-4"
-          variant="contained"
-          color="secondary"
-          onClick={handleRemoveProduct}
-          startIcon={
-            <FuseSvgIcon className="hidden sm:flex">
-              heroicons-outline:trash
-            </FuseSvgIcon>
-          }
-        >
-          Remove
-        </Button>
+        {props.productId !== "new" ? (
+          <Button
+            className="whitespace-nowrap mx-4"
+            variant="contained"
+            color="secondary"
+            onClick={handleRemoveProduct}
+            startIcon={
+              <FuseSvgIcon className="hidden sm:flex">
+                heroicons-outline:trash
+              </FuseSvgIcon>
+            }
+          >
+            Remove
+          </Button>
+        ) : null}
+
         <Button
           className="whitespace-nowrap mx-4"
           variant="contained"
