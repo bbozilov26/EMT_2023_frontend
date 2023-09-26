@@ -68,8 +68,8 @@ function ProductHeader(props) {
     }
   }
 
-  function handleRemoveProduct() {
-    dispatch(removeProduct()).then(() => {
+  function handleRemoveProduct(id) {
+    dispatch(removeProduct({ id: id })).then(() => {
       navigate("/products");
     });
   }
@@ -141,7 +141,7 @@ function ProductHeader(props) {
             className="whitespace-nowrap mx-4"
             variant="contained"
             color="secondary"
-            onClick={handleRemoveProduct}
+            onClick={handleRemoveProduct(props.productId)}
             startIcon={
               <FuseSvgIcon className="hidden sm:flex">
                 heroicons-outline:trash

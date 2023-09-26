@@ -35,6 +35,8 @@ function ProductCard({ product }) {
       .then(() => {
         // Handle successful removal (optional)
         console.log(`Product with ID ${productId} removed successfully.`);
+
+        navigate("/products");
       })
       .catch((error) => {
         // Handle any errors that occur during removal (optional)
