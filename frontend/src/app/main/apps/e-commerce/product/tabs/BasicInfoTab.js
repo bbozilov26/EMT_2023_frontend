@@ -9,6 +9,7 @@ import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import clsx from "clsx";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 const Root = styled("div")(({ theme }) => ({
   "& .productImageFeaturedStar": {
@@ -49,9 +50,9 @@ const Root = styled("div")(({ theme }) => ({
 
 function BasicInfoTab(props) {
   const methods = useFormContext();
-  const { control, formState, watch } = methods;
+  const { control, formState, watch, setValue } = methods;
   const { errors } = formState;
-
+  const [selectedFeaturedImage, setSelectedFeaturedImage] = useState("");
   const images = watch("images");
 
   const { t } = useTranslation("app");
@@ -138,7 +139,17 @@ function BasicInfoTab(props) {
 
                   const newImage = await readFileAsync();
 
-                  onChange([newImage, ...value]);
+                  // Check if value is an array, and if not, create a new array
+                  const updatedValue = Array.isArray(value)
+                    ? [...value, newImage]
+                    : [newImage];
+
+                  // Update the images field with the new image(s)
+                  onChange(updatedValue);
+
+                  // Set the featuredImageId to the ID of the new image
+                  const newImageId = newImage ? newImage.id : "";
+                  setValue("featuredImageId", newImageId);
                 }}
               />
               <FuseSvgIcon size={32} color="action">
@@ -147,34 +158,44 @@ function BasicInfoTab(props) {
             </Box>
           )}
         />
+
         <Controller
           name="featuredImageId"
           control={control}
           defaultValue=""
-          render={({ field: { onChange, value } }) =>
-            images.map((media) => (
-              <div
-                onClick={() => onChange(media.id)}
-                onKeyDown={() => onChange(media.id)}
-                role="button"
-                tabIndex={0}
-                className={clsx(
-                  "productImageItem flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer outline-none shadow hover:shadow-lg",
-                  media.id === value && "featured"
-                )}
-                key={media.id}
-              >
-                <FuseSvgIcon className="productImageFeaturedStar">
-                  heroicons-solid:star
-                </FuseSvgIcon>
-                <img
-                  className="max-w-none w-auto h-full"
-                  src={media.url}
-                  alt="product"
-                />
-              </div>
-            ))
-          }
+          render={({ field: { onChange, value } }) => (
+            <div className="flex flex-col items-center">
+              {value && value[0] && value[0].type === "image" ? (
+                <div
+                  onClick={() => {
+                    // Clear the featured image when clicked
+                    onChange("");
+                  }}
+                  onKeyDown={() => {
+                    // Clear the featured image when clicked
+                    onChange("");
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  className={clsx(
+                    "productImageItem flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer outline-none shadow hover:shadow-lg",
+                    "featured"
+                  )}
+                >
+                  <FuseSvgIcon className="productImageFeaturedStar">
+                    heroicons-solid:star
+                  </FuseSvgIcon>
+                  <img
+                    className="max-w-none w-auto h-full"
+                    src={value[0].url}
+                    alt="product"
+                  />
+                </div>
+              ) : (
+                <p>No featured image</p>
+              )}
+            </div>
+          )}
         />
       </div>
       <div>
@@ -196,7 +217,6 @@ function BasicInfoTab(props) {
             />
           )}
         />
-
         <Controller
           name="description"
           control={control}
@@ -218,7 +238,11 @@ function BasicInfoTab(props) {
         <Controller
           name="category"
           control={control}
-          defaultValue=""
+          defaultValue={
+            props.product.category
+              ? categories.find((c) => c.id === props.product.category)
+              : ""
+          }
           render={({ field: { onChange, value } }) => (
             <Autocomplete
               className="mt-8 mb-16"
@@ -263,7 +287,6 @@ function BasicInfoTab(props) {
             />
           )}
         />
-
         <Controller
           name="quantity"
           control={control}

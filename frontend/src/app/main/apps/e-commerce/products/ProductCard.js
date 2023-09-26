@@ -8,13 +8,19 @@ import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import ProductInfo from "./ProductInfo";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "app/store/userSlice";
 import React, { useState } from "react";
 import { removeProduct } from "../store/productSlice";
+import ProductRepository from "../repositories/ProductRepository";
+import {
+  showErrorMessage,
+  showSuccessMessage,
+} from "app/store/fuse/messageSlice";
 
 function ProductCard({ product }) {
   const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   const [isRed, setIsRed] = useState(false);
 
@@ -23,13 +29,26 @@ function ProductCard({ product }) {
     setIsRed(!isRed);
   };
 
+  const handleDeleteProduct = (productId) => {
+    dispatch(removeProduct({ id: productId }))
+      .unwrap()
+      .then(() => {
+        // Handle successful removal (optional)
+        console.log(`Product with ID ${productId} removed successfully.`);
+      })
+      .catch((error) => {
+        // Handle any errors that occur during removal (optional)
+        console.error(`Error removing product with ID ${productId}:`, error);
+      });
+  };
+
   return (
     <Card className="flex flex-col max-w-xs max-h-full shadow">
       <div className="flex-grow">
-        {product.images.length > 0 && product.featuredImageId ? (
+        {product.image && product.image?.length > 0 ? (
           <img
             className="w-full h-full object-cover"
-            src={_.find(product.images, { id: product.featuredImageId }).url}
+            src={`data:image/jpeg;base64,${product.image}`}
             alt={product.name}
           />
         ) : (
@@ -66,8 +85,9 @@ function ProductCard({ product }) {
               }}
             >
               <Button
-                onClick={() => dispatch(removeProduct(product.id))}
+                onClick={() => handleDeleteProduct(product.id)}
                 component={Link}
+                to={`/products/delete/${product.id}`}
                 className="px-16 min-w-96"
                 color="warning"
                 variant="contained"
@@ -116,25 +136,25 @@ function ProductCard({ product }) {
           </>
         ) : (
           <>
-            <div
-              className={`px-16 min-w-24 ${
-                isRed ? "text-red-500" : "text-secondary"
-              }`} // Change text color
-              onClick={handleClick}
-              style={{
-                display: "flex",
-                alignItems: "center", // Center vertically
-                justifyContent: "center", // Center horizontally
-              }}
-            >
-              <Link to={`/products/wishlist/add/${product.id}`}>
-                {isRed ? (
-                  <IoHeart size={25} color="red" />
-                ) : (
-                  <IoHeartOutline size={25} />
-                )}
-              </Link>
-            </div>
+            {/*<div*/}
+            {/*  className={`px-16 min-w-24 ${*/}
+            {/*    isRed ? "text-red-500" : "text-secondary"*/}
+            {/*  }`} // Change text color*/}
+            {/*  onClick={handleClick}*/}
+            {/*  style={{*/}
+            {/*    display: "flex",*/}
+            {/*    alignItems: "center", // Center vertically*/}
+            {/*    justifyContent: "center", // Center horizontally*/}
+            {/*  }}*/}
+            {/*>*/}
+            {/*  <Link to={`/products/wishlist/add/${product.id}`}>*/}
+            {/*    {isRed ? (*/}
+            {/*      <IoHeart size={25} color="red" />*/}
+            {/*    ) : (*/}
+            {/*      <IoHeartOutline size={25} />*/}
+            {/*    )}*/}
+            {/*  </Link>*/}
+            {/*</div>*/}
             <div
               style={{
                 flex: 1, // Take up remaining space

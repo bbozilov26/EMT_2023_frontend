@@ -114,9 +114,7 @@ function ProductsTable(props) {
 
   useEffect(() => {
     if (selectedCategory !== "all") {
-      setData(
-        _.filter(products, (item) => item.categories.includes(selectedCategory))
-      );
+      setData(_.filter(products, (item) => item.category === selectedCategory));
       setPage(0);
     } else {
       setData(products);

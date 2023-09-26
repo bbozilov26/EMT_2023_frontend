@@ -17,7 +17,7 @@ const ECommerceAppConfig = {
       element: <Products />,
     },
     {
-      path: "/products/:productId/*",
+      path: "/products/:productId",
       element: <Product />,
     },
     {

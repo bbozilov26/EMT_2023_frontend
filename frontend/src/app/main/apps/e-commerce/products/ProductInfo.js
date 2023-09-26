@@ -4,6 +4,8 @@ import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import clsx from "clsx";
 import ProductCategory from "./ProductCategory";
 import { Image } from "@mui/icons-material";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
 
 function ProductInfo({ product, className }) {
   if (!product) {
@@ -16,8 +18,12 @@ function ProductInfo({ product, className }) {
         {product.name}
       </Typography>
 
-      <Typography className="text-13" color="text.secondary">
-        <span>$</span>
+      <Typography
+        className="text-13"
+        color="text.secondary"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
         {product.price}
       </Typography>
     </div>

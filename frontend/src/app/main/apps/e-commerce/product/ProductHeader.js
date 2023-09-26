@@ -12,14 +12,15 @@ import {
   removeProduct,
   updateProduct,
 } from "../store/productSlice";
+import React, { useState } from "react";
 
 function ProductHeader(props) {
   const dispatch = useDispatch();
   const methods = useFormContext();
-  const { formState, watch, getValues } = methods;
+  const { formState, watch, getValues, setValue } = methods;
   const { isValid, dirtyFields } = formState;
   const featuredImageId = watch("featuredImageId");
-  const images = watch("images");
+  const images = watch("image");
   const name = watch("name");
   const theme = useTheme();
   const navigate = useNavigate();
@@ -33,9 +34,7 @@ function ProductHeader(props) {
       category: getValues("category").id,
       price: getValues("price"),
       quantity: getValues("quantity"),
-      image: getValues("images").find(
-        (image) => image.id === getValues("featuredImageId")
-      ),
+      image: getValues("images")?.[0]?.url || null,
     };
 
     if (productId === "new") {
@@ -45,6 +44,8 @@ function ProductHeader(props) {
         .then((createdProductData) => {
           // Handle the newly created product data
           console.log("Newly created product:", createdProductData);
+
+          navigate("/products");
         })
         .catch((error) => {
           // Handle any errors that occur during product creation
@@ -57,6 +58,8 @@ function ProductHeader(props) {
         .then((updatedProductData) => {
           // Handle the updated product data
           console.log("Updated product:", updatedProductData);
+
+          navigate("/products");
         })
         .catch((error) => {
           // Handle any errors that occur during the update
@@ -100,10 +103,10 @@ function ProductHeader(props) {
             initial={{ scale: 0 }}
             animate={{ scale: 1, transition: { delay: 0.3 } }}
           >
-            {images.length > 0 && featuredImageId ? (
+            {images && images?.length > 0 ? (
               <img
                 className="w-32 sm:w-48 rounded"
-                src={_.find(images, { id: featuredImageId }).url}
+                src={`data:image/jpeg;base64,${images}`}
                 alt={name}
               />
             ) : (

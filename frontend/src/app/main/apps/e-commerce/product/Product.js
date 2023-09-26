@@ -24,6 +24,7 @@ import {
 import reducer from "../store";
 import ProductHeader from "./ProductHeader";
 import BasicInfoTab from "./tabs/BasicInfoTab";
+import ProductRepository from "../repositories/ProductRepository";
 
 /**
  * Form Validation Schema
@@ -42,6 +43,7 @@ function Product(props) {
 
   const routeParams = useParams();
   const [tabValue, setTabValue] = useState(0);
+  // const [product, setProduct] = useState();
   const [noProduct, setNoProduct] = useState(false);
   const methods = useForm({
     mode: "onChange",
@@ -64,7 +66,7 @@ function Product(props) {
         /**
          * Get Product data
          */
-        dispatch(getProduct(productId)).then((action) => {
+        dispatch(getProduct({ productId: productId })).then((action) => {
           /**
            * If the requested product is not exist show message
            */
@@ -162,7 +164,7 @@ function Product(props) {
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? "hidden" : ""}>
-                <BasicInfoTab />
+                <BasicInfoTab product={product} />
               </div>
             </div>
           </>

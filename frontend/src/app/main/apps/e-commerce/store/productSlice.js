@@ -1,22 +1,40 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
 import FuseUtils from "@fuse/utils";
+import axios from "../../../../axios/axios";
 
 export const getProduct = createAsyncThunk(
   "eCommerceApp/product/getProduct",
-  async (productId) => {
-    const response = await axios.get(`/products/${productId}`);
-    const data = await response.data;
+  async ({ productId }) => {
+    const response = await axios.get(`/products/${productId}`, {
+      baseURL: "http://localhost:9090/",
+    });
+    const responseData = await response.data;
 
-    return data === undefined ? null : data;
+    if (responseData !== undefined) {
+      const data = {
+        id: responseData.id.id,
+        image: responseData.image,
+        name: responseData.title,
+        description: responseData.description,
+        quantity: responseData.quantity,
+        price: responseData.price,
+        category: responseData.category,
+        active: true,
+      };
+
+      return data;
+    }
+
+    return null;
   }
 );
 
 export const removeProduct = createAsyncThunk(
   "eCommerceApp/product/removeProduct",
-  async (val, { dispatch, getState }) => {
-    const { id } = getState().eCommerceApp.product;
-    await axios.delete(`/products/delete/${id}`);
+  async ({ id }) => {
+    await axios.delete(`/products/delete/${id}`, {
+      baseURL: "http://localhost:9090/",
+    });
     return id;
   }
 );
@@ -26,7 +44,9 @@ export const createProduct = createAsyncThunk(
   "eCommerceApp/product/createProduct",
   async ({ productDTO }) => {
     try {
-      const response = await axios.post("/products/create", productDTO);
+      const response = await axios.post("/products/create", productDTO, {
+        baseURL: "http://localhost:9090/",
+      });
       const createdProductData = response.data;
       return createdProductData;
     } catch (error) {
@@ -41,7 +61,9 @@ export const updateProduct = createAsyncThunk(
   "eCommerceApp/product/updateProduct",
   async ({ id, productDTO }) => {
     try {
-      const response = await axios.put(`/products/edit/${id}`, productDTO);
+      const response = await axios.put(`/products/edit/${id}`, productDTO, {
+        baseURL: "http://localhost:9090/",
+      });
       const updatedProductData = response.data;
       return updatedProductData;
     } catch (error) {
@@ -62,10 +84,10 @@ const productSlice = createSlice({
         payload: {
           name: "",
           description: "",
-          categories: [],
+          category: "",
           images: [],
-          price: 0,
-          quantity: 0,
+          price: "",
+          quantity: "",
           active: true,
         },
       }),

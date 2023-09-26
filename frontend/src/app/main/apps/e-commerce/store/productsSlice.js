@@ -3,15 +3,17 @@ import {
   createEntityAdapter,
   createSlice,
 } from "@reduxjs/toolkit";
-import axios from "axios";
+import axios from "../../../../axios/axios";
 
 export const getProducts = createAsyncThunk(
   "eCommerceApp/products/getProducts",
   async () => {
     try {
-      const response = await axios.get("/products/all");
+      const response = await axios.get(`/products/all`, {
+        baseURL: "http://localhost:9090/",
+      });
       const data = response.data.map((el) => ({
-        id: el.id,
+        id: el.id.id,
         image: el.image,
         name: el.title,
         description: el.description,
