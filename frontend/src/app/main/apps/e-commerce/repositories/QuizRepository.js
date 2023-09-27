@@ -1,8 +1,8 @@
 import axios from "../../../../axios/axios";
 
-const baseUrl = "http://localhost:9090/products";
+const baseUrl = "http://localhost:9091/quiz-questions";
 
-const ProductRepository = {
+const QuizRepository = {
   findAll: () => {
     return axios.get(`/all`, {
       baseURL: baseUrl,
@@ -34,4 +34,4 @@ const ProductRepository = {
   },
 };
 
-export default ProductRepository;
+export default QuizRepository;

@@ -150,31 +150,6 @@ function AboutTab() {
             </CardContent>
           </Card>
         </div>
-
-        <div className="flex flex-col md:w-320">
-          <Card component={motion.div} variants={item} className="w-full mb-32">
-            <div className="flex items-center px-32 pt-24">
-              <Typography className="flex flex-1 text-2xl font-semibold leading-tight">
-                Friends
-              </Typography>
-
-              <Button className="-mx-8" size="small">
-                See 454 more
-              </Button>
-            </div>
-
-            <CardContent className="flex flex-wrap px-32">
-              {friends.map((friend) => (
-                <Avatar
-                  key={friend.id}
-                  className="w-64 h-64 rounded-12 m-4"
-                  src={friend.avatar}
-                  alt={friend.name}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        </div>
       </div>
     </motion.div>
   );
