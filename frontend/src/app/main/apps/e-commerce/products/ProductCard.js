@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "react-feather";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
@@ -21,6 +21,7 @@ import {
 function ProductCard({ product }) {
   const user = useSelector(selectUser);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isRed, setIsRed] = useState(false);
 
@@ -30,8 +31,7 @@ function ProductCard({ product }) {
   };
 
   const handleDeleteProduct = (productId) => {
-    dispatch(removeProduct({ id: productId }))
-      .unwrap()
+    ProductRepository.delete(productId)
       .then(() => {
         // Handle successful removal (optional)
         console.log(`Product with ID ${productId} removed successfully.`);

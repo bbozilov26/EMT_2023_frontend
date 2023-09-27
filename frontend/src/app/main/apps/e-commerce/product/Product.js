@@ -25,6 +25,7 @@ import reducer from "../store";
 import ProductHeader from "./ProductHeader";
 import BasicInfoTab from "./tabs/BasicInfoTab";
 import ProductRepository from "../repositories/ProductRepository";
+import { useTranslation } from "react-i18next";
 
 /**
  * Form Validation Schema
@@ -38,12 +39,12 @@ const schema = yup.object().shape({
 
 function Product(props) {
   const dispatch = useDispatch();
-  const product = useSelector(selectProduct);
+  // const product = useSelector(selectProduct);
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   const routeParams = useParams();
   const [tabValue, setTabValue] = useState(0);
-  // const [product, setProduct] = useState();
+  const [product, setProduct] = useState();
   const [noProduct, setNoProduct] = useState(false);
   const methods = useForm({
     mode: "onChange",
@@ -52,33 +53,82 @@ function Product(props) {
   });
   const { reset, watch, control, onChange, formState } = methods;
   const form = watch();
+  const { productId } = useParams();
+  const { t } = useTranslation("app");
+  const categories = [
+    {
+      id: "BOOKS",
+      name: "BOOKS",
+      label: t("BOOKS"),
+    },
+    {
+      id: "MOVIES",
+      name: "MOVIES",
+      label: t("MOVIES"),
+    },
+    {
+      id: "MUSIC",
+      name: "MUSIC",
+      label: t("MUSIC"),
+    },
+    {
+      id: "PC_AND_EQUIPMENT",
+      name: "PC_AND_EQUIPMENT",
+      label: t("PC_AND_EQUIPMENT"),
+    },
+    {
+      id: "ACCESSORIES",
+      name: "ACCESSORIES",
+      label: t("ACCESSORIES"),
+    },
+    {
+      id: "MOBILE_PHONES",
+      name: "MOBILE_PHONES",
+      label: t("MOBILE_PHONES"),
+    },
+  ];
 
-  useDeepCompareEffect(() => {
+  useEffect(() => {
     function updateProductState() {
-      const { productId } = routeParams;
-
       if (productId === "new") {
-        /**
-         * Create New Product data
-         */
-        dispatch(newProduct());
+        setProduct({
+          name: "",
+          description: "",
+          category: "",
+          image: null,
+          price: "",
+          quantity: "",
+        });
+        // setProduct(getProductFormElements(t, null));
       } else {
         /**
          * Get Product data
          */
-        dispatch(getProduct({ productId: productId })).then((action) => {
+        ProductRepository.findById(productId).then(({ data }) => {
           /**
            * If the requested product is not exist show message
            */
-          if (!action.payload) {
+          if (!data) {
             setNoProduct(true);
+            setNoProduct(false);
+          } else {
+            setProduct({
+              id: data.id.id,
+              image: data.image,
+              name: data.title,
+              description: data.description,
+              quantity: data.quantity,
+              price: data.price,
+              category: categories.find((c) => c.id === data.category),
+            });
+            // setProductFormElements(getProductFormElements(t, product));
           }
         });
       }
     }
 
     updateProductState();
-  }, [dispatch, routeParams]);
+  }, [productId]);
 
   useEffect(() => {
     if (!product) {
@@ -148,7 +198,15 @@ function Product(props) {
   return (
     <FormProvider {...methods}>
       <FusePageCarded
-        header={<ProductHeader productId={routeParams.productId} />}
+        header={
+          <ProductHeader
+            productId={routeParams.productId}
+            product={product}
+            // saveButton={{
+            //   disable: invalidForm,
+            // }}
+          />
+        }
         content={
           <>
             <Tabs
@@ -175,4 +233,4 @@ function Product(props) {
   );
 }
 
-export default withReducer("eCommerceApp", reducer)(Product);
+export default Product;

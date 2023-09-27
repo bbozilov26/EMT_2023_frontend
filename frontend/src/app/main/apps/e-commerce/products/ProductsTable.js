@@ -26,13 +26,15 @@ import { useTranslation } from "react-i18next";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import { selectUser } from "app/store/userSlice";
+import ProductRepository from "../repositories/ProductRepository";
 
 function ProductsTable(props) {
   const dispatch = useDispatch();
-  const products = useSelector(selectProducts);
+  // const products = useSelector(selectProducts);
   const searchText = useSelector(selectProductsSearchText);
 
   const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
   const [data, setData] = useState(products);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -96,8 +98,21 @@ function ProductsTable(props) {
   ];
 
   useEffect(() => {
-    dispatch(getProducts()).then(() => setLoading(false));
-  }, [dispatch]);
+    ProductRepository.findAll().then(({ data }) => {
+      const productsData = data.map((el) => ({
+        id: el.id.id,
+        image: el.image,
+        name: el.title,
+        description: el.description,
+        quantity: el.quantity,
+        price: el.price,
+        category: el.category,
+      }));
+
+      setProducts(productsData);
+    });
+    setLoading(false);
+  }, []);
 
   useEffect(() => {
     if (searchText.length !== 0) {

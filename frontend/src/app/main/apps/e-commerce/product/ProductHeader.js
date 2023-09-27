@@ -13,21 +13,21 @@ import {
   updateProduct,
 } from "../store/productSlice";
 import React, { useState } from "react";
+import ProductRepository from "../repositories/ProductRepository";
 
 function ProductHeader(props) {
   const dispatch = useDispatch();
   const methods = useFormContext();
   const { formState, watch, getValues, setValue } = methods;
   const { isValid, dirtyFields } = formState;
-  const featuredImageId = watch("featuredImageId");
-  const images = watch("image");
-  const name = watch("name");
   const theme = useTheme();
   const navigate = useNavigate();
 
-  function handleSaveProduct() {
-    const productId = props.productId;
+  const image = props.product?.image || watch("image");
+  const name = props.product?.name || watch("name");
+  const productId = props.productId;
 
+  function handleSaveProduct() {
     const productDTO = {
       title: getValues("name"),
       description: getValues("description"),
@@ -39,12 +39,10 @@ function ProductHeader(props) {
 
     if (productId === "new") {
       // Create a new product
-      dispatch(createProduct({ productDTO: productDTO }))
-        .unwrap()
+      ProductRepository.create(productDTO)
         .then((createdProductData) => {
           // Handle the newly created product data
           console.log("Newly created product:", createdProductData);
-
           navigate("/products");
         })
         .catch((error) => {
@@ -53,8 +51,7 @@ function ProductHeader(props) {
         });
     } else {
       // Update an existing product
-      dispatch(updateProduct({ id: productId, productDTO: productDTO }))
-        .unwrap()
+      ProductRepository.update(productId, productDTO)
         .then((updatedProductData) => {
           // Handle the updated product data
           console.log("Updated product:", updatedProductData);
@@ -69,7 +66,7 @@ function ProductHeader(props) {
   }
 
   function handleRemoveProduct(id) {
-    dispatch(removeProduct({ id: id })).then(() => {
+    ProductRepository.delete(id).then(() => {
       navigate("/products");
     });
   }
@@ -103,10 +100,10 @@ function ProductHeader(props) {
             initial={{ scale: 0 }}
             animate={{ scale: 1, transition: { delay: 0.3 } }}
           >
-            {images && images?.length > 0 ? (
+            {image && image?.length > 0 ? (
               <img
                 className="w-32 sm:w-48 rounded"
-                src={`data:image/jpeg;base64,${images}`}
+                src={`data:image/jpeg;base64,${image}`}
                 alt={name}
               />
             ) : (
@@ -141,7 +138,7 @@ function ProductHeader(props) {
             className="whitespace-nowrap mx-4"
             variant="contained"
             color="secondary"
-            onClick={handleRemoveProduct(props.productId)}
+            onClick={() => handleRemoveProduct(props.productId)}
             startIcon={
               <FuseSvgIcon className="hidden sm:flex">
                 heroicons-outline:trash
@@ -156,7 +153,7 @@ function ProductHeader(props) {
           className="whitespace-nowrap mx-4"
           variant="contained"
           color="secondary"
-          disabled={_.isEmpty(dirtyFields) || !isValid}
+          // disabled={props.saveButton.disabled}
           onClick={handleSaveProduct}
         >
           Save

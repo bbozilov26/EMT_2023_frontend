@@ -19,7 +19,6 @@ export const getProduct = createAsyncThunk(
         quantity: responseData.quantity,
         price: responseData.price,
         category: responseData.category,
-        active: true,
       };
 
       return data;

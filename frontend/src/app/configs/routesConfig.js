@@ -35,7 +35,7 @@ const routes = [
   ),
   {
     path: "/",
-    element: <Navigate to="apps/e-commerce/products" />,
+    element: <Navigate to="/products" />,
     auth: settingsConfig.defaultAuth,
   },
   {

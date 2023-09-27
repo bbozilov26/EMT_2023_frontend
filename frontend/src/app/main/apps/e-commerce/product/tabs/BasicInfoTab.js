@@ -53,7 +53,6 @@ function BasicInfoTab(props) {
   const { control, formState, watch, setValue } = methods;
   const { errors } = formState;
   const [selectedFeaturedImage, setSelectedFeaturedImage] = useState("");
-  const images = watch("images");
 
   const { t } = useTranslation("app");
   const categories = [
@@ -102,99 +101,87 @@ function BasicInfoTab(props) {
                   theme.palette.mode === "light"
                     ? lighten(theme.palette.background.default, 0.4)
                     : lighten(theme.palette.background.default, 0.02),
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "24px",
               }}
-              component="label"
-              htmlFor="button-file"
-              className="productImageUpload flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer shadow hover:shadow-lg"
             >
-              <input
-                accept="image/*"
-                className="hidden"
-                id="button-file"
-                type="file"
-                onChange={async (e) => {
-                  function readFileAsync() {
-                    return new Promise((resolve, reject) => {
-                      const file = e.target.files[0];
-                      if (!file) {
-                        return;
-                      }
-                      const reader = new FileReader();
+              <label
+                htmlFor="button-file"
+                className="productImageUpload flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 overflow-hidden cursor-pointer shadow hover:shadow-lg"
+              >
+                <input
+                  accept="image/*"
+                  className="hidden"
+                  id="button-file"
+                  type="file"
+                  onChange={async (e) => {
+                    function readFileAsync() {
+                      return new Promise((resolve, reject) => {
+                        const file = e.target.files[0];
+                        if (!file) {
+                          return;
+                        }
+                        const reader = new FileReader();
 
-                      reader.onload = () => {
-                        resolve({
-                          id: FuseUtils.generateGUID(),
-                          url: `data:${file.type};base64,${btoa(
-                            reader.result
-                          )}`,
-                          type: "image",
-                        });
-                      };
+                        reader.onload = () => {
+                          resolve({
+                            id: FuseUtils.generateGUID(),
+                            url: `data:${file.type};base64,${btoa(
+                              reader.result
+                            )}`,
+                            type: "image",
+                          });
+                        };
 
-                      reader.onerror = reject;
+                        reader.onerror = reject;
 
-                      reader.readAsBinaryString(file);
-                    });
-                  }
+                        reader.readAsBinaryString(file);
+                      });
+                    }
 
-                  const newImage = await readFileAsync();
+                    const newImage = await readFileAsync();
 
-                  // Check if value is an array, and if not, create a new array
-                  const updatedValue = Array.isArray(value)
-                    ? [...value, newImage]
-                    : [newImage];
+                    // Check if value is an array, and if not, create a new array
+                    const updatedValue = Array.isArray(value)
+                      ? [...value, newImage]
+                      : [newImage];
 
-                  // Update the images field with the new image(s)
-                  onChange(updatedValue);
+                    // Update the images field with the new image(s)
+                    onChange(updatedValue);
 
-                  // Set the featuredImageId to the ID of the new image
-                  const newImageId = newImage ? newImage.id : "";
-                  setValue("featuredImageId", newImageId);
-                }}
-              />
-              <FuseSvgIcon size={32} color="action">
-                heroicons-outline:upload
-              </FuseSvgIcon>
-            </Box>
-          )}
-        />
-
-        <Controller
-          name="featuredImageId"
-          control={control}
-          defaultValue=""
-          render={({ field: { onChange, value } }) => (
-            <div className="flex flex-col items-center">
-              {value && value[0] && value[0].type === "image" ? (
-                <div
-                  onClick={() => {
-                    // Clear the featured image when clicked
-                    onChange("");
+                    // Set the featuredImageId to the ID of the new image
+                    const newImageId = newImage ? newImage.id : "";
+                    setValue("featuredImageId", newImageId);
                   }}
-                  onKeyDown={() => {
-                    // Clear the featured image when clicked
-                    onChange("");
+                />
+                <FuseSvgIcon size={32} color="action">
+                  heroicons-outline:upload
+                </FuseSvgIcon>
+              </label>
+
+              {value && value.length > 0 ? (
+                <Box
+                  sx={{
+                    width: "128px",
+                    height: "128px",
+                    mx: "12px",
+                    overflow: "hidden",
                   }}
-                  role="button"
-                  tabIndex={0}
-                  className={clsx(
-                    "productImageItem flex items-center justify-center relative w-128 h-128 rounded-16 mx-12 mb-24 overflow-hidden cursor-pointer outline-none shadow hover:shadow-lg",
-                    "featured"
-                  )}
                 >
-                  <FuseSvgIcon className="productImageFeaturedStar">
-                    heroicons-solid:star
-                  </FuseSvgIcon>
                   <img
-                    className="max-w-none w-auto h-full"
-                    src={value[0].url}
-                    alt="product"
+                    src={value[value.length - 1].url}
+                    alt="Uploaded"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
                   />
-                </div>
+                </Box>
               ) : (
-                <p>No featured image</p>
+                <p>No image selected!</p>
               )}
-            </div>
+            </Box>
           )}
         />
       </div>
@@ -202,6 +189,7 @@ function BasicInfoTab(props) {
         <Controller
           name="name"
           control={control}
+          defaultValue={props.product?.name || ""}
           render={({ field }) => (
             <TextField
               {...field}
@@ -220,6 +208,7 @@ function BasicInfoTab(props) {
         <Controller
           name="description"
           control={control}
+          defaultValue={props.product?.description || ""}
           render={({ field }) => (
             <TextField
               {...field}
@@ -239,8 +228,8 @@ function BasicInfoTab(props) {
           name="category"
           control={control}
           defaultValue={
-            props.product.category
-              ? categories.find((c) => c.id === props.product.category)
+            props.product?.category
+              ? categories.find((c) => c.id === props.product?.category)
               : ""
           }
           render={({ field: { onChange, value } }) => (
@@ -270,6 +259,7 @@ function BasicInfoTab(props) {
         <Controller
           name="price"
           control={control}
+          defaultValue={props.product?.price || ""}
           render={({ field }) => (
             <TextField
               {...field}
@@ -290,6 +280,7 @@ function BasicInfoTab(props) {
         <Controller
           name="quantity"
           control={control}
+          defaultValue={props.product?.quantity || ""}
           render={({ field }) => (
             <TextField
               {...field}
