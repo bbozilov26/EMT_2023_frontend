@@ -10,21 +10,37 @@ import {
   claimDailyCheckIn,
   fetchDailyCheckInsByUserId,
 } from "../store/dailyCheckInsSlice";
+import DailyCheckInRepository from "../repositories/DailyCheckInRepository";
+import UserRepository from "../repositories/UserRepository";
 
 function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const dailyCheckIns = useSelector(
-    (state) => state.dailyCheckIns.dailyCheckIns
-  );
 
+  const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState(dailyCheckIns);
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
-    dispatch(fetchDailyCheckInsByUserId(user.id));
-  }, [dispatch, user.id]);
+
+    // UserRepository.findAllDailyCheckInsByUser(user.id).then(({ data }) =>
+    //   setDailyCheckIns(data)
+    // );
+    DailyCheckInRepository.findAll().then(({ data }) => {
+      const dailyCheckInsData = data.map((el) => ({
+        id: el.id.id,
+        dailyReward: el.dailyReward,
+        description: el.description,
+        label: el.label,
+      }));
+
+      setUserDailyCheckIns(dailyCheckInsData);
+    });
+
+    setLoading(false);
+
+    // }, [user.id]);
+  }, []);
 
   const container = {
     show: {
@@ -45,10 +61,6 @@ function DailyCheckInsTable(props) {
     },
   };
 
-  function handleClick(item) {
-    props.navigate(`/products/${item.id}/${item.handle}`);
-  }
-
   if (loading) {
     return (
       <div className="flex items-center justify-center h-full">
@@ -65,10 +77,10 @@ function DailyCheckInsTable(props) {
         initial="hidden"
         animate="show"
       >
-        {data.map((dci) => {
+        {userDailyCheckIns.map((udci) => {
           return (
-            <motion.div variants={item} key={dci.id}>
-              <DailyCheckInCard dci={dci} user={user} />
+            <motion.div variants={item} key={udci.id}>
+              <DailyCheckInCard udci={udci} user={user} />
             </motion.div>
           );
         })}

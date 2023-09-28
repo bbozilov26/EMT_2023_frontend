@@ -12,7 +12,7 @@ function DailyCheckIns() {
     <FusePageSimple
       header={<DailyCheckInsHeader />}
       content={<DailyCheckInsTable />}
-      scroll={isMobile ? "normal" : "page"}
+      scroll={"page"}
     />
   );
 }

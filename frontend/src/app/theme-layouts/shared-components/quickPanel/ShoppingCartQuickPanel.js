@@ -15,6 +15,7 @@ import {
   fetchCartItems,
   selectCartItems,
 } from "app/theme-layouts/shared-components/quickPanel/store/shoppingCartSlice";
+import OrderRepository from "../../../main/apps/e-commerce/repositories/OrderRepository";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -28,6 +29,8 @@ function ShoppingCartQuickPanel(props) {
   const state = useSelector(selectQuickPanelState);
   const user = useSelector(selectUser);
 
+  const [orderedProducts, setOrderedProducts] = useState([]);
+
   const handleQuantityChange = (itemId, newQuantity) => {
     // Convert newQuantity to a number (assuming it's a string)
     newQuantity = parseInt(newQuantity, 10);
@@ -37,10 +40,12 @@ function ShoppingCartQuickPanel(props) {
   };
 
   useEffect(() => {
-    dispatch(fetchCartItems(user.id));
-  }, [dispatch]);
+    OrderRepository.findAllOrderedProductsByUser(user.id).then(({ data }) =>
+      setOrderedProducts(data)
+    );
+  }, []);
 
-  const cartItems = useSelector((state) => state.cart?.cartItems);
+  // const cartItems = useSelector((state) => state.cart?.cartItems);
 
   return (
     <StyledSwipeableDrawer
@@ -60,8 +65,8 @@ function ShoppingCartQuickPanel(props) {
               Shopping Cart
             </ListSubheader>
 
-            {(cartItems && cartItems.length === 0) ||
-            cartItems === undefined ? (
+            {(orderedProducts && orderedProducts.length === 0) ||
+            orderedProducts === undefined ? (
               <div
                 className="empty-cart-message"
                 style={{
@@ -79,7 +84,7 @@ function ShoppingCartQuickPanel(props) {
             ) : (
               <>
                 <div className="cart-items">
-                  {cartItems?.map((item) => (
+                  {orderedProducts?.map((item) => (
                     <div key={item?.id} className="cart-item">
                       <img src={item?.image} alt={item?.name} />
                       <div className="item-details">
@@ -107,7 +112,7 @@ function ShoppingCartQuickPanel(props) {
                 >
                   Total:
                 </ListSubheader>
-                {cartItems && cartItems.length > 0 && (
+                {orderedProducts && orderedProducts.length > 0 && (
                   <>
                     <div className="divider"></div>
 
@@ -115,7 +120,7 @@ function ShoppingCartQuickPanel(props) {
                       <div className="total-label">Total:</div>
                       <div className="total-amount">
                         $
-                        {cartItems?.reduce(
+                        {orderedProducts?.reduce(
                           (total, item) => total + item?.price * item?.quantity,
                           0
                         )}

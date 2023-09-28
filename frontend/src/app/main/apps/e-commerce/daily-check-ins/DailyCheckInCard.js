@@ -2,7 +2,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Heart } from "react-feather";
 import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
@@ -10,17 +10,31 @@ import { lighten } from "@mui/material/styles";
 import React, { useState } from "react";
 import DailyCheckInInfo from "./DailyCheckInInfo";
 import { claimDailyCheckIn } from "../store/dailyCheckInsSlice";
+import UserRepository from "../repositories/UserRepository";
 
 function DailyCheckInCard(props) {
+  const navigate = useNavigate();
+
   const handleClaimCheckIn = (checkInId) => {
     // Dispatch the claimDailyCheckIn thunk to claim a check-in
-    dispatch(
-      claimDailyCheckIn({
-        claimed: true,
-        userId: props.user.id,
-        dailyCheckInId: checkInId,
+    UserRepository.claimDailyCheckIn({
+      claimed: true,
+      userId: props.user.id,
+      dailyCheckInId: checkInId,
+    })
+      .then(() => {
+        console.log(
+          `User daily check in with ID ${checkInId} claimed successfully.`
+        );
+        navigate("/daily-check-ins");
       })
-    );
+      .catch((error) => {
+        // Handle any errors that occur during removal (optional)
+        console.error(
+          `Error claiming user daily check in with ID ${checkInId}:`,
+          error
+        );
+      });
   };
 
   return (
@@ -32,7 +46,7 @@ function DailyCheckInCard(props) {
       </div>
 
       <CardContent className="flex flex-col flex-auto p-8">
-        <DailyCheckInInfo dci={props.dci} className="" />
+        <DailyCheckInInfo udci={props.udci} className="" />
       </CardContent>
       <CardActions
         className="items-center py-8 px-16"
@@ -55,6 +69,7 @@ function DailyCheckInCard(props) {
         >
           <Button
             component={Link}
+            to={`/users/claim-daily-check-in`}
             className="px-16 min-w-128"
             color="secondary"
             variant="contained"
@@ -63,8 +78,8 @@ function DailyCheckInCard(props) {
               alignItems: "center",
               justifyContent: "center",
             }}
-            disabled={props.dci.claimed}
-            onClick={handleClaimCheckIn(props.dci.id)}
+            disabled={props.udci.claimed}
+            onClick={() => handleClaimCheckIn(props.udci.id)}
           >
             Claim
           </Button>

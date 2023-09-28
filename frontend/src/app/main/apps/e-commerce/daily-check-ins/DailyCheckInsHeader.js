@@ -11,7 +11,7 @@ function DailyCheckInsHeader(props) {
         delay={300}
         className="text-24 md:text-32 font-extrabold tracking-tight"
       >
-        Coins, collect, shop and save
+        Coins - Collect, shop and save
       </Typography>
     </div>
   );

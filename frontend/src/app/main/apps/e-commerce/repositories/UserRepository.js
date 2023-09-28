@@ -57,6 +57,12 @@ const UserRepository = {
       baseURL: usersBaseUrl,
     });
   },
+
+  findAllDailyCheckInsByUser: (userId) => {
+    return axios.get(`/all-daily-check-ins/${userId}`, {
+      baseURL: baseUrl,
+    });
+  },
 };
 
 export default UserRepository;
