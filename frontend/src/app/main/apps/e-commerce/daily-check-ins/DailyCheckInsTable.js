@@ -15,6 +15,7 @@ import UserRepository from "../repositories/UserRepository";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import Typography from "@mui/material/Typography";
 
 function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
@@ -25,11 +26,7 @@ function DailyCheckInsTable(props) {
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
-
-    // UserRepository.findAllDailyCheckInsByUser(user.id).then(({ data }) =>
-    //   setDailyCheckIns(data)
-    // );
-    DailyCheckInRepository.findAll().then(({ data }) => {
+    UserRepository.findAllDailyCheckInsByUser(user.id).then(({ data }) => {
       const dailyCheckInsData = data.map((el) => ({
         id: el.id.id,
         dailyReward: el.dailyReward,
@@ -41,9 +38,7 @@ function DailyCheckInsTable(props) {
     });
 
     setLoading(false);
-
-    // }, [user.id]);
-  }, []);
+  }, [user.id]);
 
   const container = {
     show: {
@@ -72,11 +67,28 @@ function DailyCheckInsTable(props) {
     );
   }
 
+  if (userDailyCheckIns.length === 0) {
+    return (
+      <div className="flex flex-col flex-1 w-full mx-auto px-24 pt-24 sm:p-40">
+        <div className="mt-128"></div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, transition: { delay: 0.1 } }}
+          className="flex flex-1 items-center justify-center h-full"
+        >
+          <Typography color="text.secondary" variant="h5">
+            There are no daily check ins for the given user!
+          </Typography>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center justify-between">
       <div className="text-18 flex items-center ml-64">
         Your Balance:
-        <FuseSvgIcon className="mr-2">
+        <FuseSvgIcon className="mr-2 ml-4">
           heroicons-outline:currency-euro
         </FuseSvgIcon>
         {user.creditBalance ?? 0}

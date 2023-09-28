@@ -81,7 +81,7 @@ function DailyCheckInCard(props) {
             disabled={props.udci.claimed}
             onClick={() => handleClaimCheckIn(props.udci.id)}
           >
-            Claim
+            {!props.udci.claimed ? "Claim" : "Claimed!"}
           </Button>
         </div>
       </CardActions>
