@@ -13,21 +13,12 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 
-function AboutTab() {
-  const [data, setData] = useState(null);
-  const test = (x) => x + 1;
-
-  useEffect(() => {
-    axios.get("/api/profile/about").then((res) => {
-      setData(res.data);
-    });
-  }, []);
+function AboutTab(props) {
+  const [data, setData] = useState(props.user);
 
   if (!data) {
     return null;
   }
-
-  const { general, work, contact, groups, friends } = data;
 
   const container = {
     show: {
@@ -51,51 +42,51 @@ function AboutTab() {
     >
       <div className="md:flex">
         <div className="flex flex-col flex-1 md:ltr:pr-32 md:rtl:pl-32">
-          <Card component={motion.div} variants={item} className="w-full mb-32">
-            <div className="px-32 pt-24">
-              <Typography className="text-2xl font-semibold leading-tight">
-                General Information
-              </Typography>
-            </div>
+          {/*<Card component={motion.div} variants={item} className="w-full mb-32">*/}
+          {/*  <div className="px-32 pt-24">*/}
+          {/*    <Typography className="text-2xl font-semibold leading-tight">*/}
+          {/*      General Information*/}
+          {/*    </Typography>*/}
+          {/*  </div>*/}
 
-            <CardContent className="px-32 py-24">
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  Gender
-                </Typography>
-                <Typography>{general.gender}</Typography>
-              </div>
+          {/*  <CardContent className="px-32 py-24">*/}
+          {/*    <div className="mb-24">*/}
+          {/*      <Typography className="font-semibold mb-4 text-15">*/}
+          {/*        Gender*/}
+          {/*      </Typography>*/}
+          {/*      <Typography>{general.gender}</Typography>*/}
+          {/*    </div>*/}
 
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  Birthday
-                </Typography>
-                <Typography>{general.birthday}</Typography>
-              </div>
+          {/*    <div className="mb-24">*/}
+          {/*      <Typography className="font-semibold mb-4 text-15">*/}
+          {/*        Birthday*/}
+          {/*      </Typography>*/}
+          {/*      <Typography>{general.birthday}</Typography>*/}
+          {/*    </div>*/}
 
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  Locations
-                </Typography>
+          {/*    <div className="mb-24">*/}
+          {/*      <Typography className="font-semibold mb-4 text-15">*/}
+          {/*        Locations*/}
+          {/*      </Typography>*/}
 
-                {general.locations.map((location) => (
-                  <div className="flex items-center" key={location}>
-                    <Typography>{location}</Typography>
-                    <FuseSvgIcon className="mx-4" size={16} color="action">
-                      heroicons-outline:location-marker
-                    </FuseSvgIcon>
-                  </div>
-                ))}
-              </div>
+          {/*      {general.locations.map((location) => (*/}
+          {/*        <div className="flex items-center" key={location}>*/}
+          {/*          <Typography>{location}</Typography>*/}
+          {/*          <FuseSvgIcon className="mx-4" size={16} color="action">*/}
+          {/*            heroicons-outline:location-marker*/}
+          {/*          </FuseSvgIcon>*/}
+          {/*        </div>*/}
+          {/*      ))}*/}
+          {/*    </div>*/}
 
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  About Me
-                </Typography>
-                <Typography>{general.about}</Typography>
-              </div>
-            </CardContent>
-          </Card>
+          {/*    <div className="mb-24">*/}
+          {/*      <Typography className="font-semibold mb-4 text-15">*/}
+          {/*        About Me*/}
+          {/*      </Typography>*/}
+          {/*      <Typography>{general.about}</Typography>*/}
+          {/*    </div>*/}
+          {/*  </CardContent>*/}
+          {/*</Card>*/}
 
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="px-32 pt-24">
@@ -109,7 +100,7 @@ function AboutTab() {
                 <Typography className="font-semibold mb-4 text-15">
                   Address
                 </Typography>
-                <Typography>{contact.address}</Typography>
+                <Typography>{data.person?.address}</Typography>
               </div>
 
               <div className="mb-24">
@@ -117,35 +108,15 @@ function AboutTab() {
                   Tel.
                 </Typography>
 
-                {contact.tel.map((tel) => (
-                  <div className="flex items-center" key={tel}>
-                    <Typography>{tel}</Typography>
-                  </div>
-                ))}
+                <Typography>{data.person?.phoneNumber}</Typography>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-semibold mb-4 text-15">
-                  Website
+                  Email
                 </Typography>
 
-                {contact.websites.map((website) => (
-                  <div className="flex items-center" key={website}>
-                    <Typography>{website}</Typography>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  Emails
-                </Typography>
-
-                {contact.emails.map((email) => (
-                  <div className="flex items-center" key={email}>
-                    <Typography>{email}</Typography>
-                  </div>
-                ))}
+                <Typography>{data.email}</Typography>
               </div>
             </CardContent>
           </Card>

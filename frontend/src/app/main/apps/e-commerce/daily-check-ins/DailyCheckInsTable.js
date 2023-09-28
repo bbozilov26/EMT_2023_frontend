@@ -21,8 +21,8 @@ function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
 
-  const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts

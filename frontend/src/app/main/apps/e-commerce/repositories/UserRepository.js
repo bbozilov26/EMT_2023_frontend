@@ -17,7 +17,7 @@ const UserRepository = {
   },
 
   register: (dto) => {
-    return axios.post(`/register`, dto, {
+    return axios.post(`/sign-up`, dto, {
       baseURL: baseUrl,
     });
   },

@@ -15,7 +15,7 @@ function Orders() {
     <FusePageCarded
       header={<OrdersHeader />}
       content={<OrdersTable user={user} />}
-      scroll={isMobile ? "normal" : "page"}
+      scroll={"page"}
     />
   );
 }

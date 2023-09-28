@@ -11,6 +11,8 @@ import AboutTab from "./tabs/AboutTab";
 import PhotosVideosTab from "./tabs/PhotosVideosTab";
 import TimelineTab from "./tabs/TimelineTab";
 import useThemeMediaQuery from "../../../../@fuse/hooks/useThemeMediaQuery";
+import { selectUser } from "app/store/userSlice";
+import { useSelector } from "react-redux";
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
   "& .FusePageSimple-header": {
@@ -25,8 +27,8 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 }));
 
 function ProfileApp() {
+  const user = useSelector(selectUser);
   const [selectedTab, setSelectedTab] = useState(1);
-  const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down("lg"));
 
   function handleTabChange(event, value) {
     setSelectedTab(value);
@@ -59,48 +61,52 @@ function ProfileApp() {
 
             <div className="flex flex-col items-center lg:items-start mt-16 lg:mt-0 lg:ml-32">
               <Typography className="text-lg font-bold leading-none">
-                Brian Hughes
+                {user.person?.firstName + " " + user.person?.lastName}
               </Typography>
-              <Typography color="text.secondary">London, UK</Typography>
+              <Typography color="text.secondary">
+                {user.person?.address.split(", ")[3] +
+                  ", " +
+                  user.person?.address.split(", ")[4]}
+              </Typography>
             </div>
 
-            <div className="flex flex-1 justify-end my-16 lg:my-0">
-              <Tabs
-                value={selectedTab}
-                onChange={handleTabChange}
-                indicatorColor="primary"
-                textColor="inherit"
-                variant="scrollable"
-                scrollButtons={false}
-                className="-mx-4 min-h-40"
-                classes={{
-                  indicator: "flex justify-center bg-transparent w-full h-full",
-                }}
-                TabIndicatorProps={{
-                  children: (
-                    <Box
-                      sx={{ bgcolor: "text.disabled" }}
-                      className="w-full h-full rounded-full opacity-20"
-                    />
-                  ),
-                }}
-              >
-                <Tab
-                  className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "
-                  disableRipple
-                  label="Edit profile"
-                />
-              </Tabs>
-            </div>
+            {/*<div className="flex flex-1 justify-end my-16 lg:my-0">*/}
+            {/*  <Tabs*/}
+            {/*    value={selectedTab}*/}
+            {/*    onChange={handleTabChange}*/}
+            {/*    indicatorColor="primary"*/}
+            {/*    textColor="inherit"*/}
+            {/*    variant="scrollable"*/}
+            {/*    scrollButtons={false}*/}
+            {/*    className="-mx-4 min-h-40"*/}
+            {/*    classes={{*/}
+            {/*      indicator: "flex justify-center bg-transparent w-full h-full",*/}
+            {/*    }}*/}
+            {/*    TabIndicatorProps={{*/}
+            {/*      children: (*/}
+            {/*        <Box*/}
+            {/*          sx={{ bgcolor: "text.disabled" }}*/}
+            {/*          className="w-full h-full rounded-full opacity-20"*/}
+            {/*        />*/}
+            {/*      ),*/}
+            {/*    }}*/}
+            {/*  >*/}
+            {/*    <Tab*/}
+            {/*      className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "*/}
+            {/*      disableRipple*/}
+            {/*      label="Edit profile"*/}
+            {/*    />*/}
+            {/*  </Tabs>*/}
+            {/*</div>*/}
           </div>
         </div>
       }
       content={
         <div className="flex flex-auto justify-center w-full max-w-5xl mx-auto p-24 sm:p-32">
-          <AboutTab />
+          <AboutTab user={user} />
         </div>
       }
-      scroll={isMobile ? "normal" : "page"}
+      scroll={"page"}
     />
   );
 }

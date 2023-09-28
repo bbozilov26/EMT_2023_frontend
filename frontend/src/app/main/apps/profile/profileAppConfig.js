@@ -1,6 +1,6 @@
-import { lazy } from 'react';
+import { lazy } from "react";
 
-const ProfileApp = lazy(() => import('./ProfileApp'));
+const ProfileApp = lazy(() => import("./ProfileApp"));
 
 const profileAppConfig = {
   settings: {
@@ -10,7 +10,7 @@ const profileAppConfig = {
   },
   routes: [
     {
-      path: 'apps/profile',
+      path: "/profile",
       element: <ProfileApp />,
     },
   ],

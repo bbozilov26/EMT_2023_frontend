@@ -21,14 +21,15 @@ import {
 } from "../store/ordersSlice";
 import OrdersTableHead from "./OrdersTableHead";
 import { selectUser } from "app/store/userSlice";
+import OrderRepository from "../repositories/OrderRepository";
 
 function OrdersTable(props) {
   const dispatch = useDispatch();
-  const orders = useSelector(selectOrders);
   const searchText = useSelector(selectOrdersSearchText);
 
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [data, setData] = useState(orders);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -38,8 +39,26 @@ function OrdersTable(props) {
   });
 
   useEffect(() => {
-    dispatch(getOrders()).then(() => setLoading(false));
-  }, [dispatch]);
+    OrderRepository.findAllOrdersByUser(props.user.id).then(({ data }) => {
+      const ordersData = data.map((el) => ({
+        id: el.id.id,
+        dateCreated: el.dateCreated,
+        dateModified: el.dateModified,
+        dateClosed: el.dateClosed,
+        totalPrice: el.totalPrice,
+        orderId: el.orderId,
+        trackingNumber: el.trackingNumber,
+        description: el.description,
+        orderStatus: el.orderStatus,
+        orderedProducts: el.orderedProducts,
+        user: el.user,
+      }));
+
+      setOrders(ordersData);
+    });
+
+    setLoading(false);
+  }, [props.user.id]);
 
   useEffect(() => {
     if (searchText.length !== 0) {
