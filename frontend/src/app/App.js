@@ -3,12 +3,12 @@ import BrowserRouter from "@fuse/core/BrowserRouter";
 import FuseLayout from "@fuse/core/FuseLayout";
 import FuseTheme from "@fuse/core/FuseTheme";
 import { SnackbarProvider } from "notistack";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import rtlPlugin from "stylis-plugin-rtl";
 import createCache from "@emotion/cache";
 import { CacheProvider } from "@emotion/react";
 import { selectCurrentLanguageDirection } from "app/store/i18nSlice";
-import { selectUser } from "app/store/userSlice";
+import { selectUser, setUser } from "app/store/userSlice";
 import themeLayouts from "app/theme-layouts/themeLayouts";
 import { selectMainTheme } from "app/store/fuse/settingsSlice";
 import FuseAuthorization from "@fuse/core/FuseAuthorization";
@@ -20,6 +20,8 @@ import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
 import ar from "javascript-time-ago/locale/ar.json";
 import tr from "javascript-time-ago/locale/tr.json";
+import { useEffect, useState } from "react";
+import { useSelect } from "@mui/base";
 
 TimeAgo.addDefaultLocale(en);
 TimeAgo.addLocale(ar);
@@ -47,9 +49,23 @@ const emotionCacheOptions = {
 };
 
 const App = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const langDirection = useSelector(selectCurrentLanguageDirection);
   const mainTheme = useSelector(selectMainTheme);
+  // const [user, setUser] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState(undefined);
+
+  // useEffect(() => {
+  //   const user = JSON.parse(localStorage.getItem("user"));
+  //   if (user) {
+  //     setIsAuthenticated(true);
+  //     setUser(user);
+  //   } else {
+  //     setIsAuthenticated(false);
+  //     // setUser(useSelector(selectUser));
+  //   }
+  // }, [dispatch, setIsAuthenticated]);
 
   return (
     <CacheProvider value={createCache(emotionCacheOptions[langDirection])}>
@@ -57,7 +73,7 @@ const App = () => {
         <AuthProvider>
           <BrowserRouter>
             <FuseAuthorization
-              userRole={user.role}
+              userRole={user?.roleDTO?.label}
               loginRedirectUrl={settingsConfig.loginRedirectUrl}
             >
               <SnackbarProvider

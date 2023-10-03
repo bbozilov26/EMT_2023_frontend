@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import _ from "@lodash";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
@@ -14,8 +14,14 @@ import AvatarGroup from "@mui/material/AvatarGroup";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
-import { useEffect } from "react";
-import jwtService from "../../auth/services/jwtService";
+import { useEffect, useState } from "react";
+import UserRepository from "../apps/e-commerce/repositories/UserRepository";
+import swal from "sweetalert";
+import { Buffer } from "buffer";
+import jwtDecode from "jwt-decode";
+import { resolve } from "promise";
+import { AuthProvider } from "../../auth/AuthContext";
+import jwtService from "../../auth/services/jwtService/jwtService";
 
 /**
  * Form Validation Schema
@@ -38,6 +44,11 @@ const defaultValues = {
 };
 
 function SignInPage() {
+  const navigate = useNavigate();
+  const [user, setUser] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
   const { control, formState, handleSubmit, setError, setValue } = useForm({
     mode: "onChange",
     defaultValues,
@@ -54,6 +65,13 @@ function SignInPage() {
     setValue("password", "admin", { shouldDirty: true, shouldValidate: true });
   }, [setValue]);
 
+  const wrongCredentialsAlert = () => {
+    swal("Wrong E-Mail or Password!", {
+      icon: "error",
+    });
+    jwtService.setSession(null);
+  };
+
   function onSubmit({ email, password }) {
     jwtService
       .signInWithEmailAndPassword(email, password)
@@ -61,12 +79,13 @@ function SignInPage() {
         // No need to do anything, user data will be set at app/auth/AuthContext
       })
       .catch((_errors) => {
-        _errors.forEach((error) => {
-          setError(error.type, {
-            type: "manual",
-            message: error.message,
-          });
-        });
+        // _errors.forEach((error) => {
+        //   setError(error.type, {
+        //     type: "manual",
+        //     message: error.message,
+        //   });
+        // });
+        wrongCredentialsAlert();
       });
   }
 

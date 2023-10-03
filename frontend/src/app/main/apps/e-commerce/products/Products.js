@@ -13,7 +13,7 @@ function Products() {
     <FusePageSimple
       header={<ProductsHeader />}
       content={<ProductsTable />}
-      scroll={isMobile ? "normal" : "page"}
+      scroll={"page"}
     />
   );
 }

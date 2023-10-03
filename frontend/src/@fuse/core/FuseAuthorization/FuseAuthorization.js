@@ -1,9 +1,9 @@
-import FuseUtils from '@fuse/utils';
-import AppContext from 'app/AppContext';
-import { Component } from 'react';
-import { matchRoutes } from 'react-router-dom';
-import withRouter from '@fuse/core/withRouter';
-import history from '@history';
+import FuseUtils from "@fuse/utils";
+import AppContext from "app/AppContext";
+import { Component } from "react";
+import { matchRoutes } from "react-router-dom";
+import withRouter from "@fuse/core/withRouter";
+import history from "@history";
 
 let loginRedirectUrl = null;
 
@@ -15,7 +15,7 @@ class FuseAuthorization extends Component {
       accessGranted: true,
       routes,
     };
-    this.defaultLoginRedirectUrl = props.loginRedirectUrl || '/';
+    this.defaultLoginRedirectUrl = props.loginRedirectUrl || "/";
   }
 
   componentDidMount() {
@@ -42,7 +42,9 @@ class FuseAuthorization extends Component {
 
     const matched = matchedRoutes ? matchedRoutes[0] : false;
     return {
-      accessGranted: matched ? FuseUtils.hasPermission(matched.route.auth, userRole) : true,
+      accessGranted: matched
+        ? FuseUtils.hasPermission(matched.route.auth, userRole)
+        : true,
     };
   }
 
@@ -55,8 +57,8 @@ class FuseAuthorization extends Component {
         User is guest
         Redirect to Login Page
         */
-    if (!userRole || userRole.length === 0) {
-      setTimeout(() => history.push('/sign-in'), 0);
+    if (!userRole) {
+      setTimeout(() => history.push("/sign-in"), 0);
       loginRedirectUrl = pathname;
     } else {
       /*

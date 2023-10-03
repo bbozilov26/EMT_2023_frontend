@@ -13,6 +13,7 @@ import authRoleExamplesConfigs from "../main/auth/authRoleExamplesConfigs";
 import DocumentationConfig from "../main/documentation/DocumentationConfig";
 import ForgotPasswordConfig from "../main/forgot-password/ForgotPasswordConfig";
 import ResetPasswordConfig from "../main/reset-password/ResetPasswordConfig";
+import Products from "../main/apps/e-commerce/products/Products";
 
 const routeConfigs = [
   ...appsConfigs,
@@ -29,13 +30,10 @@ const routeConfigs = [
 ];
 
 const routes = [
-  ...FuseUtils.generateRoutesFromConfigs(
-    routeConfigs,
-    settingsConfig.defaultAuth
-  ),
+  ...FuseUtils.generateRoutesFromConfigs(routeConfigs),
   {
-    path: "/",
-    element: <Navigate to="/products" />,
+    path: "/products",
+    element: <Products />,
     auth: settingsConfig.defaultAuth,
   },
   {

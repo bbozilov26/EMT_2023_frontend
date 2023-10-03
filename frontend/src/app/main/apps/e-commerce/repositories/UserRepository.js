@@ -4,8 +4,12 @@ const baseUrl = "http://localhost:9092/";
 const usersBaseUrl = "http://localhost:9092/users";
 
 const UserRepository = {
-  login: (dto) => {
-    return axios.post(`/sign-in`, dto, {
+  login: (request) => {
+    return axios.post("/login", request, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Basic " + request,
+      },
       baseURL: baseUrl,
     });
   },
@@ -30,6 +34,12 @@ const UserRepository = {
 
   findById: (id) => {
     return axios.get(`/${id}`, {
+      baseURL: usersBaseUrl,
+    });
+  },
+
+  filteredUsers: (dto) => {
+    return axios.post(`/filtered`, dto, {
       baseURL: usersBaseUrl,
     });
   },
@@ -60,7 +70,7 @@ const UserRepository = {
 
   findAllDailyCheckInsByUser: (userId) => {
     return axios.get(`/all-daily-check-ins/${userId}`, {
-      baseURL: baseUrl,
+      baseURL: usersBaseUrl,
     });
   },
 };

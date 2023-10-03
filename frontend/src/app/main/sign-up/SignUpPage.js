@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import _ from "@lodash";
 import AvatarGroup from "@mui/material/AvatarGroup";
@@ -42,10 +42,13 @@ const defaultValues = {
   email: "",
   password: "",
   passwordConfirm: "",
+  phoneNumber: "",
   acceptTermsConditions: false,
 };
 
 function SignUpPage() {
+  const navigate = useNavigate();
+
   const { control, formState, handleSubmit, reset } = useForm({
     mode: "onChange",
     defaultValues,
@@ -54,15 +57,27 @@ function SignUpPage() {
 
   const { isValid, dirtyFields, errors, setError } = formState;
 
-  function onSubmit({ displayName, password, email }) {
+  function onSubmit({
+    email,
+    password,
+    passwordConfirm,
+    displayName,
+    phoneNumber,
+  }) {
     jwtService
       .createUser({
-        displayName,
-        password,
-        email,
+        email: email,
+        password: password,
+        repeatPassword: passwordConfirm,
+        personDTO: {
+          firstName: displayName.split(" ")[0],
+          lastName: displayName.split(" ")[1],
+          phoneNumber: phoneNumber,
+        },
       })
       .then((user) => {
         // No need to do anything, registered user data will be set at app/auth/AuthContext
+        navigate("/sign-in");
       })
       .catch((_errors) => {
         _errors.forEach((error) => {
@@ -170,6 +185,24 @@ function SignUpPage() {
             />
 
             <Controller
+              name="phoneNumber"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Phone number (optional)"
+                  autoFocus
+                  type="number"
+                  error={!!errors.phoneNumber}
+                  helperText={errors?.phoneNumber?.message}
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
               name="acceptTermsConditions"
               control={control}
               render={({ field }) => (
@@ -189,6 +222,8 @@ function SignUpPage() {
             />
 
             <Button
+              // to="/sign-in"
+              // component={Link}
               variant="contained"
               color="secondary"
               className="w-full mt-24"

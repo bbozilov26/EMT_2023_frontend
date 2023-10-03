@@ -33,27 +33,26 @@ function UserMenu(props) {
       >
         <div className="hidden md:flex flex-col mx-4 items-end">
           <Typography component="span" className="font-semibold flex">
-            {user.data.displayName}
+            {user.data?.displayName ||
+              `${user.personDTO?.firstName} ${user.personDTO?.lastName}`}
           </Typography>
           <Typography
             className="text-11 font-medium capitalize"
             color="text.secondary"
           >
-            {user.role.toString()}
-            {(!user.role ||
-              (Array.isArray(user.role) && user.role.length === 0)) &&
-              "Guest"}
+            {user.roleDTO?.role.toString()}
+            {!user.roleDTO?.role && "Guest"}
           </Typography>
         </div>
 
-        {user.data.photoURL ? (
+        {user?.photoURL ? (
           <Avatar
             className="md:mx-4"
             alt="user photo"
-            src={user.data.photoURL}
+            src={user.data?.photoURL}
           />
         ) : (
-          <Avatar className="md:mx-4">{user.data.displayName[0]}</Avatar>
+          <Avatar className="md:mx-4">{user.data?.displayName?.[0]}</Avatar>
         )}
       </Button>
 
@@ -73,7 +72,7 @@ function UserMenu(props) {
           paper: "py-8",
         }}
       >
-        {!user.role || user.role.length === 0 ? (
+        {!user.roleDTO ? (
           <>
             <MenuItem component={Link} to="/sign-in" role="button">
               <ListItemIcon className="min-w-40">

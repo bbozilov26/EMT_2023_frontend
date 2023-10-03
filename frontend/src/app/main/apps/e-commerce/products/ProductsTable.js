@@ -30,8 +30,8 @@ import ProductRepository from "../repositories/ProductRepository";
 
 function ProductsTable(props) {
   const dispatch = useDispatch();
-  // const products = useSelector(selectProducts);
   const searchText = useSelector(selectProductsSearchText);
+  const user = useSelector(selectUser);
 
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
@@ -220,21 +220,24 @@ function ProductsTable(props) {
             </Paper>
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-          >
-            <Button
-              className=""
-              component={Link}
-              to="/products/new"
-              variant="contained"
-              color="secondary"
-              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+          {user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
+          user.roleDTO?.label.toString() === "ROLE_ADMIN" ? (
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
             >
-              Add
-            </Button>
-          </motion.div>
+              <Button
+                className=""
+                component={Link}
+                to="/products/new"
+                variant="contained"
+                color="secondary"
+                startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+              >
+                Add
+              </Button>
+            </motion.div>
+          ) : null}
         </div>
 
         <div className="mt-128"></div>
@@ -297,21 +300,24 @@ function ProductsTable(props) {
           </Paper>
         </div>
 
-        <motion.div
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
-        >
-          <Button
-            className=""
-            component={Link}
-            to="/products/new"
-            variant="contained"
-            color="secondary"
-            startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+        {user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
+        user.roleDTO?.label.toString() === "ROLE_ADMIN" ? (
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
           >
-            Add
-          </Button>
-        </motion.div>
+            <Button
+              className=""
+              component={Link}
+              to="/products/new"
+              variant="contained"
+              color="secondary"
+              startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
+            >
+              Add
+            </Button>
+          </motion.div>
+        ) : null}
       </div>
 
       <motion.div
@@ -323,7 +329,7 @@ function ProductsTable(props) {
         {data.map((product) => {
           return (
             <motion.div variants={item} key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard product={product} user={user} />
             </motion.div>
           );
         })}

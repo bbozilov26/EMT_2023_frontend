@@ -19,26 +19,28 @@ import Typography from "@mui/material/Typography";
 
 function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
-  const user = useSelector(selectUser);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [loading, setLoading] = useState(true);
   const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
-    UserRepository.findAllDailyCheckInsByUser(user.id).then(({ data }) => {
+    UserRepository.findAllDailyCheckInsByUser(user.id.id).then(({ data }) => {
       const dailyCheckInsData = data.map((el) => ({
         id: el.id.id,
-        dailyReward: el.dailyReward,
-        description: el.description,
-        label: el.label,
+        dailyCheckInId: el.dailyCheckInDTO.id.id,
+        dailyReward: el.dailyCheckInDTO.dailyReward,
+        description: el.dailyCheckInDTO.description,
+        label: el.dailyCheckInDTO.label,
+        claimed: el.claimed,
       }));
 
       setUserDailyCheckIns(dailyCheckInsData);
     });
 
     setLoading(false);
-  }, [user.id]);
+  }, [user?.id.id]);
 
   const container = {
     show: {
@@ -91,7 +93,7 @@ function DailyCheckInsTable(props) {
         <FuseSvgIcon className="mr-2 ml-4">
           heroicons-outline:currency-euro
         </FuseSvgIcon>
-        {user.creditBalance ?? 0}
+        {user?.creditBalance ?? 0}
       </div>
       <div className="mr-64">
         <Card>
