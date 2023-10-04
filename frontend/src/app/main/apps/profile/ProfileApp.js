@@ -27,7 +27,7 @@ const Root = styled(FusePageSimple)(({ theme }) => ({
 }));
 
 function ProfileApp() {
-  const user = useSelector(selectUser);
+  const user = JSON.parse(localStorage.getItem("user"));
   const [selectedTab, setSelectedTab] = useState(1);
 
   function handleTabChange(event, value) {
@@ -61,12 +61,12 @@ function ProfileApp() {
 
             <div className="flex flex-col items-center lg:items-start mt-16 lg:mt-0 lg:ml-32">
               <Typography className="text-lg font-bold leading-none">
-                {user.person?.firstName + " " + user.person?.lastName}
+                {user.personDTO?.firstName + " " + user.personDTO?.lastName}
               </Typography>
               <Typography color="text.secondary">
-                {user.person?.address.split(", ")[3] +
+                {user.personDTO?.address?.split(", ")[3] +
                   ", " +
-                  user.person?.address.split(", ")[4]}
+                  user.personDTO?.address?.split(", ")[4]}
               </Typography>
             </div>
 

@@ -10,8 +10,9 @@ import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import DailyCheckInCard from "../../e-commerce/daily-check-ins/DailyCheckInCard";
 
 function AboutTab(props) {
   const [data, setData] = useState(props.user);
@@ -91,6 +92,23 @@ function AboutTab(props) {
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="px-32 pt-24">
               <Typography className="text-2xl font-semibold leading-tight">
+                User's Balance
+              </Typography>
+            </div>
+
+            <CardContent className="px-32 py-24">
+              <div className="mb-24">
+                <Typography className="font-semibold mb-4 text-15">
+                  Credit Balance
+                </Typography>
+                <Typography>{data.creditBalance}</Typography>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card component={motion.div} variants={item} className="w-full mb-32">
+            <div className="px-32 pt-24">
+              <Typography className="text-2xl font-semibold leading-tight">
                 Contact
               </Typography>
             </div>
@@ -100,7 +118,7 @@ function AboutTab(props) {
                 <Typography className="font-semibold mb-4 text-15">
                   Address
                 </Typography>
-                <Typography>{data.person?.address}</Typography>
+                <Typography>{data.personDTO?.address}</Typography>
               </div>
 
               <div className="mb-24">
@@ -108,7 +126,7 @@ function AboutTab(props) {
                   Tel.
                 </Typography>
 
-                <Typography>{data.person?.phoneNumber}</Typography>
+                <Typography>{data.personDTO?.phoneNumber}</Typography>
               </div>
 
               <div className="mb-24">

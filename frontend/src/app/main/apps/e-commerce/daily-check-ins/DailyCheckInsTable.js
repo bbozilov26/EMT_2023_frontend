@@ -28,8 +28,8 @@ function DailyCheckInsTable(props) {
     // Fetch daily check-ins when the component mounts
 
     if (
-      user.role?.label.toString() === "ROLE_SUPER_ADMIN" ||
-      user.role?.label.toString() === "ROLE_ADMIN"
+      user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
+      user.roleDTO?.label.toString() === "ROLE_ADMIN"
     ) {
       DailyCheckInRepository.findAll().then(({ data }) => {
         const dailyCheckInsData = data.map((el) => ({

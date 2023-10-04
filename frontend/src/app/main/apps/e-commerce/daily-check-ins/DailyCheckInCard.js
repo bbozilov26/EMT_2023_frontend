@@ -68,8 +68,8 @@ function DailyCheckInCard(props) {
             justifyContent: "flex-center",
           }}
         >
-          {props.user.role?.label === "ROLE_SUPER_ADMIN" ||
-          props.user.role?.label === "ROLE_ADMIN" ? (
+          {props.user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+          props.user.roleDTO?.label === "ROLE_ADMIN" ? (
             <Button
               component={Link}
               to={`/daily-check-ins/${props.udci.id}`}

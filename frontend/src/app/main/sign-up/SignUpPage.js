@@ -42,6 +42,11 @@ const defaultValues = {
   email: "",
   password: "",
   passwordConfirm: "",
+  addressStreet1: "",
+  addressStreet2: "",
+  addressPostCode: "",
+  addressCity: "",
+  addressCountry: "",
   phoneNumber: "",
   acceptTermsConditions: false,
 };
@@ -63,6 +68,11 @@ function SignUpPage() {
     passwordConfirm,
     displayName,
     phoneNumber,
+    addressStreet1,
+    addressStreet2,
+    addressPostCode,
+    addressCity,
+    addressCountry,
   }) {
     jwtService
       .createUser({
@@ -72,6 +82,13 @@ function SignUpPage() {
         personDTO: {
           firstName: displayName.split(" ")[0],
           lastName: displayName.split(" ")[1],
+          address: [
+            addressStreet1,
+            addressStreet2,
+            addressPostCode,
+            addressCity,
+            addressCountry,
+          ].join(", "),
           phoneNumber: phoneNumber,
         },
       })
@@ -179,6 +196,96 @@ function SignUpPage() {
                   helperText={errors?.passwordConfirm?.message}
                   variant="outlined"
                   required
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="addressStreet1"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Address 1 (Street)"
+                  autoFocus
+                  type="name"
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message}
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="addressStreet2"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Address 2 (Street)"
+                  autoFocus
+                  type="name"
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message}
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="addressPostCode"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Post Code"
+                  autoFocus
+                  type="name"
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message}
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="addressCity"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="City"
+                  autoFocus
+                  type="name"
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message}
+                  variant="outlined"
+                  fullWidth
+                />
+              )}
+            />
+
+            <Controller
+              name="addressCountry"
+              control={control}
+              render={({ field }) => (
+                <TextField
+                  {...field}
+                  className="mb-24"
+                  label="Country"
+                  autoFocus
+                  type="name"
+                  error={!!errors.displayName}
+                  helperText={errors?.displayName?.message}
+                  variant="outlined"
                   fullWidth
                 />
               )}
