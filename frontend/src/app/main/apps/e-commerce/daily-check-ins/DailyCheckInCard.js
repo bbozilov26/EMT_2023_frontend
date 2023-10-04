@@ -28,7 +28,6 @@ function DailyCheckInCard(props) {
         );
         localStorage.setItem("user", JSON.stringify(data));
         window.location.reload();
-        // navigate("/daily-check-ins");
       })
       .catch((error) => {
         // Handle any errors that occur during removal (optional)
@@ -69,22 +68,48 @@ function DailyCheckInCard(props) {
             justifyContent: "flex-center",
           }}
         >
-          <Button
-            component={Link}
-            to={`/daily-check-ins`}
-            className="px-16 min-w-128"
-            color="secondary"
-            variant="contained"
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            disabled={props.udci.claimed}
-            onClick={() => handleClaimCheckIn(props.udci.id)}
-          >
-            {!props.udci.claimed ? "Claim" : "Claimed!"}
-          </Button>
+          {props.user.role?.label === "ROLE_SUPER_ADMIN" ||
+          props.user.role?.label === "ROLE_ADMIN" ? (
+            <Button
+              component={Link}
+              to={`/daily-check-ins/${props.udci.id}`}
+              className="px-16 min-w-128"
+              color="secondary"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{ marginRight: "0px" }}>
+                <FuseSvgIcon className="" size={20}>
+                  feather:edit
+                </FuseSvgIcon>
+              </span>
+              Edit
+            </Button>
+          ) : (
+            <Button
+              component={Link}
+              to={`/daily-check-ins`}
+              className="px-16 min-w-128"
+              color="secondary"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              disabled={
+                props.udci.claimed ||
+                !props.udci.label.includes(props.user.streak + 1)
+              }
+              onClick={() => handleClaimCheckIn(props.udci.id)}
+            >
+              {!props.udci.claimed ? "Claim" : "Claimed!"}
+            </Button>
+          )}
         </div>
       </CardActions>
     </Card>

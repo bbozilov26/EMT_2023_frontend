@@ -26,18 +26,35 @@ function DailyCheckInsTable(props) {
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
-    UserRepository.findAllDailyCheckInsByUser(user.id.id).then(({ data }) => {
-      const dailyCheckInsData = data.map((el) => ({
-        id: el.id.id,
-        dailyCheckInId: el.dailyCheckInDTO.id.id,
-        dailyReward: el.dailyCheckInDTO.dailyReward,
-        description: el.dailyCheckInDTO.description,
-        label: el.dailyCheckInDTO.label,
-        claimed: el.claimed,
-      }));
 
-      setUserDailyCheckIns(dailyCheckInsData);
-    });
+    if (
+      user.role?.label.toString() === "ROLE_SUPER_ADMIN" ||
+      user.role?.label.toString() === "ROLE_ADMIN"
+    ) {
+      DailyCheckInRepository.findAll().then(({ data }) => {
+        const dailyCheckInsData = data.map((el) => ({
+          id: el.id.id,
+          dailyReward: el.dailyReward,
+          description: el.description,
+          label: el.label,
+        }));
+
+        setUserDailyCheckIns(dailyCheckInsData);
+      });
+    } else {
+      UserRepository.findAllDailyCheckInsByUser(user.id.id).then(({ data }) => {
+        const dailyCheckInsData = data.map((el) => ({
+          id: el.id.id,
+          dailyCheckInId: el.dailyCheckInDTO.id.id,
+          dailyReward: el.dailyCheckInDTO.dailyReward,
+          description: el.dailyCheckInDTO.description,
+          label: el.dailyCheckInDTO.label,
+          claimed: el.claimed,
+        }));
+
+        setUserDailyCheckIns(dailyCheckInsData);
+      });
+    }
 
     setLoading(false);
   }, [user?.id.id]);
