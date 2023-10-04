@@ -33,7 +33,7 @@ const ECommerceAppConfig = {
       element: <Navigate to="products" />,
     },
     {
-      path: "/daily-check-ins",
+      path: "/my-coins",
       element: <DailyCheckIns />,
     },
   ],

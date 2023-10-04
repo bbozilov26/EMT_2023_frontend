@@ -113,7 +113,7 @@ function UserMenu(props) {
             </MenuItem>
             <MenuItem
               component={Link}
-              to="/daily-check-ins"
+              to="/my-coins"
               onClick={userMenuClose}
               role="button"
             >

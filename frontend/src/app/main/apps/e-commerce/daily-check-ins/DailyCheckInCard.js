@@ -15,6 +15,20 @@ import UserRepository from "../repositories/UserRepository";
 function DailyCheckInCard(props) {
   const navigate = useNavigate();
 
+  const isAdminOrSuperAdmin =
+    props.user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+    props.user.roleDTO?.label === "ROLE_ADMIN";
+
+  const currentDate = new Date();
+  const startDate = new Date(props.startDate);
+  const streak = props.user.streak;
+  startDate.setDate(startDate.getDate() + streak);
+
+  const isStreakDaysDifference =
+    currentDate.toDateString() === startDate.toDateString();
+
+  const canClaim = isStreakDaysDifference || props.udci.claimed;
+
   const handleClaimCheckIn = (checkInId) => {
     // Dispatch the claimDailyCheckIn thunk to claim a check-in
     UserRepository.claimDailyCheckIn({
@@ -68,11 +82,10 @@ function DailyCheckInCard(props) {
             justifyContent: "flex-center",
           }}
         >
-          {props.user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
-          props.user.roleDTO?.label === "ROLE_ADMIN" ? (
+          {isAdminOrSuperAdmin && (
             <Button
               component={Link}
-              to={`/daily-check-ins/${props.udci.id}`}
+              to={`/my-coins/${props.udci.id}`}
               className="px-16 min-w-128"
               color="secondary"
               variant="contained"
@@ -89,10 +102,12 @@ function DailyCheckInCard(props) {
               </span>
               Edit
             </Button>
-          ) : (
+          )}
+
+          {canClaim && (
             <Button
               component={Link}
-              to={`/daily-check-ins`}
+              to={`/my-coins`}
               className="px-16 min-w-128"
               color="secondary"
               variant="contained"
@@ -101,10 +116,7 @@ function DailyCheckInCard(props) {
                 alignItems: "center",
                 justifyContent: "center",
               }}
-              disabled={
-                props.udci.claimed ||
-                !props.udci.label.includes(props.user.streak + 1)
-              }
+              disabled={props.udci.claimed}
               onClick={() => handleClaimCheckIn(props.udci.id)}
             >
               {!props.udci.claimed ? "Claim" : "Claimed!"}

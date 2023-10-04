@@ -23,6 +23,7 @@ function DailyCheckInsTable(props) {
 
   const [loading, setLoading] = useState(true);
   const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
+  const [startDate, setStartDate] = useState();
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
@@ -50,9 +51,11 @@ function DailyCheckInsTable(props) {
           description: el.dailyCheckInDTO.description,
           label: el.dailyCheckInDTO.label,
           claimed: el.claimed,
+          dateModified: el.dateModified,
         }));
-
         setUserDailyCheckIns(dailyCheckInsData);
+
+        setStartDate(new Date(userDailyCheckIns[0].dateModified));
       });
     }
 
@@ -128,7 +131,11 @@ function DailyCheckInsTable(props) {
                 {userDailyCheckIns.map((udci) => {
                   return (
                     <motion.div variants={item} key={udci.id}>
-                      <DailyCheckInCard udci={udci} user={user} />
+                      <DailyCheckInCard
+                        udci={udci}
+                        user={user}
+                        startDate={startDate}
+                      />
                     </motion.div>
                   );
                 })}
