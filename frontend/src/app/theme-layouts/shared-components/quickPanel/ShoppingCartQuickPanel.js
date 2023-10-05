@@ -26,14 +26,6 @@ function ShoppingCartQuickPanel(props) {
 
   const [orderedProducts, setOrderedProducts] = useState([]);
 
-  const handleQuantityChange = (itemId, quantity, newQuantity) => {
-    newQuantity = parseInt(newQuantity, 10);
-
-    if (newQuantity > quantity) {
-      OrderRepository.addToCart(itemId, user?.id.id);
-    } else OrderRepository.removeFromCart(itemId, user?.id.id);
-  };
-
   useEffect(() => {
     if (user.id.id) {
       OrderRepository.findAllOrderedProductsByUser(user.id.id).then(
@@ -80,7 +72,7 @@ function ShoppingCartQuickPanel(props) {
               <>
                 <div className="cart-items">
                   {orderedProducts?.map((item) => (
-                    <div key={item?.id} className="cart-item">
+                    <div key={item?.id.id} className="cart-item">
                       <img
                         className="w-256 sm:w-384 rounded"
                         src={`data:image/jpeg;base64,${item?.image}`}
@@ -100,11 +92,15 @@ function ShoppingCartQuickPanel(props) {
                           type="number"
                           value={item?.quantity}
                           onChange={(e) =>
-                            handleQuantityChange(
-                              item?.id,
-                              item?.quantity,
-                              e.target.value
-                            )
+                            item.quantity > parseInt(e.target.value, 10)
+                              ? OrderRepository.removeFromCart(
+                                  item?.id.id,
+                                  user?.id.id
+                                ).then(() => window.location.reload())
+                              : OrderRepository.addToCart(
+                                  item?.productDTO?.id.id,
+                                  user?.id.id
+                                ).then(() => window.location.reload())
                           }
                         />
                         <p style={{ display: "flex", alignItems: "center" }}>
