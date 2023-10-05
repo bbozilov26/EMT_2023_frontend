@@ -25,7 +25,8 @@ function DailyCheckInCard(props) {
   startDate.setDate(startDate.getDate() + streak);
 
   const isStreakDaysDifference =
-    currentDate.toDateString() === startDate.toDateString();
+    currentDate.toDateString() === startDate.toDateString() &&
+    props.udci.label.includes(streak + 1);
 
   const canClaim = isStreakDaysDifference || props.udci.claimed;
 

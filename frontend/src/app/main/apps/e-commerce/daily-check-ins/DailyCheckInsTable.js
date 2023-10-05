@@ -55,7 +55,7 @@ function DailyCheckInsTable(props) {
         }));
         setUserDailyCheckIns(dailyCheckInsData);
 
-        setStartDate(new Date(userDailyCheckIns[0]?.dateModified));
+        setStartDate(new Date(dailyCheckInsData[0]?.dateModified));
       });
     }
 
