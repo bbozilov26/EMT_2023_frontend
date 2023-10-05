@@ -45,8 +45,8 @@ function ProductCard(props) {
   };
 
   const handleAddProductToCart = (productId) => {
-    OrderRepository.addToCart(productId, props.user.id).then(() =>
-      navigate("/products")
+    OrderRepository.addToCart(productId, props.user.id.id).then(() =>
+      window.location.reload()
     );
   };
 
@@ -156,8 +156,8 @@ function ProductCard(props) {
                 >
                   <Button
                     onClick={() => handleAddProductToCart(props.product.id)}
-                    to={`add/${props.product.id}/${props.user.id}`}
-                    component={Link}
+                    // to={`/add/${props.product.id}/${props.user.id}`}
+                    // component={Link}
                     className="px-16 min-w-128"
                     color="secondary"
                     variant="contained"

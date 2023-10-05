@@ -9,7 +9,7 @@ import { selectUser } from "app/store/userSlice";
 
 function Orders() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down("lg"));
-  const user = useSelector(selectUser);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <FusePageCarded

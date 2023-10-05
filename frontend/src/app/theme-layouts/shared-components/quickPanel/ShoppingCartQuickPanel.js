@@ -10,12 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectQuickPanelData } from "./store/dataSlice";
 import reducer from "./store";
 import { selectQuickPanelState, toggleQuickPanel } from "./store/stateSlice";
-import { selectUser } from "app/store/userSlice";
-import {
-  fetchCartItems,
-  selectCartItems,
-} from "app/theme-layouts/shared-components/quickPanel/store/shoppingCartSlice";
 import OrderRepository from "../../../main/apps/e-commerce/repositories/OrderRepository";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -25,27 +21,26 @@ const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
 
 function ShoppingCartQuickPanel(props) {
   const dispatch = useDispatch();
-  const data = useSelector(selectQuickPanelData);
   const state = useSelector(selectQuickPanelState);
-  const user = useSelector(selectUser);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [orderedProducts, setOrderedProducts] = useState([]);
 
-  const handleQuantityChange = (itemId, newQuantity) => {
-    // Convert newQuantity to a number (assuming it's a string)
+  const handleQuantityChange = (itemId, quantity, newQuantity) => {
     newQuantity = parseInt(newQuantity, 10);
 
-    // Dispatch an action to update the quantity in the Redux store
-    dispatch(updateCartItemQuantity(itemId, newQuantity));
+    if (newQuantity > quantity) {
+      OrderRepository.addToCart(itemId, user?.id.id);
+    } else OrderRepository.removeFromCart(itemId, user?.id.id);
   };
 
   useEffect(() => {
-    OrderRepository.findAllOrderedProductsByUser(user.id).then(({ data }) =>
-      setOrderedProducts(data)
-    );
-  }, []);
-
-  // const cartItems = useSelector((state) => state.cart?.cartItems);
+    if (user.id.id) {
+      OrderRepository.findAllOrderedProductsByUser(user.id.id).then(
+        ({ data }) => setOrderedProducts(data)
+      );
+    }
+  }, [user?.id.id]);
 
   return (
     <StyledSwipeableDrawer
@@ -86,19 +81,39 @@ function ShoppingCartQuickPanel(props) {
                 <div className="cart-items">
                   {orderedProducts?.map((item) => (
                     <div key={item?.id} className="cart-item">
-                      <img src={item?.image} alt={item?.name} />
+                      <img
+                        className="w-256 sm:w-384 rounded"
+                        src={`data:image/jpeg;base64,${item?.image}`}
+                        alt={item?.title}
+                      />
                       <div className="item-details">
-                        <h3>{item?.name}</h3>
-                        <p>Price: ${item?.price}</p>
+                        <h3>{item?.title}</h3>
+                        <p style={{ display: "flex", alignItems: "center" }}>
+                          Price:{" "}
+                          <FuseSvgIcon>
+                            heroicons-outline:currency-euro
+                          </FuseSvgIcon>
+                          {item?.price}
+                        </p>
                         <label>Quantity:</label>
                         <input
                           type="number"
                           value={item?.quantity}
                           onChange={(e) =>
-                            handleQuantityChange(item?.id, e.target.value)
+                            handleQuantityChange(
+                              item?.id,
+                              item?.quantity,
+                              e.target.value
+                            )
                           }
                         />
-                        <p>Total Price: ${item?.price * item?.quantity}</p>
+                        <p style={{ display: "flex", alignItems: "center" }}>
+                          Total Price:{" "}
+                          <FuseSvgIcon>
+                            heroicons-outline:currency-euro
+                          </FuseSvgIcon>
+                          {item?.price * item?.quantity}
+                        </p>
                       </div>
                     </div>
                   ))}
@@ -108,26 +123,39 @@ function ShoppingCartQuickPanel(props) {
 
                 <ListSubheader
                   component="div"
-                  style={{ fontSize: "24px", marginTop: "400px" }}
+                  style={{
+                    fontSize: "24px",
+                    marginTop: "400px",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
                 >
                   Total:
-                </ListSubheader>
-                {orderedProducts && orderedProducts.length > 0 && (
-                  <>
-                    <div className="divider"></div>
+                  {orderedProducts && orderedProducts.length > 0 && (
+                    <>
+                      <div className="divider"></div>
 
-                    <div className="total-section">
-                      <div className="total-label">Total:</div>
-                      <div className="total-amount">
-                        $
-                        {orderedProducts?.reduce(
-                          (total, item) => total + item?.price * item?.quantity,
-                          0
-                        )}
+                      <div className="total-section">
+                        <div
+                          className="total-amount"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                          }}
+                        >
+                          <FuseSvgIcon>
+                            heroicons-outline:currency-euro
+                          </FuseSvgIcon>
+                          {orderedProducts?.reduce(
+                            (total, item) =>
+                              total + item?.price * item?.quantity,
+                            0
+                          )}
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
+                    </>
+                  )}
+                </ListSubheader>
               </>
             )}
           </List>

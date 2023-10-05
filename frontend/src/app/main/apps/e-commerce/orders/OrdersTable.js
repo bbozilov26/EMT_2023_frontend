@@ -39,7 +39,7 @@ function OrdersTable(props) {
   });
 
   useEffect(() => {
-    OrderRepository.findAllOrdersByUser(props.user.id).then(({ data }) => {
+    OrderRepository.findAllOrdersByUser(props.user.id.id).then(({ data }) => {
       const ordersData = data.map((el) => ({
         id: el.id.id,
         dateCreated: el.dateCreated,
@@ -58,7 +58,7 @@ function OrdersTable(props) {
     });
 
     setLoading(false);
-  }, [props.user.id]);
+  }, [props.user.id.id]);
 
   useEffect(() => {
     if (searchText.length !== 0) {

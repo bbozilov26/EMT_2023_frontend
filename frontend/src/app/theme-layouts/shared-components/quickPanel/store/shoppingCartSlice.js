@@ -13,7 +13,7 @@ export const fetchCartItems = createAsyncThunk(
   "cart/fetchCartItems",
   async (userId) => {
     try {
-      const response = await axios.get(`/ordered_products/all/${userId}`);
+      const response = await axios.get(`/ordered-products/all/${userId}`);
       return response.data; // Assuming the response contains the cart items
     } catch (error) {
       throw error;
@@ -26,7 +26,7 @@ export const removeCartItem = createAsyncThunk(
   "cart/removeCartItem",
   async ({ productId, userId }) => {
     try {
-      await axios.delete(`/ordered_products/remove/${productId}/${userId}`);
+      await axios.delete(`/ordered-products/remove/${productId}/${userId}`);
       return productId;
     } catch (error) {
       throw error;
