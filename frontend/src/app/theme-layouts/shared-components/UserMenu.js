@@ -12,7 +12,7 @@ import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { selectUser } from "app/store/userSlice";
 
 function UserMenu(props) {
-  const user = useSelector(selectUser);
+  const user = JSON.parse(localStorage.getItem("user"));
 
   const [userMenu, setUserMenu] = useState(null);
 
@@ -100,17 +100,31 @@ function UserMenu(props) {
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </MenuItem>
-            <MenuItem
-              component={Link}
-              to="/orders"
-              onClick={userMenuClose}
-              role="button"
-            >
-              <ListItemIcon className="min-w-40">
-                <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
-              </ListItemIcon>
-              <ListItemText primary="My Orders" />
-            </MenuItem>
+            {user.roleDTO?.role === "ROLE_CUSTOMER" ? (
+              <MenuItem
+                component={Link}
+                to="/orders"
+                onClick={userMenuClose}
+                role="button"
+              >
+                <ListItemIcon className="min-w-40">
+                  <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
+                </ListItemIcon>
+                <ListItemText primary="My Orders" />
+              </MenuItem>
+            ) : (
+              <MenuItem
+                component={Link}
+                to="/orders"
+                onClick={userMenuClose}
+                role="button"
+              >
+                <ListItemIcon className="min-w-40">
+                  <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
+                </ListItemIcon>
+                <ListItemText primary="All Orders" />
+              </MenuItem>
+            )}
             <MenuItem
               component={Link}
               to="/my-coins"

@@ -39,23 +39,43 @@ function OrdersTable(props) {
   });
 
   useEffect(() => {
-    OrderRepository.findAllOrdersByUser(props.user.id.id).then(({ data }) => {
-      const ordersData = data.map((el) => ({
-        id: el.id.id,
-        dateCreated: el.dateCreated,
-        dateModified: el.dateModified,
-        dateClosed: el.dateClosed,
-        totalPrice: el.totalPrice,
-        orderId: el.orderId,
-        trackingNumber: el.trackingNumber,
-        description: el.description,
-        orderStatus: el.orderStatus,
-        orderedProducts: el.orderedProducts,
-        user: el.user,
-      }));
+    props.user.roleDTO?.role === "ROLE_CUSTOMER"
+      ? OrderRepository.findAllOrdersByUser(props.user.id.id).then(
+          ({ data }) => {
+            const ordersData = data.map((el) => ({
+              id: el.id.id,
+              dateCreated: el.dateCreated,
+              dateModified: el.dateModified,
+              dateClosed: el.dateClosed,
+              totalPrice: el.totalPrice,
+              orderId: el.orderId,
+              trackingNumber: el.trackingNumber,
+              description: el.description,
+              orderStatus: el.orderStatus,
+              orderedProducts: el.orderedProducts,
+              user: el.user,
+            }));
 
-      setOrders(ordersData);
-    });
+            setOrders(ordersData);
+          }
+        )
+      : OrderRepository.findAllOrders().then(({ data }) => {
+          const ordersData = data.map((el) => ({
+            id: el.id.id,
+            dateCreated: el.dateCreated,
+            dateModified: el.dateModified,
+            dateClosed: el.dateClosed,
+            totalPrice: el.totalPrice,
+            orderId: el.orderId,
+            trackingNumber: el.trackingNumber,
+            description: el.description,
+            orderStatus: el.orderStatus,
+            orderedProducts: el.orderedProducts,
+            user: el.user,
+          }));
+
+          setOrders(ordersData);
+        });
 
     setLoading(false);
   }, [props.user.id.id]);
