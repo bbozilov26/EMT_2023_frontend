@@ -17,10 +17,10 @@ import { getOrder, resetOrder, selectOrder } from "../store/orderSlice";
 import InvoiceTab from "./tabs/InvoiceTab";
 import OrderDetailsTab from "./tabs/OrderDetailsTab";
 import ProductsTab from "./tabs/ProductsTab";
+import OrderRepository from "../repositories/OrderRepository";
 
 function Order(props) {
   const dispatch = useDispatch();
-  const order = useSelector(selectOrder);
   const theme = useTheme();
   const isMobile = useThemeMediaQuery((_theme) =>
     _theme.breakpoints.down("lg")
@@ -30,14 +30,30 @@ function Order(props) {
   const { orderId } = routeParams;
   const [tabValue, setTabValue] = useState(0);
   const [noOrder, setNoOrder] = useState(false);
+  const [order, setOrder] = useState();
+  const isCustomer = props.user.roleDTO?.role === "ROLE_CUSTOMER";
 
-  useDeepCompareEffect(() => {
-    dispatch(getOrder(orderId)).then((action) => {
-      if (!action.payload) {
+  useEffect(() => {
+    OrderRepository.findOrderById(orderId).then(({ data }) => {
+      if (!data) {
         setNoOrder(true);
+      } else {
+        setOrder({
+          id: data.id.id,
+          dateCreated: data.dateCreated,
+          dateModified: data.dateModified,
+          dateClosed: data.dateClosed,
+          totalPrice: data.totalPrice,
+          orderId: data.orderId,
+          trackingNumber: data.trackingNumber,
+          description: data.description,
+          orderStatus: data.orderStatus,
+          user: data.userDTO,
+          orderedProducts: data.orderedProductDTOs,
+        });
       }
     });
-  }, [dispatch, routeParams]);
+  }, [routeParams]);
 
   useEffect(() => {
     return () => {
@@ -130,9 +146,13 @@ function Order(props) {
           </Tabs>
           {order && (
             <div className="p-16 sm:p-24 max-w-3xl w-full">
-              {tabValue === 0 && <OrderDetailsTab />}
-              {tabValue === 1 && <ProductsTab />}
-              {tabValue === 2 && <InvoiceTab order={order} />}
+              {tabValue === 0 && (
+                <OrderDetailsTab order={order} readOnly={isCustomer} />
+              )}
+              {tabValue === 1 && <ProductsTab readOnly={isCustomer} />}
+              {tabValue === 2 && (
+                <InvoiceTab order={order} readOnly={isCustomer} />
+              )}
             </div>
           )}
         </>
@@ -142,4 +162,4 @@ function Order(props) {
   );
 }
 
-export default withReducer("eCommerceApp", reducer)(Order);
+export default Order;

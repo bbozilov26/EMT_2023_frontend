@@ -27,7 +27,7 @@ function ShoppingCartQuickPanel(props) {
   const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(() => {
-    if (user.id.id) {
+    if (user?.id.id) {
       OrderRepository.findAllOrderedProductsByUser(user.id.id).then(
         ({ data }) => setOrderedProducts(data)
       );

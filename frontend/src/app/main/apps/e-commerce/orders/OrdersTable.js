@@ -52,8 +52,8 @@ function OrdersTable(props) {
               trackingNumber: el.trackingNumber,
               description: el.description,
               orderStatus: el.orderStatus,
-              orderedProducts: el.orderedProducts,
-              user: el.user,
+              orderedProducts: el.orderedProductDTOs,
+              user: el.userDTO,
             }));
 
             setOrders(ordersData);
@@ -70,8 +70,8 @@ function OrdersTable(props) {
             trackingNumber: el.trackingNumber,
             description: el.description,
             orderStatus: el.orderStatus,
-            orderedProducts: el.orderedProducts,
-            user: el.user,
+            orderedProducts: el.orderedProductDTOs,
+            user: el.userDTO,
           }));
 
           setOrders(ordersData);
@@ -209,20 +209,20 @@ function OrdersTable(props) {
                       {n.id}
                     </TableCell>
 
-                    <TableCell
-                      className="p-4 md:p-16"
-                      component="th"
-                      scope="row"
-                    >
-                      {n.reference}
-                    </TableCell>
+                    {/*<TableCell*/}
+                    {/*  className="p-4 md:p-16"*/}
+                    {/*  component="th"*/}
+                    {/*  scope="row"*/}
+                    {/*>*/}
+                    {/*  {n.reference}*/}
+                    {/*</TableCell>*/}
 
                     <TableCell
                       className="p-4 md:p-16 truncate"
                       component="th"
                       scope="row"
                     >
-                      {`${n.customer.firstName} ${n.customer.lastName}`}
+                      {`${n.user.firstName} ${n.user.lastName}`}
                     </TableCell>
 
                     <TableCell
@@ -232,7 +232,23 @@ function OrdersTable(props) {
                       align="right"
                     >
                       <span>$</span>
-                      {n.total}
+                      {n.totalPrice}
+                    </TableCell>
+
+                    {/*<TableCell*/}
+                    {/*  className="p-4 md:p-16"*/}
+                    {/*  component="th"*/}
+                    {/*  scope="row"*/}
+                    {/*>*/}
+                    {/*  {n.payment.method}*/}
+                    {/*</TableCell>*/}
+
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
+                      <OrdersStatus name={n.orderStatus} />
                     </TableCell>
 
                     <TableCell
@@ -240,23 +256,7 @@ function OrdersTable(props) {
                       component="th"
                       scope="row"
                     >
-                      {n.payment.method}
-                    </TableCell>
-
-                    <TableCell
-                      className="p-4 md:p-16"
-                      component="th"
-                      scope="row"
-                    >
-                      <OrdersStatus name={n.status[0].name} />
-                    </TableCell>
-
-                    <TableCell
-                      className="p-4 md:p-16"
-                      component="th"
-                      scope="row"
-                    >
-                      {n.date}
+                      {n.dateCreated}
                     </TableCell>
                   </TableRow>
                 );

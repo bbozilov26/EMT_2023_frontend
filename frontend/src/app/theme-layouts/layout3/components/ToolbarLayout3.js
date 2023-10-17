@@ -22,6 +22,7 @@ import NavbarToggleButton from "../../shared-components/NavbarToggleButton";
 import HelpCenterHome from "../../../main/apps/help-center/home/HelpCenterHome";
 import HelpCenterMenu from "../../../main/apps/help-center/HelpCenterMenu";
 import WishlistToggleButton from "app/theme-layouts/shared-components/quickPanel/WishlistToggleButton";
+import QuizGameButton from "app/theme-layouts/shared-components/QuizGameButton";
 
 function ToolbarLayout3(props) {
   const config = useSelector(selectFuseCurrentLayoutConfig);
@@ -62,6 +63,8 @@ function ToolbarLayout3(props) {
             <HelpCenterMenu />
 
             <LanguageSwitcher />
+
+            <QuizGameButton />
 
             <ShoppingCartToggleButton />
 
