@@ -101,7 +101,7 @@ function UserMenu(props) {
               </ListItemIcon>
               <ListItemText primary="My Profile" />
             </MenuItem>
-            {user?.roleDTO?.role === "ROLE_CUSTOMER" ? (
+            {user?.roleDTO?.label === "ROLE_CUSTOMER" ? (
               <MenuItem
                 component={Link}
                 to="/orders"

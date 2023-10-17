@@ -39,7 +39,7 @@ function OrdersTable(props) {
   });
 
   useEffect(() => {
-    props.user.roleDTO?.role === "ROLE_CUSTOMER"
+    props.user.roleDTO?.label === "ROLE_CUSTOMER"
       ? OrderRepository.findAllOrdersByUser(props.user.id.id).then(
           ({ data }) => {
             const ordersData = data.map((el) => ({
@@ -169,19 +169,16 @@ function OrdersTable(props) {
                 (o) => {
                   switch (order.id) {
                     case "id": {
-                      return parseInt(o.id, 10);
+                      return o.orderId;
+                    }
+                    case "reference": {
+                      return o.trackingNumber;
                     }
                     case "customer": {
-                      return o.customer.firstName;
-                    }
-                    case "payment": {
-                      return o.payment.method;
+                      return `${o.user.personDTO?.firstName} ${o.user.personDTO?.lastName}`;
                     }
                     case "status": {
-                      return o.status[0].name;
-                    }
-                    default: {
-                      return o[order.id];
+                      return o.orderStatus;
                     }
                   }
                 },
@@ -206,23 +203,23 @@ function OrdersTable(props) {
                       component="th"
                       scope="row"
                     >
-                      {n.id}
+                      {n.orderId}
                     </TableCell>
 
-                    {/*<TableCell*/}
-                    {/*  className="p-4 md:p-16"*/}
-                    {/*  component="th"*/}
-                    {/*  scope="row"*/}
-                    {/*>*/}
-                    {/*  {n.reference}*/}
-                    {/*</TableCell>*/}
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
+                      {n.trackingNumber}
+                    </TableCell>
 
                     <TableCell
                       className="p-4 md:p-16 truncate"
                       component="th"
                       scope="row"
                     >
-                      {`${n.user.firstName} ${n.user.lastName}`}
+                      {`${n.user.personDTO?.firstName} ${n.user.personDTO?.lastName}`}
                     </TableCell>
 
                     <TableCell
@@ -234,14 +231,6 @@ function OrdersTable(props) {
                       <span>$</span>
                       {n.totalPrice}
                     </TableCell>
-
-                    {/*<TableCell*/}
-                    {/*  className="p-4 md:p-16"*/}
-                    {/*  component="th"*/}
-                    {/*  scope="row"*/}
-                    {/*>*/}
-                    {/*  {n.payment.method}*/}
-                    {/*</TableCell>*/}
 
                     <TableCell
                       className="p-4 md:p-16"
@@ -256,7 +245,7 @@ function OrdersTable(props) {
                       component="th"
                       scope="row"
                     >
-                      {n.dateCreated}
+                      {n.dateModified}
                     </TableCell>
                   </TableRow>
                 );

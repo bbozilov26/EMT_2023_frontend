@@ -22,7 +22,7 @@ function Marker(props) {
   );
 }
 
-function OrderDetailsTab() {
+function OrderDetailsTab(props) {
   const order = props.order;
   const isCustomer = props.isCustomer;
   const [map, setMap] = useState("shipping");
@@ -59,9 +59,9 @@ function OrderDetailsTab() {
                 <tr>
                   <td>
                     <div className="flex items-center">
-                      <Avatar src={order.user.avatar} />
+                      <Avatar src={order.user?.avatar} />
                       <Typography className="truncate mx-8">
-                        {`${order.user.firstName} ${order.user.lastName}`}
+                        {`${order.user.personDTO?.firstName} ${order.user.personDTO?.lastName}`}
                       </Typography>
                     </div>
                   </td>
@@ -72,7 +72,7 @@ function OrderDetailsTab() {
                   </td>
                   <td>
                     <Typography className="truncate">
-                      {order.user.phone}
+                      {order.user.personDTO?.phoneNumber}
                     </Typography>
                   </td>
                 </tr>
@@ -92,24 +92,6 @@ function OrderDetailsTab() {
               <Typography className="font-semibold">
                 Shipping Address
               </Typography>
-            </AccordionSummary>
-            <AccordionDetails className="flex flex-col md:flex-row -mx-8">
-              <Typography className="w-full md:max-w-256 mb-16 md:mb-0 mx-8 text-16">
-                {order.user.personDTO?.address}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion
-            className="shadow-0 border-0 overflow-hidden"
-            expanded={map === "invoice"}
-            onChange={() => setMap(map !== "invoice" ? "invoice" : false)}
-          >
-            <AccordionSummary
-              expandIcon={<ExpandMoreIcon />}
-              classes={{ root: "border border-solid rounded-16 mb-16" }}
-            >
-              <Typography className="font-semibold">Invoice Address</Typography>
             </AccordionSummary>
             <AccordionDetails className="flex flex-col md:flex-row -mx-8">
               <Typography className="w-full md:max-w-256 mb-16 md:mb-0 mx-8 text-16">
@@ -141,14 +123,16 @@ function OrderDetailsTab() {
               </tr>
             </thead>
             <tbody>
-              {order.status.map((status) => (
-                <tr key={status.id}>
-                  <td>
-                    <OrdersStatus name={status.name} />
-                  </td>
-                  <td>{status.date}</td>
-                </tr>
-              ))}
+              <tr key={order.orderStatus}>
+                <td>
+                  <OrdersStatus name={order.orderStatus} />
+                </td>
+                {order.orderStatus === "RECEIVED" ? (
+                  <td>{order.dateCreated}</td>
+                ) : (
+                  <td>{order.dateModified}</td>
+                )}
+              </tr>
             </tbody>
           </table>
         </div>
@@ -169,16 +153,6 @@ function OrderDetailsTab() {
             <thead>
               <tr>
                 <th>
-                  <Typography className="font-semibold">
-                    TransactionID
-                  </Typography>
-                </th>
-                <th>
-                  <Typography className="font-semibold">
-                    Payment Method
-                  </Typography>
-                </th>
-                <th>
                   <Typography className="font-semibold">Amount</Typography>
                 </th>
                 <th>
@@ -189,18 +163,10 @@ function OrderDetailsTab() {
             <tbody>
               <tr>
                 <td>
-                  <span className="truncate">
-                    {order.payment.transactionId}
-                  </span>
+                  <span className="truncate">{order.totalPrice}</span>
                 </td>
                 <td>
-                  <span className="truncate">{order.payment.method}</span>
-                </td>
-                <td>
-                  <span className="truncate">{order.payment.amount}</span>
-                </td>
-                <td>
-                  <span className="truncate">{order.payment.date}</span>
+                  <span className="truncate">{order.dateCreated}</span>
                 </td>
               </tr>
             </tbody>
@@ -221,6 +187,9 @@ function OrderDetailsTab() {
             <thead>
               <tr>
                 <th>
+                  <Typography className="font-semibold">Order ID</Typography>
+                </th>
+                <th>
                   <Typography className="font-semibold">
                     Tracking Code
                   </Typography>
@@ -229,36 +198,25 @@ function OrderDetailsTab() {
                   <Typography className="font-semibold">Carrier</Typography>
                 </th>
                 <th>
-                  <Typography className="font-semibold">Weight</Typography>
-                </th>
-                <th>
-                  <Typography className="font-semibold">Fee</Typography>
-                </th>
-                <th>
                   <Typography className="font-semibold">Date</Typography>
                 </th>
               </tr>
             </thead>
             <tbody>
-              {order.shippingDetails.map((shipping) => (
-                <tr key={shipping.date}>
-                  <td>
-                    <span className="truncate">{shipping.tracking}</span>
-                  </td>
-                  <td>
-                    <span className="truncate">{shipping.carrier}</span>
-                  </td>
-                  <td>
-                    <span className="truncate">{shipping.weight}</span>
-                  </td>
-                  <td>
-                    <span className="truncate">{shipping.fee}</span>
-                  </td>
-                  <td>
-                    <span className="truncate">{shipping.date}</span>
-                  </td>
-                </tr>
-              ))}
+              <tr key={order.dateModified}>
+                <td>
+                  <span className="truncate">{order.orderId}</span>
+                </td>
+                <td>
+                  <span className="truncate">{order.trackingNumber}</span>
+                </td>
+                <td>
+                  <span className="truncate">{order?.carrier}</span>
+                </td>
+                <td>
+                  <span className="truncate">{order.dateModified}</span>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>

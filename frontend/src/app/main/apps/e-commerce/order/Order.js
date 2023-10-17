@@ -31,7 +31,7 @@ function Order(props) {
   const [tabValue, setTabValue] = useState(0);
   const [noOrder, setNoOrder] = useState(false);
   const [order, setOrder] = useState();
-  const isCustomer = props.user.roleDTO?.role === "ROLE_CUSTOMER";
+  const isCustomer = props.user.roleDTO?.label === "ROLE_CUSTOMER";
 
   useEffect(() => {
     OrderRepository.findOrderById(orderId).then(({ data }) => {
@@ -120,10 +120,10 @@ function Order(props) {
               className="flex flex-col items-center sm:items-start min-w-0 items-center sm:items-start"
             >
               <Typography className="text-20 truncate font-semibold">
-                {`Order ${order.reference}`}
+                {`Order ${order.orderId}`}
               </Typography>
               <Typography variant="caption" className="font-medium">
-                {`From ${order.customer.firstName} ${order.customer.lastName}`}
+                {`From ${order.user.personDTO?.firstName} ${order.user.personDTO?.lastName}`}
               </Typography>
             </motion.div>
           </div>
@@ -142,17 +142,19 @@ function Order(props) {
           >
             <Tab className="h-64" label="Order Details" />
             <Tab className="h-64" label="Products" />
-            <Tab className="h-64" label="Invoice" />
+            {/*<Tab className="h-64" label="Invoice" />*/}
           </Tabs>
           {order && (
             <div className="p-16 sm:p-24 max-w-3xl w-full">
               {tabValue === 0 && (
                 <OrderDetailsTab order={order} readOnly={isCustomer} />
               )}
-              {tabValue === 1 && <ProductsTab readOnly={isCustomer} />}
-              {tabValue === 2 && (
-                <InvoiceTab order={order} readOnly={isCustomer} />
+              {tabValue === 1 && (
+                <ProductsTab order={order} readOnly={isCustomer} />
               )}
+              {/*{tabValue === 2 && (*/}
+              {/*  <InvoiceTab order={order} readOnly={isCustomer} />*/}
+              {/*)}*/}
             </div>
           )}
         </>

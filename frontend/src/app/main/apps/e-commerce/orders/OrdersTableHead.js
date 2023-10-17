@@ -22,14 +22,14 @@ const rows = [
     id: "id",
     align: "left",
     disablePadding: false,
-    label: "ID",
+    label: "Order ID",
     sort: true,
   },
   {
     id: "reference",
     align: "left",
     disablePadding: false,
-    label: "Reference",
+    label: "Tracking Number",
     sort: true,
   },
   {
@@ -44,13 +44,6 @@ const rows = [
     align: "right",
     disablePadding: false,
     label: "Total",
-    sort: true,
-  },
-  {
-    id: "payment",
-    align: "left",
-    disablePadding: false,
-    label: "Payment",
     sort: true,
   },
   {

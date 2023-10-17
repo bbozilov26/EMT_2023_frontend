@@ -3,17 +3,15 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectOrder } from "../../store/orderSlice";
 
-function ProductsTab() {
-  const order = useSelector(selectOrder);
+function ProductsTab(props) {
+  const order = props.order;
+  const isCustomer = props.isCustomer;
 
   return (
     <div className="table-responsive">
       <table className="simple">
         <thead>
           <tr>
-            <th>
-              <Typography className="font-semibold">ID</Typography>
-            </th>
             <th>
               <Typography className="font-semibold">Image</Typography>
             </th>
@@ -29,27 +27,26 @@ function ProductsTab() {
           </tr>
         </thead>
         <tbody>
-          {order.products.map((product) => (
-            <tr key={product.id}>
-              <td className="w-64">{product.id}</td>
-              <td className="w-80">
+          {order?.orderedProducts?.map((product) => (
+            <tr key={product.id.id}>
+              <td className="w-240">
                 <img
-                  className="product-image"
-                  src={product.image}
+                  className="w-full h-full object-cover"
+                  src={`data:image/jpeg;base64,${product.image}`}
                   alt="product"
                 />
               </td>
               <td>
                 <Typography
                   component={Link}
-                  to={`/products/${product.id}`}
+                  to={`/products/${product.id.id}`}
                   className="truncate"
                   style={{
                     color: "inherit",
                     textDecoration: "underline",
                   }}
                 >
-                  {product.name}
+                  {product.title}
                 </Typography>
               </td>
               <td className="w-64 text-right">

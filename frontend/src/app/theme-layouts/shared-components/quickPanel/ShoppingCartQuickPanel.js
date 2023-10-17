@@ -5,13 +5,15 @@ import List from "@mui/material/List";
 import ListSubheader from "@mui/material/ListSubheader";
 import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import withReducer from "app/store/withReducer";
-import { memo, useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectQuickPanelData } from "./store/dataSlice";
 import reducer from "./store";
 import { selectQuickPanelState, toggleQuickPanel } from "./store/stateSlice";
 import OrderRepository from "../../../main/apps/e-commerce/repositories/OrderRepository";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -23,7 +25,7 @@ function ShoppingCartQuickPanel(props) {
   const dispatch = useDispatch();
   const state = useSelector(selectQuickPanelState);
   const user = JSON.parse(localStorage.getItem("user"));
-
+  const navigate = useNavigate();
   const [orderedProducts, setOrderedProducts] = useState([]);
 
   useEffect(() => {
@@ -33,6 +35,22 @@ function ShoppingCartQuickPanel(props) {
       );
     }
   }, [user?.id.id]);
+
+  const handleBuyProducts = (orderedProducts) => {
+    const dto = {
+      orderedProductIds: orderedProducts.map((op) => op.id.id),
+      totalPrice: orderedProducts?.reduce(
+        (total, item) => total + item?.price * item?.quantity,
+        0
+      ),
+      description: "",
+      orderStatus: "RECEIVED",
+      userId: user?.id.id,
+    };
+    OrderRepository.createOrder(dto).then(({ data }) => {
+      navigate(`/orders/${data.id.id}`);
+    });
+  };
 
   return (
     <StyledSwipeableDrawer
@@ -155,6 +173,35 @@ function ShoppingCartQuickPanel(props) {
               </>
             )}
           </List>
+          <div
+            style={{
+              flex: 1, // Take up remaining space
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "flex-end", // Align to the far right
+            }}
+          >
+            <Button
+              onClick={() => handleBuyProducts(orderedProducts)}
+              // to={`/add/${props.product.id}/${props.user.id}`}
+              // component={Link}
+              className="px-16 min-w-128"
+              color="secondary"
+              variant="contained"
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <span style={{ marginRight: "8px" }}>
+                <FuseSvgIcon className="" size={20}>
+                  heroicons-solid:shopping-cart
+                </FuseSvgIcon>
+              </span>
+              Buy now
+            </Button>
+          </div>
         </FuseScrollbars>
       </div>
     </StyledSwipeableDrawer>
