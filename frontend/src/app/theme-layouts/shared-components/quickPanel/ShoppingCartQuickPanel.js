@@ -14,6 +14,7 @@ import OrderRepository from "../../../main/apps/e-commerce/repositories/OrderRep
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
+import { showMessage } from "app/store/fuse/messageSlice";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -36,6 +37,12 @@ function ShoppingCartQuickPanel(props) {
     }
   }, [user?.id.id]);
 
+  const pass = (message) => {
+    if (message) {
+      dispatch(showMessage({ message }));
+    }
+  };
+
   const handleBuyProducts = (orderedProducts) => {
     const dto = {
       orderedProductIds: orderedProducts.map((op) => op.id.id),
@@ -47,9 +54,21 @@ function ShoppingCartQuickPanel(props) {
       orderStatus: "RECEIVED",
       userId: user?.id.id,
     };
-    OrderRepository.createOrder(dto).then(({ data }) => {
-      navigate(`/orders/${data.id.id}`);
-    });
+    OrderRepository.createOrder(dto)
+      .then(({ data }) => {
+        navigate(`/orders/${data.id.id}`);
+        localStorage.setItem("user", JSON.stringify(data.userDTO));
+        window.location.reload();
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 500) {
+          // Handle InsufficientCreditException
+          pass("You do not have sufficient credit to make this purchase.");
+        } else {
+          // Handle other errors
+          pass("An error occurred while processing your request.");
+        }
+      });
   };
 
   return (
@@ -193,6 +212,7 @@ function ShoppingCartQuickPanel(props) {
                 alignItems: "center",
                 justifyContent: "center",
               }}
+              disabled={orderedProducts?.length === 0}
             >
               <span style={{ marginRight: "8px" }}>
                 <FuseSvgIcon className="" size={20}>
