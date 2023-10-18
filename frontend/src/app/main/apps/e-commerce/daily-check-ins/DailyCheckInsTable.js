@@ -29,8 +29,8 @@ function DailyCheckInsTable(props) {
     // Fetch daily check-ins when the component mounts
 
     if (
-      user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
-      user.roleDTO?.label.toString() === "ROLE_ADMIN"
+      user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+      user.roleDTO?.label === "ROLE_ADMIN"
     ) {
       DailyCheckInRepository.findAll().then(({ data }) => {
         const dailyCheckInsData = data.map((el) => ({
@@ -107,14 +107,22 @@ function DailyCheckInsTable(props) {
   }
 
   return (
-    <div className="flex items-center justify-between">
-      <div className="text-18 flex items-center ml-64">
-        Your Balance:
-        <FuseSvgIcon className="mr-2 ml-4">
-          heroicons-outline:currency-euro
-        </FuseSvgIcon>
-        {user?.creditBalance ?? 0}
-      </div>
+    <div
+      className={`flex items-center ${
+        user.roleDTO?.label === "ROLE_CUSTOMER"
+          ? "justify-between"
+          : "justify-center"
+      }`}
+    >
+      {user.roleDTO?.label === "ROLE_CUSTOMER" ? (
+        <div className="text-18 flex items-center ml-64">
+          Your Balance:
+          <FuseSvgIcon className="mr-2 ml-4">
+            heroicons-outline:currency-euro
+          </FuseSvgIcon>
+          {user?.creditBalance ?? 0}
+        </div>
+      ) : null}
       <div className="mr-64">
         <Card>
           <CardContent>

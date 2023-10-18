@@ -41,7 +41,7 @@ const rows = [
   },
   {
     id: "total",
-    align: "right",
+    align: "left",
     disablePadding: false,
     label: "Total",
     sort: true,
@@ -65,7 +65,7 @@ const rows = [
     align: "left",
     disablePadding: false,
     label: "Carrier",
-    sort: false,
+    sort: true,
   },
   {
     id: "ETA",

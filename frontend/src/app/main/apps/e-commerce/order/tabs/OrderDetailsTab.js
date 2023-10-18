@@ -6,7 +6,7 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GoogleMap from "google-map-react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import OrdersStatus from "../OrdersStatus";
@@ -137,7 +137,7 @@ function OrderDetailsTab(props) {
       <div className="pb-48">
         <div className="pb-16 flex items-center">
           <FuseSvgIcon color="action">
-            heroicons-outline:currency-dollar
+            heroicons-outline:currency-euro
           </FuseSvgIcon>
           <Typography className="h2 mx-12 font-medium" color="text.secondary">
             Payment
@@ -159,7 +159,13 @@ function OrderDetailsTab(props) {
             <tbody>
               <tr>
                 <td>
-                  <span className="truncate">{order.totalPrice}</span>
+                  <span
+                    className="truncate"
+                    style={{ display: "flex", alignItems: "center" }}
+                  >
+                    <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
+                    {order.totalPrice}
+                  </span>
                 </td>
                 <td>
                   <span className="truncate">{order.dateCreated}</span>
@@ -212,7 +218,7 @@ function OrderDetailsTab(props) {
                   <span className="truncate">{order.carrier}</span>
                 </td>
                 <td>
-                  <span className="truncate">{order.ETA}</span>
+                  <span className="truncate">{order.eta}</span>
                 </td>
               </tr>
             </tbody>

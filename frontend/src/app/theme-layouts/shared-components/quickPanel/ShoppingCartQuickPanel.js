@@ -45,11 +45,6 @@ function ShoppingCartQuickPanel(props) {
   const carriers = ["DHL", "Standard Shipping", "UPS", "FedEx", "USPS"];
 
   const handleBuyProducts = (orderedProducts) => {
-    const randomIndex = Math.floor(Math.random() * carriers.length);
-    const carrier = carriers[randomIndex];
-
-    const ETA = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
-
     const dto = {
       orderedProductIds: orderedProducts.map((op) => op.id.id),
       totalPrice: orderedProducts?.reduce(
@@ -59,9 +54,10 @@ function ShoppingCartQuickPanel(props) {
       description: "",
       orderStatus: "RECEIVED",
       userId: user?.id.id,
-      carrier: carrier,
-      ETA: ETA,
+      carrier: carriers[Math.floor(Math.random() * carriers.length)],
+      eta: Math.floor(Math.random() * (21 - 7 + 1)) + 7,
     };
+    console.log("dto", dto);
     OrderRepository.createOrder(dto)
       .then(({ data }) => {
         navigate(`/orders/${data.id.id}`);
@@ -194,42 +190,43 @@ function ShoppingCartQuickPanel(props) {
                           )}
                         </div>
                       </div>
+
+                      <div
+                        style={{
+                          flex: 1, // Take up remaining space
+                          display: "flex",
+                          alignItems: "center",
+                          justifyContent: "flex-end", // Align to the far right
+                        }}
+                      >
+                        <Button
+                          onClick={() => handleBuyProducts(orderedProducts)}
+                          // to={`/add/${props.product.id}/${props.user.id}`}
+                          // component={Link}
+                          className="px-16 min-w-128"
+                          color="secondary"
+                          variant="contained"
+                          sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}
+                          disabled={orderedProducts?.length === 0}
+                        >
+                          <span style={{ marginRight: "8px" }}>
+                            <FuseSvgIcon className="" size={20}>
+                              heroicons-solid:shopping-cart
+                            </FuseSvgIcon>
+                          </span>
+                          Buy now
+                        </Button>
+                      </div>
                     </>
                   )}
                 </ListSubheader>
               </>
             )}
           </List>
-          <div
-            style={{
-              flex: 1, // Take up remaining space
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end", // Align to the far right
-            }}
-          >
-            <Button
-              onClick={() => handleBuyProducts(orderedProducts)}
-              // to={`/add/${props.product.id}/${props.user.id}`}
-              // component={Link}
-              className="px-16 min-w-128"
-              color="secondary"
-              variant="contained"
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-              disabled={orderedProducts?.length === 0}
-            >
-              <span style={{ marginRight: "8px" }}>
-                <FuseSvgIcon className="" size={20}>
-                  heroicons-solid:shopping-cart
-                </FuseSvgIcon>
-              </span>
-              Buy now
-            </Button>
-          </div>
         </FuseScrollbars>
       </div>
     </StyledSwipeableDrawer>

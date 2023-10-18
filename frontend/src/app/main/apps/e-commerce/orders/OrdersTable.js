@@ -9,7 +9,7 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import withRouter from "@fuse/core/withRouter";
 import FuseLoading from "@fuse/core/FuseLoading";
@@ -22,6 +22,7 @@ import {
 import OrdersTableHead from "./OrdersTableHead";
 import { selectUser } from "app/store/userSlice";
 import OrderRepository from "../repositories/OrderRepository";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 
 function OrdersTable(props) {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ function OrdersTable(props) {
               orderedProducts: el.orderedProductDTOs,
               user: el.userDTO,
               carrier: el.carrier,
-              ETA: el.ETA,
+              eta: el.eta,
             }));
 
             setOrders(ordersData);
@@ -75,7 +76,7 @@ function OrdersTable(props) {
             orderedProducts: el.orderedProductDTOs,
             user: el.userDTO,
             carrier: el.carrier,
-            ETA: el.ETA,
+            eta: el.eta,
           }));
 
           setOrders(ordersData);
@@ -185,7 +186,7 @@ function OrdersTable(props) {
                       return o.orderStatus;
                     }
                     case "ETA": {
-                      return o.ETA;
+                      return o.eta;
                     }
                     default: {
                       return o.dateModified;
@@ -236,10 +237,13 @@ function OrdersTable(props) {
                       className="p-4 md:p-16"
                       component="th"
                       scope="row"
-                      align="right"
                     >
-                      <span>$</span>
-                      {n.totalPrice}
+                      <span style={{ display: "flex", alignItems: "center" }}>
+                        <FuseSvgIcon>
+                          heroicons-outline:currency-euro
+                        </FuseSvgIcon>
+                        {n.totalPrice}
+                      </span>
                     </TableCell>
 
                     <TableCell
@@ -256,6 +260,22 @@ function OrdersTable(props) {
                       scope="row"
                     >
                       {n.dateModified}
+                    </TableCell>
+
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
+                      {n.carrier}
+                    </TableCell>
+
+                    <TableCell
+                      className="p-4 md:p-16"
+                      component="th"
+                      scope="row"
+                    >
+                      {n.eta}
                     </TableCell>
                   </TableRow>
                 );

@@ -2,6 +2,8 @@ import Typography from "@mui/material/Typography";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { selectOrder } from "../../store/orderSlice";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import React from "react";
 
 function ProductsTab(props) {
   const order = props.order;
@@ -50,7 +52,13 @@ function ProductsTab(props) {
                 </Typography>
               </td>
               <td className="w-64 text-right">
-                <span className="truncate">${product.price}</span>
+                <span
+                  className="truncate"
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
+                  {product.price}
+                </span>
               </td>
               <td className="w-64 text-right">
                 <span className="truncate">{product.quantity}</span>

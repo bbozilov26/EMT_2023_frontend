@@ -69,35 +69,6 @@ function ProfileApp() {
                   user.personDTO?.address?.split(", ")[4]}
               </Typography>
             </div>
-
-            {/*<div className="flex flex-1 justify-end my-16 lg:my-0">*/}
-            {/*  <Tabs*/}
-            {/*    value={selectedTab}*/}
-            {/*    onChange={handleTabChange}*/}
-            {/*    indicatorColor="primary"*/}
-            {/*    textColor="inherit"*/}
-            {/*    variant="scrollable"*/}
-            {/*    scrollButtons={false}*/}
-            {/*    className="-mx-4 min-h-40"*/}
-            {/*    classes={{*/}
-            {/*      indicator: "flex justify-center bg-transparent w-full h-full",*/}
-            {/*    }}*/}
-            {/*    TabIndicatorProps={{*/}
-            {/*      children: (*/}
-            {/*        <Box*/}
-            {/*          sx={{ bgcolor: "text.disabled" }}*/}
-            {/*          className="w-full h-full rounded-full opacity-20"*/}
-            {/*        />*/}
-            {/*      ),*/}
-            {/*    }}*/}
-            {/*  >*/}
-            {/*    <Tab*/}
-            {/*      className="text-14 font-semibold min-h-40 min-w-64 mx-4 px-12 "*/}
-            {/*      disableRipple*/}
-            {/*      label="Edit profile"*/}
-            {/*    />*/}
-            {/*  </Tabs>*/}
-            {/*</div>*/}
           </div>
         </div>
       }

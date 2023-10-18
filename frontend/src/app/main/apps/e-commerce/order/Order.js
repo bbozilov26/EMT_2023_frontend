@@ -51,7 +51,7 @@ function Order(props) {
           user: data.userDTO,
           orderedProducts: data.orderedProductDTOs,
           carrier: data.carrier,
-          ETA: data.ETA,
+          eta: data.eta,
         });
       }
     });

@@ -55,8 +55,15 @@ function DailyCheckInCard(props) {
 
   return (
     <Card className="flex flex-col max-w-xs max-h-full shadow">
-      <div className="flex-grow">
-        <FuseSvgIcon className="" size={20}>
+      <div
+        className="flex-grow"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <FuseSvgIcon className="" size={40}>
           heroicons-outline:currency-euro
         </FuseSvgIcon>
       </div>

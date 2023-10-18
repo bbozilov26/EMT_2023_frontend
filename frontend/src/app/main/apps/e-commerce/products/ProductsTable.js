@@ -225,8 +225,8 @@ function ProductsTable(props) {
             </Paper>
           </div>
 
-          {user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
-          user.roleDTO?.label.toString() === "ROLE_ADMIN" ? (
+          {user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+          user.roleDTO?.label === "ROLE_ADMIN" ? (
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}
@@ -305,8 +305,8 @@ function ProductsTable(props) {
           </Paper>
         </div>
 
-        {user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
-        user.roleDTO?.label.toString() === "ROLE_ADMIN" ? (
+        {user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+        user.roleDTO?.label === "ROLE_ADMIN" ? (
           <motion.div
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0, transition: { delay: 0.2 } }}

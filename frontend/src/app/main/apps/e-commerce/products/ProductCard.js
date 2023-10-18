@@ -83,8 +83,8 @@ function ProductCard(props) {
             justifyContent: "center",
           }}
         >
-          {props.user.roleDTO?.label.toString() === "ROLE_SUPER_ADMIN" ||
-          props.user.roleDTO?.label.toString() === "ROLE_ADMIN" ? (
+          {props.user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
+          props.user.roleDTO?.label === "ROLE_ADMIN" ? (
             <>
               <div
                 style={{
@@ -144,7 +144,7 @@ function ProductCard(props) {
               </div>
             </>
           ) : (
-            props.user.roleDTO?.label.toString() === "ROLE_CUSTOMER" && (
+            props.user.roleDTO?.label === "ROLE_CUSTOMER" && (
               <>
                 <div
                   style={{

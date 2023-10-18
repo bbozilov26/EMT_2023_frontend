@@ -19,7 +19,11 @@ function DailyCheckInInfo({ udci, className }) {
       <Typography
         className="text-13"
         color="text.secondary"
-        style={{ display: "flex", alignItems: "center" }}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
       >
         <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
         {udci.dailyReward}

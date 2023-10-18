@@ -13,9 +13,11 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import DailyCheckInCard from "../../e-commerce/daily-check-ins/DailyCheckInCard";
+import { useNavigate } from "react-router-dom";
 
 function AboutTab(props) {
   const [data, setData] = useState(props.user);
+  const navigate = useNavigate();
 
   if (!data) {
     return null;
@@ -34,6 +36,14 @@ function AboutTab(props) {
     show: { opacity: 1, y: 0 },
   };
 
+  const handleMyOrdersCardClick = () => {
+    navigate("/orders");
+  };
+
+  const handleMyCoinsCardClick = () => {
+    navigate("/my-coins");
+  };
+
   return (
     <motion.div
       variants={container}
@@ -43,68 +53,92 @@ function AboutTab(props) {
     >
       <div className="md:flex">
         <div className="flex flex-col flex-1 md:ltr:pr-32 md:rtl:pl-32">
-          {/*<Card component={motion.div} variants={item} className="w-full mb-32">*/}
-          {/*  <div className="px-32 pt-24">*/}
-          {/*    <Typography className="text-2xl font-semibold leading-tight">*/}
-          {/*      General Information*/}
-          {/*    </Typography>*/}
-          {/*  </div>*/}
-
-          {/*  <CardContent className="px-32 py-24">*/}
-          {/*    <div className="mb-24">*/}
-          {/*      <Typography className="font-semibold mb-4 text-15">*/}
-          {/*        Gender*/}
-          {/*      </Typography>*/}
-          {/*      <Typography>{general.gender}</Typography>*/}
-          {/*    </div>*/}
-
-          {/*    <div className="mb-24">*/}
-          {/*      <Typography className="font-semibold mb-4 text-15">*/}
-          {/*        Birthday*/}
-          {/*      </Typography>*/}
-          {/*      <Typography>{general.birthday}</Typography>*/}
-          {/*    </div>*/}
-
-          {/*    <div className="mb-24">*/}
-          {/*      <Typography className="font-semibold mb-4 text-15">*/}
-          {/*        Locations*/}
-          {/*      </Typography>*/}
-
-          {/*      {general.locations.map((location) => (*/}
-          {/*        <div className="flex items-center" key={location}>*/}
-          {/*          <Typography>{location}</Typography>*/}
-          {/*          <FuseSvgIcon className="mx-4" size={16} color="action">*/}
-          {/*            heroicons-outline:location-marker*/}
-          {/*          </FuseSvgIcon>*/}
-          {/*        </div>*/}
-          {/*      ))}*/}
-          {/*    </div>*/}
-
-          {/*    <div className="mb-24">*/}
-          {/*      <Typography className="font-semibold mb-4 text-15">*/}
-          {/*        About Me*/}
-          {/*      </Typography>*/}
-          {/*      <Typography>{general.about}</Typography>*/}
-          {/*    </div>*/}
-          {/*  </CardContent>*/}
-          {/*</Card>*/}
-
-          <Card component={motion.div} variants={item} className="w-full mb-32">
-            <div className="px-32 pt-24">
-              <Typography className="text-2xl font-semibold leading-tight">
-                User's Balance
-              </Typography>
-            </div>
-
-            <CardContent className="px-32 py-24">
-              <div className="mb-24">
-                <Typography className="font-semibold mb-4 text-15">
-                  Credit Balance
+          <div style={{ display: "flex" }}>
+            <Card
+              component={motion.div}
+              variants={item}
+              className="w-full mb-32"
+              style={{ marginRight: "20px" }}
+            >
+              <div className="px-32 pt-24">
+                <Typography className="text-2xl font-semibold leading-tight">
+                  User's Balance
                 </Typography>
-                <Typography>{data.creditBalance}</Typography>
               </div>
-            </CardContent>
-          </Card>
+
+              <CardContent className="px-32 py-24">
+                <div className="mb-24">
+                  <Typography className="font-semibold mb-4 text-15">
+                    Credit Balance
+                  </Typography>
+                  <Typography style={{ display: "flex", alignItems: "center" }}>
+                    <FuseSvgIcon className="" size={20}>
+                      heroicons-outline:currency-euro
+                    </FuseSvgIcon>
+                    {data.creditBalance}
+                  </Typography>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card
+              component={motion.div}
+              variants={item}
+              className="w-full mb-32"
+              style={{ marginRight: "20px", cursor: "pointer" }}
+              onClick={handleMyOrdersCardClick}
+            >
+              <div className="px-32 pt-24">
+                <Typography className="text-2xl font-semibold leading-tight">
+                  My Orders
+                </Typography>
+              </div>
+
+              <CardContent
+                className="px-32 py-24"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div className="mb-24">
+                  <FuseSvgIcon className="" size={40}>
+                    heroicons-outline:shopping-cart
+                  </FuseSvgIcon>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card
+              component={motion.div}
+              variants={item}
+              className="w-full mb-32"
+              style={{ cursor: "pointer" }}
+              onClick={handleMyCoinsCardClick}
+            >
+              <div className="px-32 pt-24">
+                <Typography className="text-2xl font-semibold leading-tight">
+                  My Coins
+                </Typography>
+              </div>
+
+              <CardContent
+                className="px-32 py-24"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <div className="mb-24">
+                  <FuseSvgIcon className="" size={40}>
+                    heroicons-outline:currency-euro
+                  </FuseSvgIcon>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="px-32 pt-24">
