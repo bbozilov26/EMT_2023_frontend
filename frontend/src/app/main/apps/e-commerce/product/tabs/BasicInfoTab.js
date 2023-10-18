@@ -72,6 +72,11 @@ function BasicInfoTab(props) {
       label: t("MUSIC"),
     },
     {
+      id: "NFT",
+      name: "NFT",
+      label: t("NFT"),
+    },
+    {
       id: "PC_AND_EQUIPMENT",
       name: "PC_AND_EQUIPMENT",
       label: t("PC_AND_EQUIPMENT"),

@@ -7,7 +7,6 @@ import SwipeableDrawer from "@mui/material/SwipeableDrawer";
 import withReducer from "app/store/withReducer";
 import React, { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectQuickPanelData } from "./store/dataSlice";
 import reducer from "./store";
 import { selectQuickPanelState, toggleQuickPanel } from "./store/stateSlice";
 import OrderRepository from "../../../main/apps/e-commerce/repositories/OrderRepository";
@@ -43,7 +42,14 @@ function ShoppingCartQuickPanel(props) {
     }
   };
 
+  const carriers = ["DHL", "Standard Shipping", "UPS", "FedEx", "USPS"];
+
   const handleBuyProducts = (orderedProducts) => {
+    const randomIndex = Math.floor(Math.random() * carriers.length);
+    const carrier = carriers[randomIndex];
+
+    const ETA = Math.floor(Math.random() * (60 - 30 + 1)) + 30;
+
     const dto = {
       orderedProductIds: orderedProducts.map((op) => op.id.id),
       totalPrice: orderedProducts?.reduce(
@@ -53,6 +59,8 @@ function ShoppingCartQuickPanel(props) {
       description: "",
       orderStatus: "RECEIVED",
       userId: user?.id.id,
+      carrier: carrier,
+      ETA: ETA,
     };
     OrderRepository.createOrder(dto)
       .then(({ data }) => {
