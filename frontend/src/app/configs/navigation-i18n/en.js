@@ -17,6 +17,7 @@ const locale = {
   PC_AND_EQUIPMENT: "PC and Equipment",
   ACCESSORIES: "Accessories",
   MOBILE_PHONES: "Mobile Phones",
+  NFT: "NFT",
 };
 
 export default locale;
