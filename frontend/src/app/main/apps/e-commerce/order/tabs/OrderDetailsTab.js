@@ -127,11 +127,7 @@ function OrderDetailsTab(props) {
                 <td>
                   <OrdersStatus name={order.orderStatus} />
                 </td>
-                {order.orderStatus === "RECEIVED" ? (
-                  <td>{order.dateCreated}</td>
-                ) : (
-                  <td>{order.dateModified}</td>
-                )}
+                <td>{order.dateModified}</td>
               </tr>
             </tbody>
           </table>
@@ -198,7 +194,9 @@ function OrderDetailsTab(props) {
                   <Typography className="font-semibold">Carrier</Typography>
                 </th>
                 <th>
-                  <Typography className="font-semibold">Date</Typography>
+                  <Typography className="font-semibold">
+                    Estimated Date of Arrival
+                  </Typography>
                 </th>
               </tr>
             </thead>
@@ -211,10 +209,10 @@ function OrderDetailsTab(props) {
                   <span className="truncate">{order.trackingNumber}</span>
                 </td>
                 <td>
-                  <span className="truncate">{order?.carrier}</span>
+                  <span className="truncate">{order.carrier}</span>
                 </td>
                 <td>
-                  <span className="truncate">{order.dateModified}</span>
+                  <span className="truncate">{order.ETA}</span>
                 </td>
               </tr>
             </tbody>

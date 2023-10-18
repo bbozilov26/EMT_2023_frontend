@@ -60,6 +60,20 @@ const rows = [
     label: "Date",
     sort: true,
   },
+  {
+    id: "carrier",
+    align: "left",
+    disablePadding: false,
+    label: "Carrier",
+    sort: false,
+  },
+  {
+    id: "ETA",
+    align: "left",
+    disablePadding: false,
+    label: "ETA",
+    sort: true,
+  },
 ];
 
 function OrdersTableHead(props) {

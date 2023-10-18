@@ -54,6 +54,8 @@ function OrdersTable(props) {
               orderStatus: el.orderStatus,
               orderedProducts: el.orderedProductDTOs,
               user: el.userDTO,
+              carrier: el.carrier,
+              ETA: el.ETA,
             }));
 
             setOrders(ordersData);
@@ -72,6 +74,8 @@ function OrdersTable(props) {
             orderStatus: el.orderStatus,
             orderedProducts: el.orderedProductDTOs,
             user: el.userDTO,
+            carrier: el.carrier,
+            ETA: el.ETA,
           }));
 
           setOrders(ordersData);
@@ -179,6 +183,12 @@ function OrdersTable(props) {
                     }
                     case "status": {
                       return o.orderStatus;
+                    }
+                    case "ETA": {
+                      return o.ETA;
+                    }
+                    default: {
+                      return o.dateModified;
                     }
                   }
                 },
