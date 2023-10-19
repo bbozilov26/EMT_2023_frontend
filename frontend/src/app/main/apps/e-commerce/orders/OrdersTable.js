@@ -245,7 +245,7 @@ function OrdersTable(props) {
                         <FuseSvgIcon>
                           heroicons-outline:currency-euro
                         </FuseSvgIcon>
-                        {n.totalPrice}
+                        {n.totalPrice.toFixed(2)}
                       </span>
                     </TableCell>
 

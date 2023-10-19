@@ -54,32 +54,36 @@ function AboutTab(props) {
       <div className="md:flex">
         <div className="flex flex-col flex-1 md:ltr:pr-32 md:rtl:pl-32">
           <div style={{ display: "flex" }}>
-            <Card
-              component={motion.div}
-              variants={item}
-              className="w-full mb-32"
-              style={{ marginRight: "20px" }}
-            >
-              <div className="px-32 pt-24">
-                <Typography className="text-2xl font-semibold leading-tight">
-                  User's Balance
-                </Typography>
-              </div>
-
-              <CardContent className="px-32 py-24">
-                <div className="mb-24">
-                  <Typography className="font-semibold mb-4 text-15">
-                    Credit Balance
-                  </Typography>
-                  <Typography style={{ display: "flex", alignItems: "center" }}>
-                    <FuseSvgIcon className="" size={20}>
-                      heroicons-outline:currency-euro
-                    </FuseSvgIcon>
-                    {data.creditBalance}
+            {data.creditBalance ? (
+              <Card
+                component={motion.div}
+                variants={item}
+                className="w-full mb-32"
+                style={{ marginRight: "20px" }}
+              >
+                <div className="px-32 pt-24">
+                  <Typography className="text-2xl font-semibold leading-tight">
+                    User's Balance
                   </Typography>
                 </div>
-              </CardContent>
-            </Card>
+
+                <CardContent className="px-32 py-24">
+                  <div className="mb-24">
+                    <Typography className="font-semibold mb-4 text-15">
+                      Credit Balance
+                    </Typography>
+                    <Typography
+                      style={{ display: "flex", alignItems: "center" }}
+                    >
+                      <FuseSvgIcon className="" size={20}>
+                        heroicons-outline:currency-euro
+                      </FuseSvgIcon>
+                      {data.creditBalance}
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            ) : null}
 
             <Card
               component={motion.div}
