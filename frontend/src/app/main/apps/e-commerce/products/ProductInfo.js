@@ -6,8 +6,11 @@ import ProductCategory from "./ProductCategory";
 import { Image } from "@mui/icons-material";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
+import { useTranslation } from "react-i18next";
 
 function ProductInfo({ product, className }) {
+  const { t } = useTranslation("app");
+
   if (!product) {
     return null;
   }
@@ -16,6 +19,14 @@ function ProductInfo({ product, className }) {
     <div className={clsx("w-full", className)}>
       <Typography className="text-16 font-medium mb-2 truncate">
         {product.name}
+      </Typography>
+
+      <Typography
+        className="text-13"
+        color="text.secondary"
+        style={{ display: "flex", alignItems: "center" }}
+      >
+        {t(product.category)}
       </Typography>
 
       <Typography
