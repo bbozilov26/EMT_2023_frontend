@@ -300,7 +300,7 @@ function OrderDetailsTab(props) {
                     style={{ display: "flex", alignItems: "center" }}
                   >
                     <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
-                    {order.totalPrice}
+                    {order.totalPrice.toFixed(2)}
                   </span>
                 </td>
                 <td>

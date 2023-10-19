@@ -4,9 +4,11 @@ import { Link } from "react-router-dom";
 import { selectOrder } from "../../store/orderSlice";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function ProductsTab(props) {
   const order = props.order;
+  const { t } = useTranslation("app");
 
   return (
     <div className="table-responsive">
@@ -25,6 +27,9 @@ function ProductsTab(props) {
             <th>
               <Typography className="font-semibold">Quantity</Typography>
             </th>
+            <th>
+              <Typography className="font-semibold">Category</Typography>
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -39,8 +44,8 @@ function ProductsTab(props) {
               </td>
               <td>
                 <Typography
-                  component={Link}
-                  to={`/products/${product.id.id}`}
+                  // component={Link}
+                  // to={`/products/${product.id.id}`}
                   className="truncate"
                   style={{
                     color: "inherit",
@@ -61,6 +66,11 @@ function ProductsTab(props) {
               </td>
               <td className="w-64 text-right">
                 <span className="truncate">{product.quantity}</span>
+              </td>
+              <td className="w-64 text-right">
+                <span className="truncate">
+                  {t(product?.productDTO?.category)}
+                </span>
               </td>
             </tr>
           ))}
