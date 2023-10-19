@@ -14,6 +14,8 @@ import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { showMessage } from "app/store/fuse/messageSlice";
+import ListItem from "@mui/material/ListItem";
+import { useTranslation } from "react-i18next";
 
 const StyledSwipeableDrawer = styled(SwipeableDrawer)(({ theme }) => ({
   "& .MuiDrawer-paper": {
@@ -27,6 +29,7 @@ function ShoppingCartQuickPanel(props) {
   const user = JSON.parse(localStorage.getItem("user"));
   const navigate = useNavigate();
   const [orderedProducts, setOrderedProducts] = useState([]);
+  const { t } = useTranslation("app");
 
   useEffect(() => {
     if (user?.id.id) {
@@ -111,25 +114,32 @@ function ShoppingCartQuickPanel(props) {
               </div>
             ) : (
               <>
-                <div className="cart-items">
+                <div>
                   {orderedProducts?.map((item) => (
-                    <div key={item?.id.id} className="cart-item">
+                    <ListItem key={item?.id.id}>
                       <img
-                        className="w-256 sm:w-384 rounded"
+                        className="w-256 rounded"
                         src={`data:image/jpeg;base64,${item?.image}`}
                         alt={item?.title}
                       />
-                      <div className="item-details">
+                      <div className="ml-48">
                         <h3>{item?.title}</h3>
                         <p style={{ display: "flex", alignItems: "center" }}>
+                          Category:
+                          <span className="ml-8">
+                            {t(item?.productDTO?.category)}
+                          </span>
+                        </p>
+                        <p style={{ display: "flex", alignItems: "center" }}>
                           Price:{" "}
-                          <FuseSvgIcon>
+                          <FuseSvgIcon className="ml-8">
                             heroicons-outline:currency-euro
                           </FuseSvgIcon>
                           {item?.price}
                         </p>
                         <label>Quantity:</label>
                         <input
+                          className="ml-8"
                           type="number"
                           value={item?.quantity}
                           onChange={(e) =>
@@ -146,13 +156,13 @@ function ShoppingCartQuickPanel(props) {
                         />
                         <p style={{ display: "flex", alignItems: "center" }}>
                           Total Price:{" "}
-                          <FuseSvgIcon>
+                          <FuseSvgIcon className="ml-8">
                             heroicons-outline:currency-euro
                           </FuseSvgIcon>
                           {item?.price * item?.quantity}
                         </p>
                       </div>
-                    </div>
+                    </ListItem>
                   ))}
                 </div>
 
@@ -162,7 +172,6 @@ function ShoppingCartQuickPanel(props) {
                   component="div"
                   style={{
                     fontSize: "24px",
-                    marginTop: "400px",
                     display: "flex",
                     alignItems: "center",
                   }}
@@ -180,29 +189,29 @@ function ShoppingCartQuickPanel(props) {
                             alignItems: "center",
                           }}
                         >
-                          <FuseSvgIcon>
+                          <FuseSvgIcon className="ml-8">
                             heroicons-outline:currency-euro
                           </FuseSvgIcon>
-                          {orderedProducts?.reduce(
-                            (total, item) =>
-                              total + item?.price * item?.quantity,
-                            0
-                          )}
+                          {orderedProducts
+                            ?.reduce(
+                              (total, item) =>
+                                total + item?.price * item?.quantity,
+                              0
+                            )
+                            .toFixed(2)}
                         </div>
                       </div>
 
                       <div
                         style={{
-                          flex: 1, // Take up remaining space
+                          flex: 1,
                           display: "flex",
                           alignItems: "center",
-                          justifyContent: "flex-end", // Align to the far right
+                          justifyContent: "flex-end",
                         }}
                       >
                         <Button
                           onClick={() => handleBuyProducts(orderedProducts)}
-                          // to={`/add/${props.product.id}/${props.user.id}`}
-                          // component={Link}
                           className="px-16 min-w-128"
                           color="secondary"
                           variant="contained"
