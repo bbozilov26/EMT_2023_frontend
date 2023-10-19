@@ -172,6 +172,9 @@ function OrdersTable(props) {
               data,
               [
                 (o) => {
+                  return -new Date(o.dateModified).getTime(); // First, order by dateModified
+                },
+                (o) => {
                   switch (order.id) {
                     case "id": {
                       return o.orderId;
@@ -189,12 +192,12 @@ function OrdersTable(props) {
                       return o.eta;
                     }
                     default: {
-                      return o.dateModified;
+                      return -new Date(o.dateModified).getTime(); // Use dateModified again for secondary sorting
                     }
                   }
                 },
               ],
-              [order.direction]
+              [order.direction, order.direction]
             )
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((n) => {

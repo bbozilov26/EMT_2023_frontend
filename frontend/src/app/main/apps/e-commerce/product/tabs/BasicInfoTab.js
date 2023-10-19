@@ -273,7 +273,9 @@ function BasicInfoTab(props) {
               id="price"
               InputProps={{
                 startAdornment: (
-                  <InputAdornment position="start">coins</InputAdornment>
+                  <InputAdornment position="start">
+                    <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
+                  </InputAdornment>
                 ),
               }}
               type="number"

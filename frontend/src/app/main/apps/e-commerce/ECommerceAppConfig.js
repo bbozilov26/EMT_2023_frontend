@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { Navigate } from "react-router-dom";
 import DailyCheckIns from "./daily-check-ins/DailyCheckIns";
 import QuizGame from "./quiz/QuizGame";
+import DailyCheckIn from "./daily-check-in/DailyCheckIn";
 
 const Product = lazy(() => import("./product/Product"));
 const Products = lazy(() => import("./products/Products"));
@@ -27,7 +28,7 @@ const ECommerceAppConfig = {
     },
     {
       path: "/orders/:orderId",
-      element: <Order user={JSON.parse(localStorage.getItem("user"))} />,
+      element: <Order />,
     },
     {
       path: "",
@@ -36,6 +37,10 @@ const ECommerceAppConfig = {
     {
       path: "/my-coins",
       element: <DailyCheckIns />,
+    },
+    {
+      path: "/my-coins/:dailyCheckInId",
+      element: <DailyCheckIn />,
     },
     {
       path: "/quiz",

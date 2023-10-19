@@ -7,7 +7,6 @@ import React from "react";
 
 function ProductsTab(props) {
   const order = props.order;
-  const isCustomer = props.isCustomer;
 
   return (
     <div className="table-responsive">
@@ -33,7 +32,7 @@ function ProductsTab(props) {
             <tr key={product.id.id}>
               <td className="w-240">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-240"
                   src={`data:image/jpeg;base64,${product.image}`}
                   alt="product"
                 />

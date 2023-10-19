@@ -29,7 +29,7 @@ const OrderRepository = {
   },
 
   updateOrder: (id, dto) => {
-    return axios.post(`/update/${id}`, dto, {
+    return axios.put(`/update/${id}`, dto, {
       baseURL: ordersBaseUrl,
     });
   },

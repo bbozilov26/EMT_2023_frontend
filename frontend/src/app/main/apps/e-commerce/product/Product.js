@@ -145,15 +145,15 @@ function Product(props) {
     reset(product);
   }, [product, reset]);
 
-  useEffect(() => {
-    return () => {
-      /**
-       * Reset Product on component unload
-       */
-      dispatch(resetProduct());
-      setNoProduct(false);
-    };
-  }, [dispatch]);
+  // useEffect(() => {
+  //   return () => {
+  //     /**
+  //      * Reset Product on component unload
+  //      */
+  //     dispatch(resetProduct());
+  //     setNoProduct(false);
+  //   };
+  // }, [dispatch]);
 
   /**
    * Tab Change

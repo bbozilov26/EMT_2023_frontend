@@ -6,11 +6,25 @@ import Tooltip from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import GoogleMap from "google-map-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import OrdersStatus from "../OrdersStatus";
 import { selectOrder } from "../../store/orderSlice";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogContent from "@mui/material/DialogContent";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import DialogActions from "@mui/material/DialogActions";
+import OrderRepository from "../../repositories/OrderRepository";
+import clsx from "clsx";
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import { Controller, useFormContext } from "react-hook-form";
 
 function Marker(props) {
   return (
@@ -24,11 +38,79 @@ function Marker(props) {
 
 function OrderDetailsTab(props) {
   const order = props.order;
-  const isCustomer = props.isCustomer;
+  const isCustomer = props.user.roleDTO?.label === "ROLE_CUSTOMER";
   const [map, setMap] = useState("shipping");
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState(order.orderStatus || "");
+  const methods = useFormContext();
+  const { control, formState, watch, setValue, getValues } = methods;
+
+  const handleEditClick = () => {
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
+
+  const handleSave = () => {
+    const dto = {
+      orderStatus: getValues("orderStatus"),
+    };
+
+    OrderRepository.updateOrder(order.id, dto)
+      .then((data) => {
+        // Handle the updated product data
+        console.log("Updated order:", data);
+        window.location.reload();
+      })
+      .catch((error) => {
+        // Handle any errors that occur during the update
+        console.error("Error updating order:", error);
+      });
+  };
+
+  const orderStatuses = [
+    {
+      id: 1,
+      name: "Order has been received",
+      label: "RECEIVED",
+      color: "bg-blue text-black",
+    },
+    {
+      id: 2,
+      name: "Shipped",
+      label: "SHIPPED",
+      color: "bg-green text-white",
+    },
+    {
+      id: 3,
+      name: "In transition",
+      label: "IN_TRANSITION",
+      color: "bg-orange text-white",
+    },
+    {
+      id: 4,
+      name: "Delivered",
+      label: "DELIVERED",
+      color: "bg-green-700 text-white",
+    },
+    {
+      id: 5,
+      name: "Cancelled",
+      label: "CANCELLED",
+      color: "bg-pink text-white",
+    },
+    {
+      id: 6,
+      name: "Refunded",
+      label: "REFUNDED",
+      color: "bg-red text-white",
+    },
+  ];
 
   return (
-    <div>
+    <div className="grid grid-cols-2 gap-48">
       <div className="pb-48">
         <div className="pb-16 flex items-center">
           <FuseSvgIcon color="action">
@@ -103,11 +185,23 @@ function OrderDetailsTab(props) {
       </div>
 
       <div className="pb-48">
-        <div className="pb-16 flex items-center">
-          <FuseSvgIcon color="action">heroicons-outline:clock</FuseSvgIcon>
-          <Typography className="h2 mx-12 font-medium" color="text.secondary">
-            Order Status
-          </Typography>
+        <div className="flex items-center justify-between pb-16">
+          <div className="flex items-center">
+            <FuseSvgIcon color="action">heroicons-outline:clock</FuseSvgIcon>
+            <Typography className="h2 mx-12 font-medium" color="text.secondary">
+              Order Status
+            </Typography>
+          </div>
+
+          {!isCustomer ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleEditClick}
+            >
+              Edit
+            </Button>
+          ) : null}
         </div>
 
         <div className="table-responsive">
@@ -133,6 +227,48 @@ function OrderDetailsTab(props) {
           </table>
         </div>
       </div>
+
+      <Dialog open={isDialogOpen} onClose={handleClose}>
+        <DialogTitle>Change order status</DialogTitle>
+        <DialogContent>
+          <Controller
+            name="orderStatus"
+            control={control}
+            defaultValue={
+              order.orderStatus
+                ? orderStatuses.find((o) => o.label === order.orderStatus).label
+                : ""
+            }
+            render={({ field: { onChange, value } }) => (
+              <FormControl variant="outlined" fullWidth className="mt-8 mb-16">
+                <InputLabel htmlFor="order-status-select">
+                  Select an order status
+                </InputLabel>
+                <Select
+                  value={value || selectedStatus}
+                  onChange={onChange}
+                  label="Select an order status"
+                  id="order-status-select"
+                >
+                  {orderStatuses.map((status) => (
+                    <MenuItem key={status.label} value={status.label}>
+                      {status.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            )}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} color="primary">
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       <div className="pb-48">
         <div className="pb-16 flex items-center">
