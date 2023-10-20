@@ -4,8 +4,6 @@ import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
 import reducer from "../store";
 import OrdersHeader from "./OrdersHeader";
 import OrdersTable from "./OrdersTable";
-import { useSelector } from "react-redux";
-import { selectUser } from "app/store/userSlice";
 
 function Orders() {
   const isMobile = useThemeMediaQuery((theme) => theme.breakpoints.down("lg"));

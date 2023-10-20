@@ -1,11 +1,6 @@
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import clsx from "clsx";
-import ProductCategory from "./ProductCategory";
-import { Image } from "@mui/icons-material";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import { useTranslation } from "react-i18next";
 
 function ProductInfo({ product, className }) {

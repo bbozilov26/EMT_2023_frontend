@@ -8,13 +8,9 @@ import withRouter from "@fuse/core/withRouter";
 import FuseLoading from "@fuse/core/FuseLoading";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import {
-  getProducts,
-  selectProducts,
   selectProductsSearchText,
   setProductsSearchText,
 } from "../store/productsSlice";
-import ProductsTableHead from "./ProductsTableHead";
-import CourseCard from "../../academy/courses/CourseCard";
 import ProductCard from "./ProductCard";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";

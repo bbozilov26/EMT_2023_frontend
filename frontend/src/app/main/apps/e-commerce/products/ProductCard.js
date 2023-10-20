@@ -3,20 +3,12 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart } from "react-feather";
-import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import ProductInfo from "./ProductInfo";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "app/store/userSlice";
 import React, { useState } from "react";
-import { removeProduct } from "../store/productSlice";
 import ProductRepository from "../repositories/ProductRepository";
-import {
-  showErrorMessage,
-  showSuccessMessage,
-} from "app/store/fuse/messageSlice";
 import OrderRepository from "../repositories/OrderRepository";
 
 function ProductCard(props) {

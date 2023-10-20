@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ProductRepository from "../repositories/ProductRepository";
 import DailyCheckInRepository from "../repositories/DailyCheckInRepository";
 import { useParams } from "react-router-dom";
 import FuseLoading from "@fuse/core/FuseLoading";
@@ -7,12 +6,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import FusePageCarded from "@fuse/core/FusePageCarded/FusePageCarded";
-import ProductHeader from "../product/ProductHeader";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import BasicInfoTab from "../daily-check-in/tabs/BasicInfoTab";
 import DailyCheckInHeader from "./DailyCheckInHeader";
-import { resetProduct } from "../store/productSlice";
 import { useDispatch } from "react-redux";
 
 const schema = yup.object().shape({

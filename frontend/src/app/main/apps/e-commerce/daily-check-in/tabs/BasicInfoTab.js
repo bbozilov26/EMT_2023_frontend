@@ -1,10 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
-import Box from "@mui/material/Box";
-import { lighten } from "@mui/material/styles";
-import FuseUtils from "@fuse/utils";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/material/Autocomplete";
 import InputAdornment from "@mui/material/InputAdornment";
 
 function BasicInfoTab(props) {

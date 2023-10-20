@@ -6,7 +6,6 @@ import { orange } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import FuseUtils from "@fuse/utils";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
-import clsx from "clsx";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useTranslation } from "react-i18next";
 import { useState } from "react";

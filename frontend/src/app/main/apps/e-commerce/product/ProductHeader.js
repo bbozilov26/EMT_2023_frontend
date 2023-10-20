@@ -5,13 +5,7 @@ import { motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import _ from "@lodash";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
-import {
-  createProduct,
-  removeProduct,
-  updateProduct,
-} from "../store/productSlice";
 import React, { useState } from "react";
 import ProductRepository from "../repositories/ProductRepository";
 

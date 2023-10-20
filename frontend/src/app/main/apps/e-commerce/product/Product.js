@@ -1,11 +1,9 @@
 import FuseLoading from "@fuse/core/FuseLoading";
 import FusePageCarded from "@fuse/core/FusePageCarded";
-import { useDeepCompareEffect } from "@fuse/hooks";
 import Button from "@mui/material/Button";
 import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
-import withReducer from "app/store/withReducer";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,13 +13,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
-import {
-  getProduct,
-  newProduct,
-  resetProduct,
-  selectProduct,
-} from "../store/productSlice";
-import reducer from "../store";
 import ProductHeader from "./ProductHeader";
 import BasicInfoTab from "./tabs/BasicInfoTab";
 import ProductRepository from "../repositories/ProductRepository";

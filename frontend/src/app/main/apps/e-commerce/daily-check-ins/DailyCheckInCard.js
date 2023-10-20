@@ -3,13 +3,10 @@ import CardContent from "@mui/material/CardContent";
 import CardActions from "@mui/material/CardActions";
 import Button from "@mui/material/Button";
 import { Link, useNavigate } from "react-router-dom";
-import { Heart } from "react-feather";
-import { IoHeartOutline, IoHeart } from "react-icons/io5";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { lighten } from "@mui/material/styles";
 import React, { useState } from "react";
 import DailyCheckInInfo from "./DailyCheckInInfo";
-import { claimDailyCheckIn } from "../store/dailyCheckInsSlice";
 import UserRepository from "../repositories/UserRepository";
 
 function DailyCheckInCard(props) {

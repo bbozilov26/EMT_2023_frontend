@@ -1,4 +1,3 @@
-import FusePageCarded from "@fuse/core/FusePageCarded";
 import withReducer from "app/store/withReducer";
 import useThemeMediaQuery from "@fuse/hooks/useThemeMediaQuery";
 import reducer from "../store";

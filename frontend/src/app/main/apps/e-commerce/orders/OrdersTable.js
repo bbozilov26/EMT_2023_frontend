@@ -1,7 +1,6 @@
 import FuseScrollbars from "@fuse/core/FuseScrollbars";
 import FuseUtils from "@fuse/utils";
 import _ from "@lodash";
-import Checkbox from "@mui/material/Checkbox";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -14,13 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import withRouter from "@fuse/core/withRouter";
 import FuseLoading from "@fuse/core/FuseLoading";
 import OrdersStatus from "../order/OrdersStatus";
-import {
-  getOrders,
-  selectOrders,
-  selectOrdersSearchText,
-} from "../store/ordersSlice";
+import { selectOrdersSearchText } from "../store/ordersSlice";
 import OrdersTableHead from "./OrdersTableHead";
-import { selectUser } from "app/store/userSlice";
 import OrderRepository from "../repositories/OrderRepository";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 

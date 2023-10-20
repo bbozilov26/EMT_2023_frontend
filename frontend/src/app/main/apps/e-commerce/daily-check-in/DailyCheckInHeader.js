@@ -2,7 +2,6 @@ import { useDispatch } from "react-redux";
 import { useFormContext } from "react-hook-form";
 import { useTheme } from "@mui/material/styles";
 import { Link, useNavigate } from "react-router-dom";
-import ProductRepository from "../repositories/ProductRepository";
 import DailyCheckInRepository from "../repositories/DailyCheckInRepository";
 import { motion } from "framer-motion";
 import Typography from "@mui/material/Typography";

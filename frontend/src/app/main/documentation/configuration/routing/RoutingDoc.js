@@ -35,12 +35,12 @@ function RoutingDoc() {
 
       <Typography className="mb-16" component="p">
         For example, have a look at the code below{" "}
-        <code>MailboxAppConfig.js</code>. You can override all settings for a
+        <code>ECommerceAppConfig.js</code>. You can override all settings for a
         particular route.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">
-        {require("!raw-loader!src/app/main/apps/mailbox/MailboxAppConfig.js")}
+        {require("!raw-loader!src/app/main/apps/e-commerce/ECommerceAppConfig.js")}
       </FuseHighlight>
 
       <Typography className="mb-16" component="p">
@@ -50,19 +50,19 @@ function RoutingDoc() {
 
       <FuseHighlight component="pre" className="language-jsx mb-32">
         {`
-          import {appsRoutes} from '../main/apps/mailbox/MailboxAppConfig.js';
+          import {appsRoutes} from '../main/apps/mailbox/ECommerceAppConfig.js';
           import FuseUtils from '@fuse/utils';
           import { Navigate } from 'react-router-dom';
 
           const routeConfigs = [
-              MailAppConfig
+              ECommerceAppConfig
           ];
           
           const routes = [
             ...FuseUtils.generateRoutesFromConfigs(routeConfigs, settingsConfig.defaultAuth),
             {
               path: '/',
-              element: <Navigate to="apps/e-commerce/products" />,
+              element: <Navigate to="/products" />,
               auth: settingsConfig.defaultAuth,
             },
             {

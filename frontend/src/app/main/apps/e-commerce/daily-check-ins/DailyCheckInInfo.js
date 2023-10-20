@@ -1,8 +1,6 @@
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import clsx from "clsx";
-import { Image } from "@mui/icons-material";
 import React from "react";
 
 function DailyCheckInInfo({ udci, className }) {

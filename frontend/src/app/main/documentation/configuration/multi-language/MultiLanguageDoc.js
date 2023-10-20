@@ -1,5 +1,5 @@
-import FuseHighlight from '@fuse/core/FuseHighlight';
-import Typography from '@mui/material/Typography';
+import FuseHighlight from "@fuse/core/FuseHighlight";
+import Typography from "@mui/material/Typography";
 
 /* eslint import/no-webpack-loader-syntax: off */
 /* eslint import/extensions: off */
@@ -12,10 +12,14 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        Fuse React uses{' '}
-        <a href="https://react.i18next.com/" target="_blank" rel="noopener noreferrer">
+        Fuse React uses{" "}
+        <a
+          href="https://react.i18next.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <code>react-i18next</code>
-        </a>{' '}
+        </a>{" "}
         for to support multiple languages.
       </Typography>
 
@@ -23,10 +27,12 @@ function MultiLanguageDoc() {
         className="mb-16 p-16 border-1 bg-yellow-50 rounded-16 text-gray-800"
         component="p"
       >
-        Since not everybody need multi-language setup for their apps, we decided NOT to put
-        translations everywhere. If you want to see the translations in action, visit the Mail app,
-        and then change the language from the Toolbar. Mail app is the only app that has
-        translations for demonstration purposes. You can look at its source code to see the usage.
+        Since not everybody need multi-language setup for their apps, we decided
+        NOT to put translations everywhere. If you want to see the translations
+        in action, visit the Mail app, and then change the language from the
+        Toolbar. Mail app is the only app that has translations for
+        demonstration purposes. You can look at its source code to see the
+        usage.
       </Typography>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -34,23 +40,24 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        In order to use the translations, create your translation file within the folder you want to
-        use the translations. For example, for the Mail app, create <code>i18n/en.js</code> file
-        inside the
+        In order to use the translations, create your translation file within
+        the folder you want to use the translations. For example, for the Mail
+        app, create <code>i18n/en.js</code> file inside the
         <code>apps/mail</code> folder.
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">
-        {require('!raw-loader!src/app/main/apps/mailbox/i18n/en.js')}
+        {/*{require('!raw-loader!src/app/main/apps/mailbox/i18n/en.js')}*/}
       </FuseHighlight>
 
       <Typography className="mb-16" component="p">
-        And register the language file with <code>i18next.addResourceBundle()</code> at
+        And register the language file with{" "}
+        <code>i18next.addResourceBundle()</code> at
         <code>src/app/main/apps/mailbox/MailboxAppConfig.js</code>
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">
-        {require('!raw-loader!src/app/main/apps/mailbox/MailboxAppConfig.js')}
+        {/*{require('!raw-loader!src/app/main/apps/mailbox/MailboxAppConfig.js')}*/}
       </FuseHighlight>
 
       <Typography className="mb-16" component="p">
@@ -81,8 +88,8 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        To change the default language of the Fuse React, you need to change <code>lng</code>{' '}
-        setting in the file <code>src/i18n.js</code>
+        To change the default language of the Fuse React, you need to change{" "}
+        <code>lng</code> setting in the file <code>src/i18n.js</code>
       </Typography>
 
       <Typography className="mb-16" component="p">
@@ -90,7 +97,7 @@ function MultiLanguageDoc() {
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">
-        {require('!raw-loader!src/i18n.js')}
+        {require("!raw-loader!src/i18n.js")}
       </FuseHighlight>
 
       <Typography className="text-20 mt-20 mb-10 font-700" variant="h5">
@@ -98,7 +105,8 @@ function MultiLanguageDoc() {
       </Typography>
 
       <Typography className="mb-16" component="p">
-        You should use <code>changeLanguage</code> redux action to change language dynamically:
+        You should use <code>changeLanguage</code> redux action to change
+        language dynamically:
       </Typography>
 
       <FuseHighlight component="pre" className="language-jsx mb-24">

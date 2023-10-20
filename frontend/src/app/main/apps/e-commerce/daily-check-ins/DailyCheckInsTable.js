@@ -4,12 +4,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import withRouter from "@fuse/core/withRouter";
 import FuseLoading from "@fuse/core/FuseLoading";
-import { selectUser } from "app/store/userSlice";
 import DailyCheckInCard from "./DailyCheckInCard";
-import {
-  claimDailyCheckIn,
-  fetchDailyCheckInsByUserId,
-} from "../store/dailyCheckInsSlice";
 import DailyCheckInRepository from "../repositories/DailyCheckInRepository";
 import UserRepository from "../repositories/UserRepository";
 import CardContent from "@mui/material/CardContent";
