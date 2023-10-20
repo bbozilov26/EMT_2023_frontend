@@ -45,14 +45,6 @@ function Layout3(props) {
           id="fuse-main"
           className="flex flex-col flex-auto min-h-full min-w-0 relative"
         >
-          {config.navbar.display && (
-            <NavbarWrapperLayout3
-              className={clsx(
-                config.navbar.style === "fixed" && "sticky top-0 z-50"
-              )}
-            />
-          )}
-
           {config.toolbar.display && (
             <ToolbarLayout3
               className={clsx(
