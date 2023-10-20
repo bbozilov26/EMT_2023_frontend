@@ -1,5 +1,4 @@
 import FuseScrollbars from "@fuse/core/FuseScrollbars";
-import FuseUtils from "@fuse/utils";
 import _ from "@lodash";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -81,7 +80,20 @@ function OrdersTable(props) {
 
   useEffect(() => {
     if (searchText.length !== 0) {
-      setData(FuseUtils.filterArrayByString(orders, searchText));
+      setData(
+        _.filter(orders, (item) => {
+          const customerFullName =
+            `${item.user.personDTO?.firstName} ${item.user.personDTO?.lastName}`.toLowerCase();
+          return (
+            item.orderId?.toLowerCase().includes(searchText.toLowerCase()) ||
+            item.trackingNumber
+              ?.toLowerCase()
+              .includes(searchText.toLowerCase()) ||
+            item.carrier?.toLowerCase().includes(searchText.toLowerCase()) ||
+            customerFullName?.includes(searchText.toLowerCase())
+          );
+        })
+      );
       setPage(0);
     } else {
       setData(orders);

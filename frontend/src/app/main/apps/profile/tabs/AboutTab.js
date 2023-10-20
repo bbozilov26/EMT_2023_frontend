@@ -1,18 +1,9 @@
-import Avatar from "@mui/material/Avatar";
-import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemSecondaryAction from "@mui/material/ListItemSecondaryAction";
-import ListItemText from "@mui/material/ListItemText";
 import Typography from "@mui/material/Typography";
-import axios from "axios";
 import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
-import DailyCheckInCard from "../../e-commerce/daily-check-ins/DailyCheckInCard";
 import { useNavigate } from "react-router-dom";
 
 function AboutTab(props) {
@@ -94,7 +85,9 @@ function AboutTab(props) {
             >
               <div className="px-32 pt-24">
                 <Typography className="text-2xl font-semibold leading-tight">
-                  My Orders
+                  {data.roleDTO?.label === "ROLE_CUSTOMER"
+                    ? "My Orders"
+                    : "All Orders"}
                 </Typography>
               </div>
 

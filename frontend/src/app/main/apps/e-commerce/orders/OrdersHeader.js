@@ -1,10 +1,15 @@
-import Input from '@mui/material/Input';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
-import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
-import FuseSvgIcon from '@fuse/core/FuseSvgIcon';
-import { selectOrdersSearchText, setOrdersSearchText } from '../store/ordersSlice';
+import Input from "@mui/material/Input";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import { motion } from "framer-motion";
+import { useDispatch, useSelector } from "react-redux";
+import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import {
+  selectOrdersSearchText,
+  setOrdersSearchText,
+} from "../store/ordersSlice";
+import { useEffect } from "react";
+import _ from "@lodash";
 
 function OrdersHeader(props) {
   const dispatch = useDispatch();
@@ -38,7 +43,7 @@ function OrdersHeader(props) {
             fullWidth
             value={searchText}
             inputProps={{
-              'aria-label': 'Search Orders',
+              "aria-label": "Search Orders",
             }}
             onChange={(ev) => dispatch(setOrdersSearchText(ev))}
           />

@@ -1,18 +1,10 @@
 import FusePageSimple from "@fuse/core/FusePageSimple";
 import { styled } from "@mui/material/styles";
 import Avatar from "@mui/material/Avatar";
-import Tab from "@mui/material/Tab";
-import Tabs from "@mui/material/Tabs";
 import Typography from "@mui/material/Typography";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import Box from "@mui/material/Box";
 import AboutTab from "./tabs/AboutTab";
-import PhotosVideosTab from "./tabs/PhotosVideosTab";
-import TimelineTab from "./tabs/TimelineTab";
-import useThemeMediaQuery from "../../../../@fuse/hooks/useThemeMediaQuery";
-import { selectUser } from "app/store/userSlice";
-import { useSelector } from "react-redux";
 
 const Root = styled(FusePageSimple)(({ theme }) => ({
   "& .FusePageSimple-header": {

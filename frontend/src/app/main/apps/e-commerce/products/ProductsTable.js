@@ -116,26 +116,23 @@ function ProductsTable(props) {
   }, []);
 
   useEffect(() => {
-    if (searchText.length !== 0) {
+    if (searchText.length !== 0 && selectedCategory !== "all") {
       setData(
-        _.filter(products, (item) =>
-          item.name.toLowerCase().includes(searchText.toLowerCase())
+        _.filter(
+          products,
+          (item) =>
+            item.name.toLowerCase().includes(searchText.toLowerCase()) &&
+            item.category === selectedCategory
         )
       );
       setPage(0);
-    } else {
-      setData(products);
-    }
-  }, [products, searchText]);
-
-  useEffect(() => {
-    if (selectedCategory !== "all") {
+    } else if (searchText.length === 0 && selectedCategory !== "all") {
       setData(_.filter(products, (item) => item.category === selectedCategory));
       setPage(0);
     } else {
       setData(products);
     }
-  }, [products, selectedCategory]);
+  }, [products, searchText, selectedCategory]);
 
   function handleRequestSort(event, property) {
     const id = property;
