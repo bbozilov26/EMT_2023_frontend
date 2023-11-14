@@ -46,6 +46,7 @@ function Product(props) {
   const form = watch();
   const { productId } = useParams();
   const { t } = useTranslation("app");
+
   const categories = [
     {
       id: "BOOKS",
@@ -164,7 +165,7 @@ function Product(props) {
         className="flex flex-col flex-1 items-center justify-center h-full"
       >
         <Typography color="text.secondary" variant="h5">
-          There is no such product!
+          {t("NO_SUCH_PRODUCT")}
         </Typography>
         <Button
           className="mt-24"
@@ -173,7 +174,7 @@ function Product(props) {
           to="/products"
           color="inherit"
         >
-          Go to Products Page
+          {t("GO_TO_PRODUCTS_PAGE")}
         </Button>
       </motion.div>
     );
@@ -214,7 +215,7 @@ function Product(props) {
               scrollButtons="auto"
               classes={{ root: "w-full h-64 border-b-1" }}
             >
-              <Tab className="h-64" label="Basic Info" />
+              <Tab className="h-64" label={t("BASIC_INFO")} />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? "hidden" : ""}>

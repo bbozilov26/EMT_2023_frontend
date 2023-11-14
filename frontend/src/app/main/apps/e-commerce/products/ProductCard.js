@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from "react-redux";
 import React, { useState } from "react";
 import ProductRepository from "../repositories/ProductRepository";
 import OrderRepository from "../repositories/OrderRepository";
+import { useTranslation } from "react-i18next";
 
 function ProductCard(props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const { t } = useTranslation("app");
   const [isRed, setIsRed] = useState(false);
 
   const handleClick = () => {
@@ -103,7 +104,7 @@ function ProductCard(props) {
                       material-solid:delete_forever
                     </FuseSvgIcon>
                   </span>
-                  Remove
+                  {t("REMOVE")}
                 </Button>
               </div>
               <div
@@ -131,7 +132,7 @@ function ProductCard(props) {
                       feather:edit
                     </FuseSvgIcon>
                   </span>
-                  Edit
+                  {t("EDIT")}
                 </Button>
               </div>
             </>
@@ -164,7 +165,7 @@ function ProductCard(props) {
                         heroicons-solid:shopping-cart
                       </FuseSvgIcon>
                     </span>
-                    Add to cart
+                    {t("ADD_TO_CART")}
                   </Button>
                 </div>
               </>

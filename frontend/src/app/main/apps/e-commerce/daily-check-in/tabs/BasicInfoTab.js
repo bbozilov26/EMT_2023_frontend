@@ -2,11 +2,13 @@ import { Controller, useFormContext } from "react-hook-form";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import TextField from "@mui/material/TextField";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useTranslation } from "react-i18next";
 
 function BasicInfoTab(props) {
   const methods = useFormContext();
   const { control, formState, watch, setValue } = methods;
   const { errors } = formState;
+  const { t } = useTranslation("app");
 
   return (
     <>
@@ -20,7 +22,7 @@ function BasicInfoTab(props) {
               {...field}
               className="mt-8 mb-16"
               id="description"
-              label="Description"
+              label={t("DESCRIPTION")}
               type="text"
               multiline
               rows={5}
@@ -40,7 +42,7 @@ function BasicInfoTab(props) {
               {...field}
               className="mt-8 mb-16"
               id="label"
-              label="Label"
+              label={t("LABEL")}
               type="text"
               multiline
               rows={5}
@@ -59,7 +61,7 @@ function BasicInfoTab(props) {
             <TextField
               {...field}
               className="mt-8 mb-16"
-              label="Daily Reward"
+              label={t("DAILY_REWARD")}
               id="dailyReward"
               InputProps={{
                 startAdornment: (

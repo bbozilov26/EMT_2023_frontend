@@ -16,6 +16,7 @@ import { selectOrdersSearchText } from "../store/ordersSlice";
 import OrdersTableHead from "./OrdersTableHead";
 import OrderRepository from "../repositories/OrderRepository";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import { useTranslation } from "react-i18next";
 
 function OrdersTable(props) {
   const dispatch = useDispatch();
@@ -31,6 +32,7 @@ function OrdersTable(props) {
     direction: "asc",
     id: null,
   });
+  const { t } = useTranslation("app");
 
   useEffect(() => {
     props.user.roleDTO?.label === "ROLE_CUSTOMER"
@@ -154,7 +156,7 @@ function OrdersTable(props) {
         className="flex flex-1 items-center justify-center h-full"
       >
         <Typography color="text.secondary" variant="h5">
-          There are no orders!
+          {t("NO_ORDERS")}
         </Typography>
       </motion.div>
     );

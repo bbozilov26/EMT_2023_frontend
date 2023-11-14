@@ -93,7 +93,7 @@ function ShoppingCartQuickPanel(props) {
               component="div"
               style={{ fontSize: "24px", marginTop: "25px" }}
             >
-              Shopping Cart
+              {t("SHOPPING_CART")}
             </ListSubheader>
 
             {(orderedProducts && orderedProducts.length === 0) ||
@@ -109,7 +109,7 @@ function ShoppingCartQuickPanel(props) {
                 }}
               >
                 <p style={{ fontSize: "18px", marginTop: "350px" }}>
-                  Your shopping cart is empty!
+                  {t("EMPTY_SHOPPING_CART")}
                 </p>
               </div>
             ) : (
@@ -125,19 +125,19 @@ function ShoppingCartQuickPanel(props) {
                       <div className="ml-48">
                         <h3>{item?.title}</h3>
                         <p style={{ display: "flex", alignItems: "center" }}>
-                          Category:
+                          {t("CATEGORY")}:{" "}
                           <span className="ml-8">
                             {t(item?.productDTO?.category)}
                           </span>
                         </p>
                         <p style={{ display: "flex", alignItems: "center" }}>
-                          Price:{" "}
+                          {t("PRICE")}:{" "}
                           <FuseSvgIcon className="ml-8">
                             heroicons-outline:currency-euro
                           </FuseSvgIcon>
                           {item?.price}
                         </p>
-                        <label>Quantity:</label>
+                        <label>{t("QUANTITY")}:</label>
                         <input
                           className="ml-8"
                           type="number"
@@ -155,7 +155,7 @@ function ShoppingCartQuickPanel(props) {
                           }
                         />
                         <p style={{ display: "flex", alignItems: "center" }}>
-                          Total Price:{" "}
+                          {t("TOTAL_PRICE")}:{" "}
                           <FuseSvgIcon className="ml-8">
                             heroicons-outline:currency-euro
                           </FuseSvgIcon>
@@ -176,7 +176,7 @@ function ShoppingCartQuickPanel(props) {
                     alignItems: "center",
                   }}
                 >
-                  Total:
+                  {t("TOTAL")}:
                   {orderedProducts && orderedProducts.length > 0 && (
                     <>
                       <div className="divider"></div>
@@ -227,7 +227,7 @@ function ShoppingCartQuickPanel(props) {
                               heroicons-solid:shopping-cart
                             </FuseSvgIcon>
                           </span>
-                          Buy now
+                          {t("BUY_NOW")}
                         </Button>
                       </div>
                     </>

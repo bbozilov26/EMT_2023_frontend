@@ -11,6 +11,7 @@ import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import Typography from "@mui/material/Typography";
+import { useTranslation } from "react-i18next";
 
 function DailyCheckInsTable(props) {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ function DailyCheckInsTable(props) {
   const [loading, setLoading] = useState(true);
   const [userDailyCheckIns, setUserDailyCheckIns] = useState([]);
   const [startDate, setStartDate] = useState();
+  const { t } = useTranslation("app");
 
   useEffect(() => {
     // Fetch daily check-ins when the component mounts
@@ -94,7 +96,7 @@ function DailyCheckInsTable(props) {
           className="flex flex-1 items-center justify-center h-full"
         >
           <Typography color="text.secondary" variant="h5">
-            There are no daily check ins for the given user!
+            {t("NO_DAILY_CHECK_INS_FOR_GIVEN_USER")}
           </Typography>
         </motion.div>
       </div>
@@ -111,7 +113,7 @@ function DailyCheckInsTable(props) {
     >
       {user.roleDTO?.label === "ROLE_CUSTOMER" ? (
         <div className="text-18 flex items-center ml-64">
-          Your Balance:
+          {t("YOUR_BALANCE")}
           <FuseSvgIcon className="mr-2 ml-4">
             heroicons-outline:currency-euro
           </FuseSvgIcon>

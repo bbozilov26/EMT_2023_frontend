@@ -16,19 +16,19 @@ function ProductsTab(props) {
         <thead>
           <tr>
             <th>
-              <Typography className="font-semibold">Image</Typography>
+              <Typography className="font-semibold">{t("IMAGE")}</Typography>
             </th>
             <th>
-              <Typography className="font-semibold">Name</Typography>
+              <Typography className="font-semibold">{t("NAME")}</Typography>
             </th>
             <th>
-              <Typography className="font-semibold">Price</Typography>
+              <Typography className="font-semibold">{t("PRICE")}</Typography>
             </th>
             <th>
-              <Typography className="font-semibold">Quantity</Typography>
+              <Typography className="font-semibold">{t("QUANTITY")}</Typography>
             </th>
             <th>
-              <Typography className="font-semibold">Category</Typography>
+              <Typography className="font-semibold">{t("CATEGORY")}</Typography>
             </th>
           </tr>
         </thead>

@@ -5,10 +5,12 @@ import { motion } from "framer-motion";
 import React, { useEffect, useState } from "react";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function AboutTab(props) {
   const [data, setData] = useState(props.user);
   const navigate = useNavigate();
+  const { t } = useTranslation("app");
 
   if (!data) {
     return null;
@@ -61,7 +63,7 @@ function AboutTab(props) {
                 <CardContent className="px-32 py-24">
                   <div className="mb-24">
                     <Typography className="font-semibold mb-4 text-15">
-                      Credit Balance
+                      {t("CREDIT_BALANCE")}
                     </Typography>
                     <Typography
                       style={{ display: "flex", alignItems: "center" }}
@@ -86,8 +88,8 @@ function AboutTab(props) {
               <div className="px-32 pt-24">
                 <Typography className="text-2xl font-semibold leading-tight">
                   {data.roleDTO?.label === "ROLE_CUSTOMER"
-                    ? "My Orders"
-                    : "All Orders"}
+                    ? t("MY_ORDERS")
+                    : t("ALL_ORDERS")}
                 </Typography>
               </div>
 
@@ -116,7 +118,7 @@ function AboutTab(props) {
             >
               <div className="px-32 pt-24">
                 <Typography className="text-2xl font-semibold leading-tight">
-                  My Coins
+                  {t("MY_COINS")}
                 </Typography>
               </div>
 
@@ -140,21 +142,21 @@ function AboutTab(props) {
           <Card component={motion.div} variants={item} className="w-full mb-32">
             <div className="px-32 pt-24">
               <Typography className="text-2xl font-semibold leading-tight">
-                Contact
+                {t("CONTACT")}
               </Typography>
             </div>
 
             <CardContent className="px-32 py-24">
               <div className="mb-24">
                 <Typography className="font-semibold mb-4 text-15">
-                  Address
+                  {t("ADDRESS")}
                 </Typography>
                 <Typography>{data.personDTO?.address}</Typography>
               </div>
 
               <div className="mb-24">
                 <Typography className="font-semibold mb-4 text-15">
-                  Tel.
+                  {t("PHONE_NUMBER")}
                 </Typography>
 
                 <Typography>{data.personDTO?.phoneNumber}</Typography>
@@ -162,7 +164,7 @@ function AboutTab(props) {
 
               <div className="mb-24">
                 <Typography className="font-semibold mb-4 text-15">
-                  Email
+                  {t("EMAIL")}
                 </Typography>
 
                 <Typography>{data.email}</Typography>

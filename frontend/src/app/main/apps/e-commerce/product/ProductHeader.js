@@ -8,6 +8,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import React, { useState } from "react";
 import ProductRepository from "../repositories/ProductRepository";
+import { useTranslation } from "react-i18next";
 
 function ProductHeader(props) {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ function ProductHeader(props) {
   const image = props.product?.image || watch("image");
   const name = props.product?.name || watch("name");
   const productId = props.productId;
+  const { t } = useTranslation("app");
 
   function handleSaveProduct() {
     const productDTO = {
@@ -84,7 +86,7 @@ function ProductHeader(props) {
                 ? "heroicons-outline:arrow-sm-left"
                 : "heroicons-outline:arrow-sm-right"}
             </FuseSvgIcon>
-            <span className="flex mx-4 font-medium">Products</span>
+            <span className="flex mx-4 font-medium">{t("PRODUCTS")}</span>
           </Typography>
         </motion.div>
 
@@ -114,10 +116,10 @@ function ProductHeader(props) {
             animate={{ x: 0, transition: { delay: 0.3 } }}
           >
             <Typography className="text-16 sm:text-20 truncate font-semibold">
-              {name || "New Product"}
+              {name || t("NEW_PRODUCT")}
             </Typography>
             <Typography variant="caption" className="font-medium">
-              Product Detail
+              {t("PRODUCT_DETAILS")}
             </Typography>
           </motion.div>
         </div>
@@ -139,7 +141,7 @@ function ProductHeader(props) {
               </FuseSvgIcon>
             }
           >
-            Remove
+            {t("REMOVE")}
           </Button>
         ) : null}
 
@@ -150,7 +152,7 @@ function ProductHeader(props) {
           // disabled={props.saveButton.disabled}
           onClick={handleSaveProduct}
         >
-          Save
+          {t("SAVE")}
         </Button>
       </motion.div>
     </div>

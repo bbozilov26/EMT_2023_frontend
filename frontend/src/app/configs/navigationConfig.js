@@ -1,15 +1,12 @@
 import i18next from "i18next";
 
-import ar from "./navigation-i18n/ar";
 import en from "./navigation-i18n/en";
-import tr from "./navigation-i18n/tr";
+import mk from "./navigation-i18n/mk";
 
 i18next.addResourceBundle("en", "navigation", en);
-i18next.addResourceBundle("tr", "navigation", tr);
-i18next.addResourceBundle("ar", "navigation", ar);
+i18next.addResourceBundle("mk", "navigation", mk);
 i18next.addResourceBundle("en", "app", en);
-i18next.addResourceBundle("tr", "app", tr);
-i18next.addResourceBundle("ar", "app", ar);
+i18next.addResourceBundle("mk", "app", mk);
 
 const navigationConfig = [
   {

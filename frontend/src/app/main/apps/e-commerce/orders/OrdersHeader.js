@@ -10,10 +10,12 @@ import {
 } from "../store/ordersSlice";
 import { useEffect } from "react";
 import _ from "@lodash";
+import { useTranslation } from "react-i18next";
 
 function OrdersHeader(props) {
   const dispatch = useDispatch();
   const searchText = useSelector(selectOrdersSearchText);
+  const { t } = useTranslation("app");
 
   return (
     <div className="flex flex-col sm:flex-row flex-1 w-full space-y-8 sm:space-y-0 items-center justify-between py-32 px-24 md:px-32">
@@ -24,7 +26,7 @@ function OrdersHeader(props) {
         delay={300}
         className="flex text-24 md:text-32 font-extrabold tracking-tight"
       >
-        Orders
+        {t("ORDERS")}
       </Typography>
 
       <div className="flex flex-1 items-center justify-end space-x-8 w-full sm:w-auto">
@@ -37,7 +39,7 @@ function OrdersHeader(props) {
           <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
 
           <Input
-            placeholder="Search orders"
+            placeholder={t("SEARCH_ORDERS")}
             className="flex flex-1"
             disableUnderline
             fullWidth

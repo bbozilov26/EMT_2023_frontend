@@ -258,7 +258,7 @@ function ProductsTable(props) {
       <div className="flex flex-col w-full sm:w-auto sm:flex-row space-y-16 sm:space-y-0 flex-1 items-center justify-between">
         <div className="flex space-x-8">
           <FormControl className="flex w-full sm:w-136" variant="outlined">
-            <InputLabel id="category-select-label">Category</InputLabel>
+            <InputLabel id="category-select-label">{t("CATEGORY")}</InputLabel>
             <Select
               labelId="category-select-label"
               id="category-select"
@@ -267,7 +267,7 @@ function ProductsTable(props) {
               onChange={handleSelectedCategory}
             >
               <MenuItem value="all">
-                <em> All </em>
+                <em>{t("ALL")}</em>
               </MenuItem>
               {categories.map((category) => (
                 <MenuItem value={category.name} key={category.id}>
@@ -285,7 +285,7 @@ function ProductsTable(props) {
           >
             <FuseSvgIcon color="disabled">heroicons-solid:search</FuseSvgIcon>
             <Input
-              placeholder="Search products"
+              placeholder={t("SEARCH_PRODUCTS")}
               className="flex flex-1"
               disableUnderline
               fullWidth
@@ -312,7 +312,7 @@ function ProductsTable(props) {
               color="secondary"
               startIcon={<FuseSvgIcon>heroicons-outline:plus</FuseSvgIcon>}
             >
-              Add
+              {t("ADD")}
             </Button>
           </motion.div>
         ) : null}

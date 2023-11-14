@@ -42,12 +42,18 @@ function ProfileApp() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1, transition: { delay: 0.1 } }}
               >
-                <Avatar
-                  sx={{ borderColor: "background.paper" }}
-                  className="w-128 h-128 border-4"
-                  src="assets/images/avatars/male-04.jpg"
-                  alt="User avatar"
-                />
+                {user?.photoURL ? (
+                  <Avatar
+                    sx={{ borderColor: "background.paper" }}
+                    className="w-128 h-128 border-4"
+                    src={user?.data?.photoURL}
+                    alt="User avatar"
+                  />
+                ) : (
+                  <Avatar className="w-128 h-128 border-4">
+                    {user?.data?.displayName?.[0]}
+                  </Avatar>
+                )}
               </motion.div>
             </div>
 

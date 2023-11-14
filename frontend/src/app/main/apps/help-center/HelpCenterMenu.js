@@ -6,9 +6,11 @@ import Popover from "@mui/material/Popover";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
+import { useTranslation } from "react-i18next";
 
 function HelpCenterMenu(props) {
   const [helpCenterMenu, setHelpCenterMenu] = useState(null);
+  const { t } = useTranslation("app");
 
   const helpCenterMenuClick = (event) => {
     setHelpCenterMenu(event.currentTarget);
@@ -25,7 +27,7 @@ function HelpCenterMenu(props) {
         onClick={helpCenterMenuClick}
         color="inherit"
       >
-        Help
+        {t("HELP")}
       </Button>
 
       <Popover
@@ -54,7 +56,7 @@ function HelpCenterMenu(props) {
             {/*<ListItemIcon className="min-w-40">*/}
             {/*  <FuseSvgIcon>heroicons-outline:lifebuoy</FuseSvgIcon>*/}
             {/*</ListItemIcon>*/}
-            <ListItemText primary="Home" />
+            <ListItemText primary={t("HOME")} />
           </MenuItem>
 
           <MenuItem
@@ -66,7 +68,7 @@ function HelpCenterMenu(props) {
             {/*<ListItemIcon className="min-w-40">*/}
             {/*  <FuseSvgIcon>heroicons-outline:question-mark-circle</FuseSvgIcon>*/}
             {/*</ListItemIcon>*/}
-            <ListItemText primary="FAQs" />
+            <ListItemText primary={t("FAQS")} />
           </MenuItem>
 
           <MenuItem
@@ -78,7 +80,7 @@ function HelpCenterMenu(props) {
             {/*<ListItemIcon className="min-w-40">*/}
             {/*  <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>*/}
             {/*</ListItemIcon>*/}
-            <ListItemText primary="Guides" />
+            <ListItemText primary={t("GUIDES")} />
           </MenuItem>
 
           <MenuItem
@@ -90,7 +92,7 @@ function HelpCenterMenu(props) {
             {/*<ListItemIcon className="min-w-40">*/}
             {/*  <FuseSvgIcon>heroicons-outline:heart</FuseSvgIcon>*/}
             {/*</ListItemIcon>*/}
-            <ListItemText primary="Support" />
+            <ListItemText primary={t("SUPPORT")} />
           </MenuItem>
         </>
       </Popover>

@@ -6,65 +6,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import TableHead from "@mui/material/TableHead";
 import { darken, lighten } from "@mui/material/styles";
-
-const rows = [
-  {
-    id: "id",
-    align: "left",
-    disablePadding: false,
-    label: "Order ID",
-    sort: true,
-  },
-  {
-    id: "reference",
-    align: "left",
-    disablePadding: false,
-    label: "Tracking Number",
-    sort: true,
-  },
-  {
-    id: "customer",
-    align: "left",
-    disablePadding: false,
-    label: "Customer",
-    sort: true,
-  },
-  {
-    id: "total",
-    align: "left",
-    disablePadding: false,
-    label: "Total",
-    sort: true,
-  },
-  {
-    id: "status",
-    align: "left",
-    disablePadding: false,
-    label: "Status",
-    sort: true,
-  },
-  {
-    id: "date",
-    align: "left",
-    disablePadding: false,
-    label: "Date",
-    sort: true,
-  },
-  {
-    id: "carrier",
-    align: "left",
-    disablePadding: false,
-    label: "Carrier",
-    sort: true,
-  },
-  {
-    id: "ETA",
-    align: "left",
-    disablePadding: false,
-    label: "ETA",
-    sort: true,
-  },
-];
+import { useTranslation } from "react-i18next";
 
 function OrdersTableHead(props) {
   const { selectedOrderIds } = props;
@@ -73,6 +15,7 @@ function OrdersTableHead(props) {
   const [selectedOrdersMenu, setSelectedOrdersMenu] = useState(null);
 
   const dispatch = useDispatch();
+  const { t } = useTranslation("app");
 
   const createSortHandler = (property) => (event) => {
     props.onRequestSort(event, property);
@@ -87,6 +30,65 @@ function OrdersTableHead(props) {
   }
 
   // const {onSelectAllClick, order, orderBy, numSelected, rowCount} = props;
+
+  const rows = [
+    {
+      id: "id",
+      align: "left",
+      disablePadding: false,
+      label: t("ORDER_ID"),
+      sort: true,
+    },
+    {
+      id: "reference",
+      align: "left",
+      disablePadding: false,
+      label: t("TRACKING_NUMBER"),
+      sort: true,
+    },
+    {
+      id: "customer",
+      align: "left",
+      disablePadding: false,
+      label: t("CUSTOMER"),
+      sort: true,
+    },
+    {
+      id: "total",
+      align: "left",
+      disablePadding: false,
+      label: t("TOTAL"),
+      sort: true,
+    },
+    {
+      id: "status",
+      align: "left",
+      disablePadding: false,
+      label: t("STATUS"),
+      sort: true,
+    },
+    {
+      id: "date",
+      align: "left",
+      disablePadding: false,
+      label: t("DATE"),
+      sort: true,
+    },
+    {
+      id: "carrier",
+      align: "left",
+      disablePadding: false,
+      label: t("CARRIER"),
+      sort: true,
+    },
+    {
+      id: "ETA",
+      align: "left",
+      disablePadding: false,
+      label: t("ETA"),
+      sort: true,
+    },
+  ];
 
   return (
     <TableHead>

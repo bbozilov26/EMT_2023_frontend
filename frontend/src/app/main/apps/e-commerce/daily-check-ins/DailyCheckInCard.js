@@ -8,9 +8,11 @@ import { lighten } from "@mui/material/styles";
 import React, { useState } from "react";
 import DailyCheckInInfo from "./DailyCheckInInfo";
 import UserRepository from "../repositories/UserRepository";
+import { useTranslation } from "react-i18next";
 
 function DailyCheckInCard(props) {
   const navigate = useNavigate();
+  const { t } = useTranslation("app");
 
   const isAdminOrSuperAdmin =
     props.user.roleDTO?.label === "ROLE_SUPER_ADMIN" ||
@@ -105,7 +107,7 @@ function DailyCheckInCard(props) {
                   feather:edit
                 </FuseSvgIcon>
               </span>
-              Edit
+              {t("EDIT")}
             </Button>
           )}
 
@@ -124,7 +126,13 @@ function DailyCheckInCard(props) {
               disabled={props.udci.claimed}
               onClick={() => handleClaimCheckIn(props.udci.id)}
             >
-              {!props.udci.claimed ? "Claim" : "Claimed!"}
+              {!props.udci.claimed ? (
+                t("COLLECT")
+              ) : (
+                <FuseSvgIcon className="" size={20}>
+                  feather:check-circle
+                </FuseSvgIcon>
+              )}
             </Button>
           )}
         </div>

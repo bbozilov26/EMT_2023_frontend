@@ -11,6 +11,7 @@ import Tab from "@mui/material/Tab";
 import BasicInfoTab from "../daily-check-in/tabs/BasicInfoTab";
 import DailyCheckInHeader from "./DailyCheckInHeader";
 import { useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object().shape({
   dailyReward: yup
@@ -33,6 +34,7 @@ function DailyCheckIn(props) {
   const { reset, watch, control, onChange, formState } = methods;
   const form = watch();
   const [tabValue, setTabValue] = useState(0);
+  const { t } = useTranslation("app");
 
   function handleTabChange(event, value) {
     setTabValue(value);
@@ -96,7 +98,7 @@ function DailyCheckIn(props) {
               scrollButtons="auto"
               classes={{ root: "w-full h-64 border-b-1" }}
             >
-              <Tab className="h-64" label="Basic Info" />
+              <Tab className="h-64" label={t("BASIC_INFO")} />
             </Tabs>
             <div className="p-16 sm:p-24 max-w-3xl">
               <div className={tabValue !== 0 ? "hidden" : ""}>

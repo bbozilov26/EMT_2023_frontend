@@ -54,6 +54,7 @@ function BasicInfoTab(props) {
   const [selectedFeaturedImage, setSelectedFeaturedImage] = useState("");
 
   const { t } = useTranslation("app");
+
   const categories = [
     {
       id: "BOOKS",
@@ -182,8 +183,26 @@ function BasicInfoTab(props) {
                     }}
                   />
                 </Box>
+              ) : props.product?.image && props.product?.image.length > 0 ? (
+                <Box
+                  sx={{
+                    width: "128px",
+                    height: "128px",
+                    mx: "12px",
+                    overflow: "hidden",
+                  }}
+                >
+                  <img
+                    src={`data:image/jpeg;base64,${props.product?.image}`}
+                    alt="Uploaded"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </Box>
               ) : (
-                <p>No image selected!</p>
+                <p>{t("NO_IMAGE_SELECTED")}</p>
               )}
             </Box>
           )}
@@ -201,7 +220,7 @@ function BasicInfoTab(props) {
               error={!!errors.name}
               required
               helperText={errors?.name?.message}
-              label="Name"
+              label={t("NAME")}
               autoFocus
               id="name"
               variant="outlined"
@@ -218,7 +237,7 @@ function BasicInfoTab(props) {
               {...field}
               className="mt-8 mb-16"
               id="description"
-              label="Description"
+              label={t("DESCRIPTION")}
               type="text"
               multiline
               rows={5}
@@ -249,7 +268,7 @@ function BasicInfoTab(props) {
                 <TextField
                   {...params}
                   placeholder="Select category"
-                  label="Category"
+                  label={t("CATEGORY")}
                   variant="outlined"
                   InputLabelProps={{
                     shrink: true,
@@ -268,7 +287,7 @@ function BasicInfoTab(props) {
             <TextField
               {...field}
               className="mt-8 mb-16"
-              label="Price"
+              label={t("PRICE")}
               id="price"
               InputProps={{
                 startAdornment: (
@@ -291,7 +310,7 @@ function BasicInfoTab(props) {
             <TextField
               {...field}
               className="mt-8 mb-16"
-              label="Quantity"
+              label={t("QUANTITY")}
               id="quantity"
               type="number"
               variant="outlined"

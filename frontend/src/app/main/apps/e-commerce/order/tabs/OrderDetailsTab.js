@@ -25,6 +25,7 @@ import clsx from "clsx";
 import Autocomplete from "@mui/material/Autocomplete";
 import TextField from "@mui/material/TextField";
 import { Controller, useFormContext } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 
 function Marker(props) {
   return (
@@ -44,6 +45,7 @@ function OrderDetailsTab(props) {
   const [selectedStatus, setSelectedStatus] = useState(order.orderStatus || "");
   const methods = useFormContext();
   const { control, formState, watch, setValue, getValues } = methods;
+  const { t } = useTranslation("app");
 
   const handleEditClick = () => {
     setDialogOpen(true);
@@ -117,7 +119,7 @@ function OrderDetailsTab(props) {
             heroicons-outline:user-circle
           </FuseSvgIcon>
           <Typography className="h2 mx-12 font-medium" color="text.secondary">
-            Customer
+            {t("CUSTOMER")}
           </Typography>
         </div>
 
@@ -127,13 +129,19 @@ function OrderDetailsTab(props) {
               <thead>
                 <tr>
                   <th>
-                    <Typography className="font-semibold">Name</Typography>
+                    <Typography className="font-semibold">
+                      {t("CUSTOMER_NAME")}
+                    </Typography>
                   </th>
                   <th>
-                    <Typography className="font-semibold">Email</Typography>
+                    <Typography className="font-semibold">
+                      {t("EMAIL")}
+                    </Typography>
                   </th>
                   <th>
-                    <Typography className="font-semibold">Phone</Typography>
+                    <Typography className="font-semibold">
+                      {t("PHONE_NUMBER")}
+                    </Typography>
                   </th>
                 </tr>
               </thead>
@@ -172,7 +180,7 @@ function OrderDetailsTab(props) {
               classes={{ root: "border border-solid rounded-16 mb-16" }}
             >
               <Typography className="font-semibold">
-                Shipping Address
+                {t("SHIPPING_ADDRESS")}
               </Typography>
             </AccordionSummary>
             <AccordionDetails className="flex flex-col md:flex-row -mx-8">
@@ -189,7 +197,7 @@ function OrderDetailsTab(props) {
           <div className="flex items-center">
             <FuseSvgIcon color="action">heroicons-outline:clock</FuseSvgIcon>
             <Typography className="h2 mx-12 font-medium" color="text.secondary">
-              Order Status
+              {t("STATUS")}
             </Typography>
           </div>
 
@@ -199,7 +207,7 @@ function OrderDetailsTab(props) {
               color="primary"
               onClick={handleEditClick}
             >
-              Edit
+              {t("EDIT")}
             </Button>
           ) : null}
         </div>
@@ -209,10 +217,14 @@ function OrderDetailsTab(props) {
             <thead>
               <tr>
                 <th>
-                  <Typography className="font-semibold">Status</Typography>
+                  <Typography className="font-semibold">
+                    {t("STATUS")}
+                  </Typography>
                 </th>
                 <th>
-                  <Typography className="font-semibold">Updated On</Typography>
+                  <Typography className="font-semibold">
+                    {t("UPDATED_ON")}
+                  </Typography>
                 </th>
               </tr>
             </thead>
@@ -229,7 +241,7 @@ function OrderDetailsTab(props) {
       </div>
 
       <Dialog open={isDialogOpen} onClose={handleClose}>
-        <DialogTitle>Change order status</DialogTitle>
+        <DialogTitle>{t("CHANGE_ORDER_STATUS")}</DialogTitle>
         <DialogContent>
           <Controller
             name="orderStatus"
@@ -242,12 +254,12 @@ function OrderDetailsTab(props) {
             render={({ field: { onChange, value } }) => (
               <FormControl variant="outlined" fullWidth className="mt-8 mb-16">
                 <InputLabel htmlFor="order-status-select">
-                  Select an order status
+                  {t("SELECT_ORDER_STATUS")}
                 </InputLabel>
                 <Select
                   value={value || selectedStatus}
                   onChange={onChange}
-                  label="Select an order status"
+                  label={t("SELECT_ORDER_STATUS")}
                   id="order-status-select"
                 >
                   {orderStatuses.map((status) => (
@@ -262,10 +274,10 @@ function OrderDetailsTab(props) {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Cancel
+            {t("CANCEL")}
           </Button>
           <Button onClick={handleSave} color="primary">
-            Save
+            {t("SAVE")}
           </Button>
         </DialogActions>
       </Dialog>
@@ -276,7 +288,7 @@ function OrderDetailsTab(props) {
             heroicons-outline:currency-euro
           </FuseSvgIcon>
           <Typography className="h2 mx-12 font-medium" color="text.secondary">
-            Payment
+            {t("PAYMENT")}
           </Typography>
         </div>
 
@@ -285,10 +297,12 @@ function OrderDetailsTab(props) {
             <thead>
               <tr>
                 <th>
-                  <Typography className="font-semibold">Amount</Typography>
+                  <Typography className="font-semibold">
+                    {t("AMOUNT")}
+                  </Typography>
                 </th>
                 <th>
-                  <Typography className="font-semibold">Date</Typography>
+                  <Typography className="font-semibold">{t("DATE")}</Typography>
                 </th>
               </tr>
             </thead>
@@ -316,7 +330,7 @@ function OrderDetailsTab(props) {
         <div className="pb-16 flex items-center">
           <FuseSvgIcon color="action">heroicons-outline:truck</FuseSvgIcon>
           <Typography className="h2 mx-12 font-medium" color="text.secondary">
-            Shipping
+            {t("SHIPPING")}
           </Typography>
         </div>
 
@@ -325,20 +339,22 @@ function OrderDetailsTab(props) {
             <thead>
               <tr>
                 <th>
-                  <Typography className="font-semibold">Order ID</Typography>
-                </th>
-                <th>
                   <Typography className="font-semibold">
-                    Tracking Code
+                    {t("ORDER_ID")}
                   </Typography>
                 </th>
                 <th>
-                  <Typography className="font-semibold">Carrier</Typography>
+                  <Typography className="font-semibold">
+                    {t("TRACKING_NUMBER")}
+                  </Typography>
                 </th>
                 <th>
                   <Typography className="font-semibold">
-                    Estimated Date of Arrival
+                    {t("CARRIER")}
                   </Typography>
+                </th>
+                <th>
+                  <Typography className="font-semibold">{t("ETA")}</Typography>
                 </th>
               </tr>
             </thead>

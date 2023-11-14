@@ -17,6 +17,7 @@ import OrderRepository from "../repositories/OrderRepository";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const schema = yup.object().shape({
   name: yup.string().required("You must select an order status"),
@@ -43,6 +44,7 @@ function Order(props) {
   });
   const { reset, watch, control, onChange, formState } = methods;
   const form = watch();
+  const { t } = useTranslation("app");
 
   useEffect(() => {
     OrderRepository.findOrderById(orderId).then(({ data }) => {
@@ -87,7 +89,7 @@ function Order(props) {
         className="flex flex-col flex-1 items-center justify-center h-full"
       >
         <Typography color="text.secondary" variant="h5">
-          There is no such order!
+          {t("NO_SUCH_ORDER")}
         </Typography>
         <Button
           className="mt-24"
@@ -96,7 +98,7 @@ function Order(props) {
           to="/orders"
           color="inherit"
         >
-          Go to Orders Page
+          {t("GO_TO_ORDERS_PAGE")}
         </Button>
       </motion.div>
     );
@@ -134,10 +136,7 @@ function Order(props) {
                 className="flex flex-col items-center sm:items-start min-w-0 items-center sm:items-start"
               >
                 <Typography className="text-20 truncate font-semibold">
-                  {`Order ${order.orderId}`}
-                </Typography>
-                <Typography variant="caption" className="font-medium">
-                  {`From ${order.user.personDTO?.firstName} ${order.user.personDTO?.lastName}`}
+                  {`${order.orderId}`}
                 </Typography>
               </motion.div>
             </div>
@@ -154,8 +153,8 @@ function Order(props) {
               scrollButtons="auto"
               classes={{ root: "w-full h-64 border-b-1" }}
             >
-              <Tab className="h-64" label="Order Details" />
-              <Tab className="h-64" label="Products" />
+              <Tab className="h-64" label={t("ORDER_DETAILS")} />
+              <Tab className="h-64" label={t("PRODUCTS")} />
               {/*<Tab className="h-64" label="Invoice" />*/}
             </Tabs>
             {order && (

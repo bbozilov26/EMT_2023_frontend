@@ -18,14 +18,12 @@ import { AuthProvider } from "./auth/AuthContext";
 
 import TimeAgo from "javascript-time-ago";
 import en from "javascript-time-ago/locale/en.json";
-import ar from "javascript-time-ago/locale/ar.json";
-import tr from "javascript-time-ago/locale/tr.json";
+import mk from "javascript-time-ago/locale/mk.json";
 import { useEffect, useState } from "react";
 import { useSelect } from "@mui/base";
 
 TimeAgo.addDefaultLocale(en);
-TimeAgo.addLocale(ar);
-TimeAgo.addLocale(tr);
+TimeAgo.addLocale(mk);
 
 // import axios from 'axios';
 /**

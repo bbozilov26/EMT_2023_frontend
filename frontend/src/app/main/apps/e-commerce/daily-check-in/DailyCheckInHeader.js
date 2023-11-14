@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import Button from "@mui/material/Button";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 function DailyCheckInHeader(props) {
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function DailyCheckInHeader(props) {
   const { isValid, dirtyFields } = formState;
   const theme = useTheme();
   const navigate = useNavigate();
+  const { t } = useTranslation("app");
 
   const descriptionName =
     props.dailyCheckIn?.description || watch("description");
@@ -60,7 +62,7 @@ function DailyCheckInHeader(props) {
                 ? "heroicons-outline:arrow-sm-left"
                 : "heroicons-outline:arrow-sm-right"}
             </FuseSvgIcon>
-            <span className="flex mx-4 font-medium">My Coins</span>
+            <span className="flex mx-4 font-medium">{t("MY_COINS")}</span>
           </Typography>
         </motion.div>
 
@@ -74,7 +76,7 @@ function DailyCheckInHeader(props) {
               {descriptionName}
             </Typography>
             <Typography variant="caption" className="font-medium">
-              Daily Check-in Detail
+              {t("DAILY_CHECK_IN_DETAIL")}
             </Typography>
           </motion.div>
         </div>
@@ -91,7 +93,7 @@ function DailyCheckInHeader(props) {
           // disabled={props.saveButton.disabled}
           onClick={handleSaveProduct}
         >
-          Save
+          {t("SAVE")}
         </Button>
       </motion.div>
     </div>

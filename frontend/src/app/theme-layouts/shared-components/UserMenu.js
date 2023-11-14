@@ -10,11 +10,14 @@ import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import FuseSvgIcon from "@fuse/core/FuseSvgIcon";
 import { selectUser } from "app/store/userSlice";
+import { useTranslation } from "react-i18next";
 
 function UserMenu(props) {
   const user = JSON.parse(localStorage.getItem("user"));
 
   const [userMenu, setUserMenu] = useState(null);
+
+  const { t } = useTranslation("app");
 
   const userMenuClick = (event) => {
     setUserMenu(event.currentTarget);
@@ -35,14 +38,14 @@ function UserMenu(props) {
           <Typography component="span" className="font-semibold flex">
             {user?.personDTO
               ? `${user?.personDTO?.firstName} ${user?.personDTO?.lastName}`
-              : "Guest"}
+              : t("GUEST")}
           </Typography>
           <Typography
             className="text-11 font-medium capitalize"
             color="text.secondary"
           >
             {user?.roleDTO?.role.toString()}
-            {!user?.roleDTO?.role && "Guest"}
+            {!user?.roleDTO?.role && t("GUEST")}
           </Typography>
         </div>
 
@@ -79,13 +82,13 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:lock-closed</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="Sign In" />
+              <ListItemText primary={t("SIGN_IN")} />
             </MenuItem>
             <MenuItem component={Link} to="/sign-up" role="button">
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-add </FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="Sign up" />
+              <ListItemText primary={t("SIGN_UP")} />
             </MenuItem>
           </>
         ) : (
@@ -99,7 +102,7 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:user-circle</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="My Profile" />
+              <ListItemText primary={t("MY_PROFILE")} />
             </MenuItem>
             {user?.roleDTO?.label === "ROLE_CUSTOMER" ? (
               <MenuItem
@@ -111,7 +114,7 @@ function UserMenu(props) {
                 <ListItemIcon className="min-w-40">
                   <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
                 </ListItemIcon>
-                <ListItemText primary="My Orders" />
+                <ListItemText primary={t("MY_ORDERS")} />
               </MenuItem>
             ) : (
               <MenuItem
@@ -123,7 +126,7 @@ function UserMenu(props) {
                 <ListItemIcon className="min-w-40">
                   <FuseSvgIcon>heroicons-outline:shopping-bag</FuseSvgIcon>
                 </ListItemIcon>
-                <ListItemText primary="All Orders" />
+                <ListItemText primary={t("ALL_ORDERS")} />
               </MenuItem>
             )}
             <MenuItem
@@ -135,7 +138,7 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:currency-euro</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="My Coins" />
+              <ListItemText primary={t("MY_COINS")} />
             </MenuItem>
             {/*<MenuItem*/}
             {/*  component={Link}*/}
@@ -158,7 +161,7 @@ function UserMenu(props) {
               <ListItemIcon className="min-w-40">
                 <FuseSvgIcon>heroicons-outline:logout</FuseSvgIcon>
               </ListItemIcon>
-              <ListItemText primary="Sign out" />
+              <ListItemText primary={t("SIGN_OUT")} />
             </MenuItem>
           </>
         )}
