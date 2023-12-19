@@ -116,13 +116,20 @@ function ProductsTable(props) {
   }, []);
 
   useEffect(() => {
-    if (searchText.length !== 0 && selectedCategory !== "all") {
+    if (searchText.length > 0 && selectedCategory !== "all") {
       setData(
         _.filter(
           products,
           (item) =>
             item.name.toLowerCase().includes(searchText.toLowerCase()) &&
             item.category === selectedCategory
+        )
+      );
+      setPage(0);
+    } else if (searchText.length > 0 && selectedCategory === "all") {
+      setData(
+        _.filter(products, (item) =>
+          item.name.toLowerCase().includes(searchText.toLowerCase())
         )
       );
       setPage(0);

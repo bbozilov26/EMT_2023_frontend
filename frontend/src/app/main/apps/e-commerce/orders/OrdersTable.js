@@ -81,7 +81,7 @@ function OrdersTable(props) {
   }, [props.user.id.id]);
 
   useEffect(() => {
-    if (searchText.length !== 0) {
+    if (searchText.length > 0) {
       setData(
         _.filter(orders, (item) => {
           const customerFullName =
