@@ -23,6 +23,8 @@ const locale = {
   REMOVE: "Remove",
   EDIT: "Edit",
   SAVE: "Save",
+  CONFIRM: "Confirm",
+  SUBMIT: "Submit",
   CANCEL: "Cancel",
   ADD_TO_CART: "Add to cart",
   HELP: "Help",
@@ -100,6 +102,16 @@ const locale = {
   BUY_NOW: "Buy now",
   GUEST: "Guest",
   CREDIT_BALANCE: "Credit balance",
+  START_TITLE_QUESTION: "Do you want to play Question of the Day?",
+  FEE: "Fee",
+  QUESTION_OF_THE_DAY: "Question of the Day",
+  YOUR_NEW_BALANCE: "Your new balance: ",
+  CORRECT_ANSWER: "Correct answer: ",
+  CORRECT_ANSWER_FEEDBACK: "Your answer is correct!",
+  INCORRECT_ANSWER_FEEDBACK: "Your answer is incorrect!",
+  RELOAD_LOCATION_TIME: "The page will reload in 3 to 5 seconds.",
+  ALREADY_ANSWERED_QOTD_TITLE: "Already answered Question of the Day",
+  ALREADY_ANSWERED_QOTD_MESSAGE: "You have already answered the Question of the Day. Please, come back the next day."
 };
 
 export default locale;

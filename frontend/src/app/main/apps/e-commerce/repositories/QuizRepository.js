@@ -32,6 +32,24 @@ const QuizRepository = {
       baseURL: baseUrl,
     });
   },
+
+  getRandomQuestion: () => {
+    return axios.get(`/random-question`, {
+      baseURL: baseUrl,
+    })
+  },
+
+  getAllAnswersByQuestionId: (id) => {
+    return axios.get(`/${id}/get-all-answers`, {
+      baseURL: baseUrl,
+    })
+  },
+
+  submitAnswer: (dto) => {
+    return axios.post(`/submit-answer`, dto, {
+      baseURL: baseUrl,
+    })
+  }
 };
 
 export default QuizRepository;

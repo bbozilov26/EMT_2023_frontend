@@ -23,6 +23,8 @@ const locale = {
   REMOVE: "Избриши",
   EDIT: "Измени",
   SAVE: "Зачувај",
+  CONFIRM: "Потврди",
+  SUBMIT: "Поднеси",
   CANCEL: "Откажи",
   ADD_TO_CART: "Додади во кошничка",
   HELP: "Помош",
@@ -100,6 +102,16 @@ const locale = {
   BUY_NOW: "Купи веднаш",
   GUEST: "Гостин",
   CREDIT_BALANCE: "Кредитна состојба",
+  START_TITLE_QUESTION: "Дали сакате да играте Прашање на Денот?",
+  FEE: "Цена",
+  QUESTION_OF_THE_DAY: "Прашање на Денот",
+  YOUR_NEW_BALANCE: "Вашата нова состојба: ",
+  CORRECT_ANSWER: "Точен одговор: ",
+  CORRECT_ANSWER_FEEDBACK: "Вашиот одговор е точен!",
+  INCORRECT_ANSWER_FEEDBACK: "Вашиот одговор е неточен!",
+  RELOAD_LOCATION_TIME: "Страната ќе се освежи за 3 до 5 секунди.",
+  ALREADY_ANSWERED_QOTD_TITLE: "Веќе одговорено Прашање на Денот",
+  ALREADY_ANSWERED_QOTD_MESSAGE: "Вие веќе го имате одговорено Прашањето на Денот. Ве молиме, дојдете наредниот ден."
 };
 
 export default locale;
