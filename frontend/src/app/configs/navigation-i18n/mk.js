@@ -111,7 +111,7 @@ const locale = {
   INCORRECT_ANSWER_FEEDBACK: "Вашиот одговор е неточен!",
   RELOAD_LOCATION_TIME: "Страната ќе се освежи за 3 до 5 секунди.",
   ALREADY_ANSWERED_QOTD_TITLE: "Веќе одговорено Прашање на Денот",
-  ALREADY_ANSWERED_QOTD_MESSAGE: "Вие веќе го имате одговорено Прашањето на Денот. Ве молиме, дојдете наредниот ден."
+  ALREADY_ANSWERED_QOTD_MESSAGE: "Вие веќе го имате одговорено Прашањето на Денот. Ве молиме, обидете се утре повторно."
 };
 
 export default locale;
