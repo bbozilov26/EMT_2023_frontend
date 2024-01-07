@@ -111,7 +111,8 @@ const locale = {
   INCORRECT_ANSWER_FEEDBACK: "Your answer is incorrect!",
   RELOAD_LOCATION_TIME: "The page will reload in 3 to 5 seconds.",
   ALREADY_ANSWERED_QOTD_TITLE: "Already answered Question of the Day",
-  ALREADY_ANSWERED_QOTD_MESSAGE: "You have already answered the Question of the Day. Please, try again tomorrow."
+  ALREADY_ANSWERED_QOTD_MESSAGE: "You have already answered the Question of the Day. Please, try again tomorrow.",
+  INSUFFICIENT_AMOUNT_OF_COINS: "You have insufficient amount of coins: "
 };
 
 export default locale;

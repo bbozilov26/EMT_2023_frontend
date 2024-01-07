@@ -27,6 +27,7 @@ function QuizGameButton() {
   const [shouldCloseAfterSecondDialog, setShouldCloseAfterSecondDialog] = useState(false);
   const [isQuizQuestionDialogOpen, setQuizQuestionDialogOpen] = useState(false);
   const [feedbackMessage, setFeedbackMessage] = useState(null);
+  const [feedbackInsufficientAmountOfCoinsMessage, setFeedbackInsufficientAmountOfCoinsMessage] = useState(null);
   const [userBalance, setUserBalance] = useState(null);
 
   const { t } = useTranslation("app");
@@ -88,10 +89,14 @@ function QuizGameButton() {
   };
 
   const handleQuizQuestionDialog = () => {
-    generateRandomQuestion();
-    handleCloseConfirmDialog();
-    setShouldCloseAfterSecondDialog(true);
-    setQuizQuestionDialogOpen(true);
+    if(user?.creditBalance >= 5){
+      generateRandomQuestion();
+      handleCloseConfirmDialog();
+      setShouldCloseAfterSecondDialog(true);
+      setQuizQuestionDialogOpen(true);
+    } else {
+      setFeedbackInsufficientAmountOfCoinsMessage(t('INSUFFICIENT_AMOUNT_OF_COINS'));
+    }
   };
 
   const handleCloseQuizQuestionDialog = () => {
@@ -199,6 +204,11 @@ function QuizGameButton() {
                   {t("CANCEL")}
                 </Button>
               </DialogActions>
+              {feedbackInsufficientAmountOfCoinsMessage && (
+                  <div style={{ padding: "16px 24px" }}>
+                    <Typography>{feedbackInsufficientAmountOfCoinsMessage}{user?.creditBalance}</Typography>
+                  </div>
+              )}
             </>
         )}
       </Dialog>
