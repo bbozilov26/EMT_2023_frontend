@@ -111,8 +111,18 @@ const locale = {
   INCORRECT_ANSWER_FEEDBACK: "Your answer is incorrect!",
   RELOAD_LOCATION_TIME: "The page will reload in 3 to 5 seconds.",
   ALREADY_ANSWERED_QOTD_TITLE: "Already answered Question of the Day",
-  ALREADY_ANSWERED_QOTD_MESSAGE: "You have already answered the Question of the Day. Please, try again tomorrow.",
-  INSUFFICIENT_AMOUNT_OF_COINS: "You have insufficient amount of coins: "
+  ALREADY_ANSWERED_QOTD_MESSAGE:
+    "You have already answered the Question of the Day. Please, try again tomorrow.",
+  INSUFFICIENT_AMOUNT_OF_COINS: "You have insufficient amount of coins: ",
+  ADD_NEW_QOTD: "Add new Question of the Day",
+  EASY: "Easy",
+  MEDIUM: "Medium",
+  HARD: "Hard",
+  DIFFICULTY: "Difficulty: ",
+  QUESTION: "Question: ",
+  ANSWERS: "Answers: ",
+  NEW_QOTD_ADDED_FEEDBACK:
+    "New Question of the Day has been added successfully.",
 };
 
 export default locale;

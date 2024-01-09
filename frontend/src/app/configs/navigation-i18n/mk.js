@@ -111,8 +111,17 @@ const locale = {
   INCORRECT_ANSWER_FEEDBACK: "Вашиот одговор е неточен!",
   RELOAD_LOCATION_TIME: "Страната ќе се освежи за 3 до 5 секунди.",
   ALREADY_ANSWERED_QOTD_TITLE: "Веќе одговорено Прашање на Денот",
-  ALREADY_ANSWERED_QOTD_MESSAGE: "Вие веќе го имате одговорено Прашањето на Денот. Ве молиме, обидете се утре повторно.",
-  INSUFFICIENT_AMOUNT_OF_COINS: "Имате недоволна количина на парички: "
+  ALREADY_ANSWERED_QOTD_MESSAGE:
+    "Вие веќе го имате одговорено Прашањето на Денот. Ве молиме, обидете се утре повторно.",
+  INSUFFICIENT_AMOUNT_OF_COINS: "Имате недоволна количина на парички: ",
+  ADD_NEW_QOTD: "Додадете ново Прашање на Денот",
+  EASY: "Лесно",
+  MEDIUM: "Средно",
+  HARD: "Тешко",
+  DIFFICULTY: "Тежина: ",
+  QUESTION: "Прашање: ",
+  ANSWERS: "Одговори: ",
+  NEW_QOTD_ADDED_FEEDBACK: "Новото Прашање на Денот беше успешно додадено.",
 };
 
 export default locale;
